@@ -6,53 +6,60 @@ using System.Threading.Tasks;
 
 namespace TagBaseFileBrowser
 {
-    public abstract class TaggableItem
+    public class TaggableItem
     {
-        protected int _id;
-        protected List<string> _names;
-        protected string _description;
-        protected string _path;
-        protected string _thumbnailPath;
-        protected string _remark;
-        protected List<string> _tags;
+        private int _id;
+        private List<string> _names;
+        private string _description;
+        private string _path;
+        private string _thumbnailPath;
+        private string _remark;
+        private List<string> _tags;
+        private TaggableItemType _type;
 
-        public virtual int Id
+        public TaggableItemType Type
+        {
+            get => _type;
+            set => _type = value;
+        }
+
+        public int Id
         {
             get => _id;
             set => _id = value;
         }
 
-        public virtual List<string> Names
+        public List<string> Names
         {
             get => _names;
             set => _names = value;
         }
 
-        public virtual string Description
+        public string Description
         {
             get => _description;
             set => _description = value;
         }
 
-        public virtual string Path
+        public string Path
         {
             get => _path;
             set => _path = value;
         }
 
-        public virtual string ThumbnailPath
+        public string ThumbnailPath
         {
             get => _thumbnailPath;
             set => _thumbnailPath = value;
         }
 
-        public virtual string Remark
+        public string Remark
         {
             get => _remark;
             set => _remark = value;
         }
 
-        public virtual List<string> Tags
+        public List<string> Tags
         {
             get => _tags;
             set => _tags = value;
@@ -69,18 +76,7 @@ namespace TagBaseFileBrowser
         }
     }
 
-    public class Tag : TaggableItem
-    {
-        public TaggableItemType Type;
-    }
-
     public class TaggableObject : TaggableItem
     {
     }
-
-   public class File : TaggableItem
-    { }
-
-   public class Folder : TaggableItem
-    { }
 }
