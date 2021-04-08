@@ -12,7 +12,25 @@ namespace TagBaseFileBrowser
         void Write(string file, List<TaggableItem> taggableItems);
     }
 
-    public class CsvTaggableObjectIo : ITaggableObjectIO
+    public class FakeTaggableOjectIO : ITaggableObjectIO
+    {
+        public List<TaggableObject> Read(string file)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Write(string file, TaggableItem taggableItem)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Write(string file, List<TaggableItem> taggableItems)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class CsvTaggableObjectIO : ITaggableObjectIO
     {
         public List<TaggableObject> Read(string file)
         {
