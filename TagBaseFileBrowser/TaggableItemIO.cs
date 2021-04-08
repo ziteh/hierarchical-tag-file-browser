@@ -4,7 +4,7 @@ namespace TagBaseFileBrowser
 {
     public interface ITaggableItemIO
     {
-        List<TaggableItem> Read();
+        List<TaggableItem> Read(string file);
     }
     
     public class TaggableItemIO
