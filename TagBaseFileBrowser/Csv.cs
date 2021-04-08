@@ -5,14 +5,13 @@ namespace TagBaseFileBrowser
 {
     public class Csv
     {
-        public static readonly char SymbolSeparated = ',';
-
-        public static readonly char SymbolStringDelimiter = '\"'; 
-        
-        public static List<List<string>> Read(string path, bool includeColumnName = false)
+        public static List<List<string>> Read(string path,
+                                              bool includeColumnName = false,
+                                              char symbolSeparated = ',',
+                                              char symbolStringDelimiter = '\"')
         {
             var csvContent = new List<List<string>>();
-            
+
             if (System.IO.File.Exists(path))
             {
                 using (var reader = new StreamReader(path))
@@ -21,10 +20,10 @@ namespace TagBaseFileBrowser
                     {
                         var row = new List<string>();
                         var line = reader.ReadLine();
-                        var values = line.Split(SymbolSeparated);
+                        var values = line.Split(symbolSeparated);
                         foreach (var t in values)
                         {
-                            row.Add(t.Trim().Trim(SymbolStringDelimiter).Trim());
+                            row.Add(t.Trim().Trim(symbolStringDelimiter).Trim());
                         }
                         csvContent.Add(row);
                     }
