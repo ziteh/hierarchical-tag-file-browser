@@ -4,8 +4,8 @@
     {
         File,
         Folder,
-       GeneralTag,
-       GroupTag,
-       FolderTag
+        GeneralTag,
+        GroupTag,
+        FolderTag
     }
 }
