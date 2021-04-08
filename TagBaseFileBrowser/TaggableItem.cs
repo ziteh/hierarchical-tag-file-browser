@@ -71,7 +71,7 @@ namespace TagBaseFileBrowser
 
     public class Tag : TaggableItem
     {
-        public TagType Type;
+        public TaggableItemType Type;
     }
 
     public class TaggableObject : TaggableItem
