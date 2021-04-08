@@ -5,11 +5,11 @@ namespace TagBaseFileBrowser
 {
     public class Csv
     {
-        public char SymbolSeparated = ',';
+        public static readonly char SymbolSeparated = ',';
 
-        public char SymbolStringDelimiter = '\"'; 
+        public static readonly char SymbolStringDelimiter = '\"'; 
         
-        public List<List<string>> Read(string path, bool includeColumnName = false)
+        public static List<List<string>> Read(string path, bool includeColumnName = false)
         {
             var csvContent = new List<List<string>>();
             
