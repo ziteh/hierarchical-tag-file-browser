@@ -14,7 +14,7 @@ namespace TagBaseFileBrowser
         protected string _path;
         protected string _thumbnailPath;
         protected string _remark;
-        protected List<Tag> _tags;
+        protected List<string> _tags;
 
         public virtual int Id
         {
@@ -52,18 +52,18 @@ namespace TagBaseFileBrowser
             set => _remark = value;
         }
 
-        public virtual List<Tag> Tags
+        public virtual List<string> Tags
         {
             get => _tags;
             set => _tags = value;
         }
 
-        public void AddTag(Tag tag)
+        public void AddTag(string tag)
         {
             _tags.Add(tag);
         }
 
-        public void RemoveTag(Tag tag)
+        public void RemoveTag(string tag)
         {
             _tags.Remove(tag);
         }
@@ -72,6 +72,10 @@ namespace TagBaseFileBrowser
     public class Tag : TaggableItem
     {
         public TagType Type;
+    }
+
+    public class TaggableObject : TaggableItem
+    {
     }
 
    public class File : TaggableItem
