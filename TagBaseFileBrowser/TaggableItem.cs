@@ -8,13 +8,13 @@ namespace TagBaseFileBrowser
 {
     internal abstract class TaggableItem
     {
-       public int Id { get; set; }
-       public List<string> Names { get; set; }
-       public string Description { get; set; }
-       public string Path { get; set; }
-       public string ThumbnailPath { get; set; }
-       public string Remark { get; set; }
-       public List<Tag> Tags { get; set; }
+        protected int _id;
+        protected List<string> _names;
+        protected string _description;
+        protected string _path;
+        protected string _thumbnailPath;
+        protected string _remark;
+        protected List<Tag> _tags;
     }
 
     class Tag : TaggableItem
