@@ -16,7 +16,29 @@ namespace TagBaseFileBrowser
     {
         public List<TaggableObject> Read(string file)
         {
-            throw new NotImplementedException();
+            return new List<TaggableObject>
+            {
+                new TaggableObject()
+                {
+                    Id = 1,
+                    Names = new List<string> { "fake name-1" },
+                    Description = "fake description",
+                    Path = "fake path",
+                    ThumbnailPath = "fake thumbnail path",
+                    Remark = "fake remark",
+                    Tags = new List<string> { "fake tag-1", "fake tag-2" }
+                },
+                new TaggableObject()
+                {
+                    Id = 2,
+                    Names = new List<string> { "fake name-2" },
+                    Description = "fake description",
+                    Path = "fake path",
+                    ThumbnailPath = "fake thumbnail path",
+                    Remark = "fake remark",
+                    Tags = new List<string> { "fake tag-1", "fake tag-2" }
+                }
+            };
         }
 
         public void Write(string file, TaggableItem taggableItem)
@@ -47,11 +69,11 @@ namespace TagBaseFileBrowser
                     Path = rowOfCsv[4],
                     Remark = rowOfCsv[5]
                 };
-                
+
                 var tags = rowOfCsv[3].Split(';');
                 foreach (var tag in tags)
                 {
-                   taggableObject.Tags.Add(tag); 
+                    taggableObject.Tags.Add(tag);
                 }
 
                 objs.Add(taggableObject);
