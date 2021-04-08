@@ -3,7 +3,7 @@ using System.IO;
 
 namespace TagBaseFileBrowser
 {
-    public class CsvHandler
+    public class Csv
     {
         public char SymbolSeparated = ',';
 
