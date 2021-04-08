@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TagBaseFileBrowser
 {
-    internal abstract class TaggableItem
+    public abstract class TaggableItem
     {
         protected int _id;
         protected List<string> _names;
@@ -69,14 +69,14 @@ namespace TagBaseFileBrowser
         }
     }
 
-    class Tag : TaggableItem
+    public class Tag : TaggableItem
     {
         public TagType Type;
     }
 
-    class File : TaggableItem
+   public class File : TaggableItem
     { }
 
-    class Folder : TaggableItem
+   public class Folder : TaggableItem
     { }
 }
