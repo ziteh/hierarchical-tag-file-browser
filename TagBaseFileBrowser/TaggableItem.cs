@@ -15,6 +15,16 @@ namespace TagBaseFileBrowser
         protected string _thumbnailPath;
         protected string _remark;
         protected List<Tag> _tags;
+
+        public void AddTag(Tag tag)
+        {
+            _tags.Add(tag);
+        }
+
+        public void RemoveTag(Tag tag)
+        {
+            _tags.Remove(tag);
+        }
     }
 
     class Tag : TaggableItem
