@@ -29,7 +29,7 @@ namespace TagBaseFileBrowser
 
     class Tag : TaggableItem
     {
-        
+        public TagType Type;
     }
 
     class File : TaggableItem
