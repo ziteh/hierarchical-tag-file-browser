@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace TagBaseFileBrowser
 {
-    public interface ITaggableItemIO
+    public interface ITaggableObjectIO
     {
         List<TaggableObject> Read(string file);
 
@@ -12,7 +12,7 @@ namespace TagBaseFileBrowser
         void Write(string file, List<TaggableItem> taggableItems);
     }
 
-    public class CsvTaggableItemIO : ITaggableItemIO
+    public class CsvTaggableObjectIo : ITaggableObjectIO
     {
         public List<TaggableObject> Read(string file)
         {
