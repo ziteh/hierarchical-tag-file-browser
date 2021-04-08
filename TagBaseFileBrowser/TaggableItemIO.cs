@@ -10,7 +10,7 @@ namespace TagBaseFileBrowser
         void Write(string file, List<TaggableItem> taggableItems);
     }
     
-    public class TaggableItemIO : ITaggableItemIO
+    public class CsvTaggableItemIO : ITaggableItemIO
     {
         public List<TaggableItem> Read(string file)
         {
