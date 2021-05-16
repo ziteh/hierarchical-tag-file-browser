@@ -6,18 +6,17 @@ using System.Threading.Tasks;
 
 namespace TagBaseFileBrowser
 {
-    public class TaggableItem
+    public abstract class Taggable
     {
         private int _id;
         private List<string> _names;
         private string _description;
-        private string _path;
         private string _thumbnailPath;
         private string _remark;
         private List<string> _tags;
-        private TaggableItemType _type;
+        private TagType _type;
 
-        public TaggableItemType Type
+        public TagType Type
         {
             get => _type;
             set => _type = value;
@@ -39,12 +38,6 @@ namespace TagBaseFileBrowser
         {
             get => _description;
             set => _description = value;
-        }
-
-        public string Path
-        {
-            get => _path;
-            set => _path = value;
         }
 
         public string ThumbnailPath
@@ -76,7 +69,14 @@ namespace TagBaseFileBrowser
         }
     }
 
-    public class TaggableObject : TaggableItem
+    public class TaggableObject : Taggable
     {
+        private string _path;
+        
+        public string Path
+        {
+            get => _path;
+            set => _path = value;
+        }
     }
 }

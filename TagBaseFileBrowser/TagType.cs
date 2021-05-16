@@ -1,6 +1,6 @@
 ﻿namespace TagBaseFileBrowser
 {
-    public enum TaggableItemType
+    public enum TagType
     {
         File,
         Folder,

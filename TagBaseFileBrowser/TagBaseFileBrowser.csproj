@@ -56,8 +56,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TaggableItemIO.cs" />
-    <Compile Include="TaggableItem.cs" />
-    <Compile Include="TaggableItemType.cs" />
+    <Compile Include="Taggable.cs" />
+    <Compile Include="TagType.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

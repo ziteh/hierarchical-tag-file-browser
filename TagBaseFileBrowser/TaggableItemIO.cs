@@ -7,9 +7,9 @@ namespace TagBaseFileBrowser
     {
         List<TaggableObject> Read(string file);
 
-        void Write(string file, TaggableItem taggableItem);
+        void Write(string file, Taggable taggable);
 
-        void Write(string file, List<TaggableItem> taggableItems);
+        void Write(string file, List<Taggable> taggableItems);
     }
 
     public class FakeTaggableOjectIO : ITaggableObjectIO
@@ -41,12 +41,12 @@ namespace TagBaseFileBrowser
             };
         }
 
-        public void Write(string file, TaggableItem taggableItem)
+        public void Write(string file, Taggable taggable)
         {
             throw new NotImplementedException();
         }
 
-        public void Write(string file, List<TaggableItem> taggableItems)
+        public void Write(string file, List<Taggable> taggableItems)
         {
             throw new NotImplementedException();
         }
@@ -82,12 +82,12 @@ namespace TagBaseFileBrowser
             return objs;
         }
 
-        public void Write(string file, TaggableItem taggableItem)
+        public void Write(string file, Taggable taggable)
         {
             throw new System.NotImplementedException();
         }
 
-        public void Write(string file, List<TaggableItem> taggableItems)
+        public void Write(string file, List<Taggable> taggableItems)
         {
             throw new System.NotImplementedException();
         }
