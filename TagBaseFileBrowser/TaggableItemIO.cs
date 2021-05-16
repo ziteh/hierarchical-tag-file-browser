@@ -12,41 +12,47 @@ namespace TagBaseFileBrowser
         void Write(string path, List<Tag> tags);
     }
 
-    public class FakeTagsOjectIo : ITagsIO
+    public class FakeTagsIO : ITagsIO
     {
-        public List<Item> Read(string file)
+        public List<Tag> Read(string file)
         {
-            return new List<Item>
+            return new List<Tag>
             {
-                new Item()
+                new Tag
                 {
-                    Id = 1,
+                    Id = -1,
                     Names = new List<string> { "fake name-1" },
                     Description = "fake description",
-                    Path = "fake path",
                     ThumbnailPath = "fake thumbnail path",
                     Remark = "fake remark",
-                    Tags = new List<string> { "fake tag-1", "fake tag-2" }
+                    Tags = new List<Tag>
+                    {
+                        new Tag{Names = new List<string>{"fake tag-1"}},
+                        new Tag{Names = new List<string>{"fake tag-2"}}
+                    }
                 },
-                new Item()
+                new Tag
                 {
-                    Id = 2,
+                    Id = 0,
                     Names = new List<string> { "fake name-2" },
                     Description = "fake description",
-                    Path = "fake path",
                     ThumbnailPath = "fake thumbnail path",
                     Remark = "fake remark",
-                    Tags = new List<string> { "fake tag-1", "fake tag-2" }
+                    Tags = new List<Tag>
+                    {
+                        new Tag{Names = new List<string>{"fake tag-1"}},
+                        new Tag{Names = new List<string>{"fake tag-2"}}
+                    }
                 }
             };
         }
 
-        public void Write(string path, Taggable taggable)
+        public void Write(string path, Tag tag)
         {
             throw new NotImplementedException();
         }
 
-        public void Write(string path, List<Taggable> taggableItems)
+        public void Write(string path, List<Tag> tags)
         {
             throw new NotImplementedException();
         }
@@ -54,42 +60,36 @@ namespace TagBaseFileBrowser
 
     public class CsvTagsIo : ITagsIO
     {
-        public List<Item> Read(string file)
+        public List<Tag> Read(string file)
         {
-            var objs = new List<Item>();
-            var csv = Csv.Read(file);
+            var tags = new List<Tag>();
+            var csvContent = Csv.Read(file);
 
-            foreach (var rowOfCsv in csv)
+            foreach (var rowOfCsv in csvContent)
             {
-                var taggableObject = new Item()
+                var tag = new Tag()
                 {
                     Id = int.Parse(rowOfCsv[0]),
-                    Names = new List<string> { rowOfCsv[1] },
+                    Names = new List<string>(rowOfCsv[1].Split(';')),
                     Description = rowOfCsv[2],
-                    Path = rowOfCsv[4],
-                    Remark = rowOfCsv[5]
+                    ThumbnailPath = rowOfCsv[7],
+                    Remark = rowOfCsv[8]
                 };
 
-                var tags = rowOfCsv[3].Split(';');
-                foreach (var tag in tags)
-                {
-                    taggableObject.Tags.Add(tag);
-                }
-
-                objs.Add(taggableObject);
+                tags.Add(tag);
             }
 
-            return objs;
+            return tags;
         }
 
-        public void Write(string path, Taggable taggable)
+        public void Write(string path, Tag tag)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
-        public void Write(string path, List<Taggable> taggableItems)
+        public void Write(string path, List<Tag> tags)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }
