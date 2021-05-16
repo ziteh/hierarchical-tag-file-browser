@@ -18,30 +18,28 @@ namespace TagBaseFileBrowser
         {
             return new List<Tag>
             {
-                new Tag
+                new Tag(new []{"fake name-1"})
                 {
                     Id = -1,
-                    Names = new List<string> { "fake name-1" },
                     Description = "fake description",
                     ThumbnailPath = "fake thumbnail path",
                     Remark = "fake remark",
                     Tags = new List<Tag>
                     {
-                        new Tag{Names = new List<string>{"fake tag-1"}},
-                        new Tag{Names = new List<string>{"fake tag-2"}}
+                        new Tag("fake tag-1"),
+                        new Tag("fake tag-2"),
                     }
                 },
-                new Tag
+                new Tag(new []{"fake name-2"})
                 {
                     Id = 0,
-                    Names = new List<string> { "fake name-2" },
                     Description = "fake description",
                     ThumbnailPath = "fake thumbnail path",
                     Remark = "fake remark",
                     Tags = new List<Tag>
                     {
-                        new Tag{Names = new List<string>{"fake tag-1"}},
-                        new Tag{Names = new List<string>{"fake tag-2"}}
+                        new Tag("fake tag-1"),
+                        new Tag("fake tag-2"),
                     }
                 }
             };
@@ -67,14 +65,14 @@ namespace TagBaseFileBrowser
 
             foreach (var rowOfCsv in csvContent)
             {
-                var tag = new Tag()
+                var tag = new Tag(rowOfCsv[1].Split(';'))
                 {
                     Id = int.Parse(rowOfCsv[0]),
-                    Names = new List<string>(rowOfCsv[1].Split(';')),
                     Description = rowOfCsv[2],
                     ThumbnailPath = rowOfCsv[7],
                     Remark = rowOfCsv[8]
                 };
+                tag.AddTag(rowOfCsv[3].Split(';'));
 
                 tags.Add(tag);
             }
