@@ -3,16 +3,16 @@ using System.Collections.Generic;
 
 namespace TagBaseFileBrowser
 {
-    public interface ITaggableObjectIO
+    public interface ITagsIO
     {
-        List<Item> Read(string file);
+        List<Tag> Read(string path);
 
-        void Write(string file, Taggable taggable);
+        void Write(string path, Tag tag);
 
-        void Write(string file, List<Taggable> taggableItems);
+        void Write(string path, List<Tag> tags);
     }
 
-    public class FakeTaggableOjectIO : ITaggableObjectIO
+    public class FakeTagsOjectIo : ITagsIO
     {
         public List<Item> Read(string file)
         {
@@ -41,18 +41,18 @@ namespace TagBaseFileBrowser
             };
         }
 
-        public void Write(string file, Taggable taggable)
+        public void Write(string path, Taggable taggable)
         {
             throw new NotImplementedException();
         }
 
-        public void Write(string file, List<Taggable> taggableItems)
+        public void Write(string path, List<Taggable> taggableItems)
         {
             throw new NotImplementedException();
         }
     }
 
-    public class CsvTaggableObjectIO : ITaggableObjectIO
+    public class CsvTagsIo : ITagsIO
     {
         public List<Item> Read(string file)
         {
@@ -82,12 +82,12 @@ namespace TagBaseFileBrowser
             return objs;
         }
 
-        public void Write(string file, Taggable taggable)
+        public void Write(string path, Taggable taggable)
         {
             throw new System.NotImplementedException();
         }
 
-        public void Write(string file, List<Taggable> taggableItems)
+        public void Write(string path, List<Taggable> taggableItems)
         {
             throw new System.NotImplementedException();
         }
