@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,75 +9,23 @@ namespace TagBaseFileBrowser
 {
     public abstract class Taggable
     {
-        private int _id;
-        private List<string> _names;
-        private string _description;
-        private string _thumbnailPath;
-        private string _remark;
-        private List<string> _tags;
-        private TagType _type;
-
-        public TagType Type
-        {
-            get => _type;
-            set => _type = value;
-        }
-
-        public int Id
-        {
-            get => _id;
-            set => _id = value;
-        }
-
-        public List<string> Names
-        {
-            get => _names;
-            set => _names = value;
-        }
-
-        public string Description
-        {
-            get => _description;
-            set => _description = value;
-        }
-
-        public string ThumbnailPath
-        {
-            get => _thumbnailPath;
-            set => _thumbnailPath = value;
-        }
-
-        public string Remark
-        {
-            get => _remark;
-            set => _remark = value;
-        }
-
-        public List<string> Tags
-        {
-            get => _tags;
-            set => _tags = value;
-        }
-
-        public void AddTag(string tag)
-        {
-            _tags.Add(tag);
-        }
-
-        public void RemoveTag(string tag)
-        {
-            _tags.Remove(tag);
-        }
+        public int Id { get; set; }
+        public List<string> Names { get; set; }
+        public string Description { get; set; }
+        public string ThumbnailPath { get; set; }
+        public string Remark { get; set; }
+        public List<Tag> Tags { get; set; }
     }
 
-    public class TaggableObject : Taggable
+    public class Item : Taggable
     {
-        private string _path;
-        
-        public string Path
-        {
-            get => _path;
-            set => _path = value;
-        }
+        public string Path { get; set; }
+    }
+
+    public class Tag : Taggable
+    {
+        public TagType Type { get; set; } = TagType.GeneralTag;
+        public Color FontColor { get; set; } = Color.Black;
+        public Color BackgroundColor { get; set; } = Color.White;
     }
 }

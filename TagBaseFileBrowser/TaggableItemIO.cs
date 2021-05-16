@@ -5,7 +5,7 @@ namespace TagBaseFileBrowser
 {
     public interface ITaggableObjectIO
     {
-        List<TaggableObject> Read(string file);
+        List<Item> Read(string file);
 
         void Write(string file, Taggable taggable);
 
@@ -14,11 +14,11 @@ namespace TagBaseFileBrowser
 
     public class FakeTaggableOjectIO : ITaggableObjectIO
     {
-        public List<TaggableObject> Read(string file)
+        public List<Item> Read(string file)
         {
-            return new List<TaggableObject>
+            return new List<Item>
             {
-                new TaggableObject()
+                new Item()
                 {
                     Id = 1,
                     Names = new List<string> { "fake name-1" },
@@ -28,7 +28,7 @@ namespace TagBaseFileBrowser
                     Remark = "fake remark",
                     Tags = new List<string> { "fake tag-1", "fake tag-2" }
                 },
-                new TaggableObject()
+                new Item()
                 {
                     Id = 2,
                     Names = new List<string> { "fake name-2" },
@@ -54,14 +54,14 @@ namespace TagBaseFileBrowser
 
     public class CsvTaggableObjectIO : ITaggableObjectIO
     {
-        public List<TaggableObject> Read(string file)
+        public List<Item> Read(string file)
         {
-            var objs = new List<TaggableObject>();
+            var objs = new List<Item>();
             var csv = Csv.Read(file);
 
             foreach (var rowOfCsv in csv)
             {
-                var taggableObject = new TaggableObject()
+                var taggableObject = new Item()
                 {
                     Id = int.Parse(rowOfCsv[0]),
                     Names = new List<string> { rowOfCsv[1] },
