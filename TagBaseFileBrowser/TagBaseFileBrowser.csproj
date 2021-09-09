@@ -49,6 +49,7 @@
     <Compile Include="Csv.cs" />
     <Compile Include="IO\CsvTagDatabaseIO.cs" />
     <Compile Include="IO\FackTagDatabaseIO.cs" />
+    <Compile Include="IO\XmlTagDatabaseIO.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
