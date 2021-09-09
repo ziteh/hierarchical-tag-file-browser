@@ -27,25 +27,33 @@ namespace TagBaseFileBrowser
             Type = type;
             ParentTags = parentTags ?? new List<Tag>() { new Tag() };
 
-            Id = ParseId();
+            Id = GetTagId(this);
         }
 
         public Color BackgroundColor { get; set; } = Color.White;
         public Color FontColor { get; set; } = Color.Black;
-        public TagType Type { get; set; }
+        public TagType Type { get; private set; }
 
-        private string ParseId()
+        public bool Equals(Tag tagToMatch)
+        {
+            return tagToMatch.Id.Equals(this.Id);
+        }
+
+        private string GetTagId(Tag tag)
         {
             var parentTag = "";
-            if (this.ParentTags != null && this.ParentTags.Count > 0)
+            if (tag.ParentTags != null)
             {
-                for (var i = 0; i < this.ParentTags.Count; i++)
+                if (tag.ParentTags.Count > 0)
                 {
-                    parentTag += ParentTags[i].Name;
+                    for (var i = 0; i < tag.ParentTags.Count; i++)
+                    {
+                        parentTag += tag.ParentTags[i].Name;
+                    }
                 }
             }
 
-            var keyString = $"{this.Name}{this.Type}{parentTag}";
+            var keyString = $"{tag.Name}{tag.Type}{parentTag}";
             return keyString.ToMD5();
         }
     }
@@ -54,7 +62,7 @@ namespace TagBaseFileBrowser
     {
         public List<string> Alias { get; set; }
         public string Id { get; protected set; }
-        public string Name { get; set; }
+        public string Name { get; protected set; }
         public List<Tag> ParentTags { get; set; }
         public string Remark { get; set; }
         public string ThumbnailPath { get; set; }
