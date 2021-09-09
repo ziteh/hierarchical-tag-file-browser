@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace TagBaseFileBrowser.IO
 {
-    public interface ITagsIO
+    public interface ITagDatabaseIO
     {
         List<Tag> Read(string path);
 

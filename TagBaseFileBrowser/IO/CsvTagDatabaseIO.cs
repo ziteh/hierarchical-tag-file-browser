@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TagBaseFileBrowser.IO
 {
-    public class CsvTagsIo : ITagsIO
+    public class CsvTagDatabaseIo : ITagDatabaseIO
     {
         public List<Tag> Read(string file)
         {
@@ -26,6 +26,7 @@ namespace TagBaseFileBrowser.IO
             //}
 
             //return tags;
+            throw new NotImplementedException();
         }
 
         public void Write(string path, Tag tag)

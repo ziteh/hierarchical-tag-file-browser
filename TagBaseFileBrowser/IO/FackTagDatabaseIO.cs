@@ -6,30 +6,30 @@ using System.Threading.Tasks;
 
 namespace TagBaseFileBrowser.IO
 {
-    public class FakeTagsIO : ITagsIO
+    public class FakeTagDatabaseIO : ITagDatabaseIO
     {
         public List<Tag> Read(string file)
         {
             return new List<Tag>
             {
-                new Tag(new []{"fake name-1"})
+                new Tag("fake tag-1")
                 {
                     ThumbnailPath = "fake thumbnail path",
                     Remark = "fake remark",
                     ParentTags = new List<Tag>
                     {
-                        new Tag("fake tag-1"),
-                        new Tag("fake tag-2"),
-                    }
+                        new Tag("fake tag-1a"),
+                        new Tag("fake tag-1b"),
+                    },
                 },
-                new Tag(new []{"fake name-2"})
+                new Tag("fake tag-2")
                 {
                     ThumbnailPath = "fake thumbnail path",
                     Remark = "fake remark",
                     ParentTags = new List<Tag>
                     {
-                        new Tag("fake tag-1"),
-                        new Tag("fake tag-2"),
+                        new Tag("fake tag-2a"),
+                        new Tag("fake tag-2b"),
                     }
                 }
             };
