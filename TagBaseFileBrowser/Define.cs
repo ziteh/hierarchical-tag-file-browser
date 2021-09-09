@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TagBaseFileBrowser.IO
+namespace TagBaseFileBrowser
 {
-    public static class XmlNodeDefine
+    public static class Define
     {
         public static string Alias = "alias";
         public static string BackgroundColor = "backgroundColor";

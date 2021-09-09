@@ -18,9 +18,9 @@ namespace TagBaseFileBrowser.IO
             var nodes = LoadXmlNodeList(path);
             foreach (XmlNode node in nodes)
             {
-                var name = node.SelectSingleNode(XmlNodeDefine.Name).InnerText.Trim();
+                var name = node.SelectSingleNode(Define.Name).InnerText.Trim();
 
-                var sType = node.SelectSingleNode(XmlNodeDefine.Type).InnerText.Trim();
+                var sType = node.SelectSingleNode(Define.Type).InnerText.Trim();
                 TagType type;
                 if (!String.IsNullOrWhiteSpace(sType))
                 {
@@ -31,11 +31,11 @@ namespace TagBaseFileBrowser.IO
                     type = TagType.General;
                 }
 
-                var sParentTags = node.SelectSingleNode(XmlNodeDefine.ParentTags).InnerText.Trim();
+                var sParentTags = node.SelectSingleNode(Define.ParentTags).InnerText.Trim();
                 List<Tag> parentTags = new List<Tag>();
                 if (!String.IsNullOrWhiteSpace(sParentTags))
                 {
-                    foreach (var pt in sParentTags.Split(XmlNodeDefine.Spliter))
+                    foreach (var pt in sParentTags.Split(Define.Spliter))
                     {
                         foreach (var t in tags)
                         {
@@ -52,17 +52,17 @@ namespace TagBaseFileBrowser.IO
                     parentTags.Add(rootTag);
                 }
 
-                var sAlias = node.SelectSingleNode(XmlNodeDefine.Alias).InnerText.Trim();
+                var sAlias = node.SelectSingleNode(Define.Alias).InnerText.Trim();
                 var alias = new List<string>();
                 if (!String.IsNullOrWhiteSpace(sAlias))
                 {
-                    foreach (var a in sAlias.Split(XmlNodeDefine.Spliter))
+                    foreach (var a in sAlias.Split(Define.Spliter))
                     {
                         alias.Add(a.Trim());
                     }
                 }
 
-                var remark = node.SelectSingleNode(XmlNodeDefine.Remark).InnerText.Trim();
+                var remark = node.SelectSingleNode(Define.Remark).InnerText.Trim();
                 if (String.IsNullOrWhiteSpace(remark))
                 {
                     remark = "";
@@ -94,7 +94,7 @@ namespace TagBaseFileBrowser.IO
             var sr = MakeStreamReader(path);
             var xd = new XmlDocument();
             xd.LoadXml(sr.ReadToEnd());
-            return xd.SelectNodes($"/{XmlNodeDefine.Root}/{XmlNodeDefine.Tag}");
+            return xd.SelectNodes($"/{Define.Root}/{Define.Tag}");
         }
 
         private StreamReader MakeStreamReader(string path)
