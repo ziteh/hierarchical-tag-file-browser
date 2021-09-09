@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TagBaseFileBrowser
+namespace TagBaseFileBrowser.IO
 {
     public interface ITagsIO
     {
@@ -10,6 +10,41 @@ namespace TagBaseFileBrowser
         void Write(string path, Tag tag);
 
         void Write(string path, List<Tag> tags);
+    }
+
+    public class CsvTagsIo : ITagsIO
+    {
+        public List<Tag> Read(string file)
+        {
+            var tags = new List<Tag>();
+            var csvContent = Csv.Read(file);
+
+            foreach (var rowOfCsv in csvContent)
+            {
+                var tag = new Tag(rowOfCsv[1].Split(';'))
+                {
+                    Id = int.Parse(rowOfCsv[0]),
+                    Description = rowOfCsv[2],
+                    ThumbnailPath = rowOfCsv[7],
+                    Remark = rowOfCsv[8]
+                };
+                tag.AddTag(rowOfCsv[3].Split(';'));
+
+                tags.Add(tag);
+            }
+
+            return tags;
+        }
+
+        public void Write(string path, Tag tag)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Write(string path, List<Tag> tags)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class FakeTagsIO : ITagsIO
@@ -43,41 +78,6 @@ namespace TagBaseFileBrowser
                     }
                 }
             };
-        }
-
-        public void Write(string path, Tag tag)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Write(string path, List<Tag> tags)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-    public class CsvTagsIo : ITagsIO
-    {
-        public List<Tag> Read(string file)
-        {
-            var tags = new List<Tag>();
-            var csvContent = Csv.Read(file);
-
-            foreach (var rowOfCsv in csvContent)
-            {
-                var tag = new Tag(rowOfCsv[1].Split(';'))
-                {
-                    Id = int.Parse(rowOfCsv[0]),
-                    Description = rowOfCsv[2],
-                    ThumbnailPath = rowOfCsv[7],
-                    Remark = rowOfCsv[8]
-                };
-                tag.AddTag(rowOfCsv[3].Split(';'));
-
-                tags.Add(tag);
-            }
-
-            return tags;
         }
 
         public void Write(string path, Tag tag)
