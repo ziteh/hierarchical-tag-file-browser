@@ -24,7 +24,7 @@ namespace TagBaseFileBrowser
                     Description = "fake description",
                     ThumbnailPath = "fake thumbnail path",
                     Remark = "fake remark",
-                    Tags = new List<Tag>
+                    ParentTags = new List<Tag>
                     {
                         new Tag("fake tag-1"),
                         new Tag("fake tag-2"),
@@ -36,7 +36,7 @@ namespace TagBaseFileBrowser
                     Description = "fake description",
                     ThumbnailPath = "fake thumbnail path",
                     Remark = "fake remark",
-                    Tags = new List<Tag>
+                    ParentTags = new List<Tag>
                     {
                         new Tag("fake tag-1"),
                         new Tag("fake tag-2"),

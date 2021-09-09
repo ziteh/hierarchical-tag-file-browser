@@ -7,63 +7,57 @@ using System.Threading.Tasks;
 
 namespace TagBaseFileBrowser
 {
-    public abstract class Taggable
-    {
-        public int Id { get; set; }
-        public List<string> Names { get; set; }
-        public string Description { get; set; }
-        public string ThumbnailPath { get; set; }
-        public string Remark { get; set; }
-        public List<Tag> Tags { get; set; }
-
-        public void AddTag(Tag tag)
-        {
-            Tags.Add(tag);
-        }
-        
-        public void AddTag(string tagName)
-        {
-            Tags.Add(new Tag(tagName));
-        }
-        
-        public void AddTag(Tag[] tags)
-        {
-            foreach (var tag in tags)
-            {
-                Tags.Add(tag);
-            }
-        }
-        
-        public void AddTag(string[] tagNames)
-        {
-            foreach (var tagName in tagNames)
-            {
-                Tags.Add(new Tag(tagName));
-            }
-        }
-    }
-
-    public class Item : Taggable
+    public class Obj : Taggable
     {
         public string Path { get; set; }
     }
 
     public class Tag : Taggable
     {
-        public TagType Type { get; set; }
-        public Color FontColor { get; set; } = Color.Black;
-        public Color BackgroundColor { get; set; } = Color.White;
-
-        public Tag(string name , TagType type = TagType.GeneralTag)
+        public Tag(string name, TagType type = TagType.General)
         {
-           Names = new List<string>{name};
-           Type = type;
+            Name = name;
+            Type = type;
         }
-        
-        public Tag(string[] name , TagType type = TagType.GeneralTag)
+
+        public Tag(string[] name, TagType type = TagType.General)
         {
-           Names = new List<string>(name);
-           Type = type;
+            Name = name[0];
+            Type = type;
+            if (name.Length > 1)
+            {
+                for (var i = 1; i < name.Length; i++)
+                {
+                    Alias.Add(name[i]);
+                }
+            }
+        }
+
+        public Color BackgroundColor { get; set; } = Color.White;
+        public Color FontColor { get; set; } = Color.Black;
+        public TagType Type { get; set; }
+    }
+
+    public abstract class Taggable
+    {
+        public List<string> Alias { get; set; }
+        public int Id { get; }
+        public string Name { get; set; }
+        public List<Tag> ParentTags { get; set; }
+        public string Remark { get; set; }
+        public string ThumbnailPath { get; set; }
+
+        public void AddTag(Tag tag)
+        {
+            ParentTags.Add(tag);
+        }
+
+        public void AddTag(Tag[] tags)
+        {
+            foreach (var tag in tags)
+            {
+                ParentTags.Add(tag);
+            }
         }
     }
 }
