@@ -2,8 +2,8 @@
 {
     public enum TagType
     {
-        GeneralTag,
-        GroupTag,
-        FolderTag
+        General = 0,
+        TagSet,
+        Folder
     }
 }
