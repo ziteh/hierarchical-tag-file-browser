@@ -10,34 +10,73 @@ namespace TagBaseFileBrowser.IO
 {
     public class XmlTagDatabaseIO : ITagDatabaseIO
     {
-        private readonly XmlDocument _xmlDocument = new XmlDocument();
-
         public List<Tag> Read(string path)
         {
-            var tags = new List<Tag>();
-            var nodes = LoadXml(path);
+            var rootTag = new Tag();
+            var tags = new List<Tag>() { rootTag };
+            int id = rootTag.Id + 1;
+            var nodes = LoadXmlNodeList(path);
             foreach (XmlNode node in nodes)
             {
-                var tag = new Tag(node.SelectSingleNode(XmlNodeDefine.Name).InnerText.Trim());
+                var name = node.SelectSingleNode(XmlNodeDefine.Name).InnerText.Trim();
 
-                var tAlias = node.SelectSingleNode(XmlNodeDefine.Alias).InnerText.Trim();
-                if (!String.IsNullOrWhiteSpace(tAlias))
+                var sType = node.SelectSingleNode(XmlNodeDefine.Type).InnerText.Trim();
+                TagType type;
+                if (!String.IsNullOrWhiteSpace(sType))
                 {
-                    tag.Alias = new List<string>(tAlias.Split(','));
-                }
-
-                var tType = node.SelectSingleNode(XmlNodeDefine.Type).InnerText.Trim();
-                if (!String.IsNullOrWhiteSpace(tType))
-                {
-                    tag.Type = TagTypeParser.Parse(tType);
+                    type = TagTypeParser.Parse(sType);
                 }
                 else
                 {
-                    tag.Type = TagType.General;
+                    type = TagType.General;
                 }
-            }
 
-            throw new NotImplementedException();
+                var sParentTags = node.SelectSingleNode(XmlNodeDefine.ParentTags).InnerText.Trim();
+                List<Tag> parentTags = new List<Tag>();
+                if (!String.IsNullOrWhiteSpace(sParentTags))
+                {
+                    foreach (var pt in sParentTags.Split(XmlNodeDefine.Spliter))
+                    {
+                        foreach (var t in tags)
+                        {
+                            if (t.Name == pt.Trim())
+                            {
+                                parentTags.Add(t);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    // Add root-tag.
+                    parentTags.Add(rootTag);
+                }
+
+                var sAlias = node.SelectSingleNode(XmlNodeDefine.Alias).InnerText.Trim();
+                var alias = new List<string>();
+                if (!String.IsNullOrWhiteSpace(sAlias))
+                {
+                    foreach (var a in sAlias.Split(XmlNodeDefine.Spliter))
+                    {
+                        alias.Add(a.Trim());
+                    }
+                }
+
+                var remark = node.SelectSingleNode(XmlNodeDefine.Remark).InnerText.Trim();
+                if (String.IsNullOrWhiteSpace(remark))
+                {
+                    remark = "";
+                }
+
+                var tag = new Tag(name, id, type, parentTags)
+                {
+                    Alias = alias,
+                    Remark = remark
+                };
+                tags.Add(tag);
+                id++;
+            }
+            return tags;
         }
 
         public void Write(string path, Tag tag)
@@ -50,7 +89,7 @@ namespace TagBaseFileBrowser.IO
             throw new NotImplementedException();
         }
 
-        private XmlNodeList LoadXml(string path)
+        private XmlNodeList LoadXmlNodeList(string path)
         {
             var sr = MakeStreamReader(path);
             var xd = new XmlDocument();

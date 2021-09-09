@@ -13,7 +13,7 @@ namespace TagBaseFileBrowser.IO
         public static string FontColor = "fontColor";
         public static string Name = "name";
         public static string ParentTags = "parentTags";
-        public static string remark = "remark";
+        public static string Remark = "remark";
         public static string Root = "root";
         public static char Spliter = ',';
         public static string Tag = "tag";
