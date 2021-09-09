@@ -15,6 +15,7 @@ namespace TagBaseFileBrowser.IO
         public static string ParentTags = "parentTags";
         public static string remark = "remark";
         public static string Root = "root";
+        public static char Spliter = ',';
         public static string Tag = "tag";
         public static string ThumbnailPath = "thumbnailPath";
         public static string Type = "type";
