@@ -24,11 +24,9 @@ namespace TagBaseFileBrowser
                     break;
 
                 case "general":
+                default:
                     type = TagType.General;
                     break;
-
-                default:
-                    throw new ArgumentException();
             }
             return type;
         }
