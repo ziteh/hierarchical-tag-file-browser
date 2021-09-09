@@ -19,6 +19,7 @@ namespace TagBaseFileBrowser
             Name = "root";
             Type = TagType.General;
             Id = -1;
+            ChildTags = new List<Tag>();
         }
 
         public Tag(string name, int id, TagType type = TagType.General, List<Tag> parentTags = null)
@@ -27,6 +28,7 @@ namespace TagBaseFileBrowser
             Id = id;
             Type = type;
             ParentTags = parentTags ?? new List<Tag>() { new Tag() };
+            ChildTags = new List<Tag>();
         }
 
         public Color BackgroundColor { get; set; } = Color.White;
@@ -60,6 +62,7 @@ namespace TagBaseFileBrowser
     public abstract class Taggable
     {
         public List<string> Alias { get; set; }
+        public List<Tag> ChildTags { get; set; }
         public int Id { get; protected set; }
         public string Name { get; protected set; }
         public List<Tag> ParentTags { get; set; }

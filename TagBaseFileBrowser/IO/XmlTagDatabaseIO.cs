@@ -74,6 +74,11 @@ namespace TagBaseFileBrowser.IO
                     Remark = remark
                 };
                 tags.Add(tag);
+                foreach (var pt in parentTags)
+                {
+                    pt.ChildTags.Add(tag);
+                }
+
                 id++;
             }
             return tags;
