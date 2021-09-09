@@ -14,11 +14,18 @@ namespace TagBaseFileBrowser
 
     public class Tag : Taggable
     {
+        public Tag()
+        {
+            Name = "root";
+            Type = TagType.General;
+            Id = "0";
+        }
+
         public Tag(string name, TagType type = TagType.General, List<Tag> parentTags = null)
         {
             Name = name;
             Type = type;
-            ParentTags = parentTags ?? new List<Tag>();
+            ParentTags = parentTags ?? new List<Tag>() { new Tag() };
 
             Id = ParseId();
         }
