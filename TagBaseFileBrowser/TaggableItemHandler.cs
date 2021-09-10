@@ -8,7 +8,6 @@ namespace TagBaseFileBrowser
 {
     public class TaggableItemHandler
     {
-        private Dictionary<string, string> _idTaggablePairs = new Dictionary<string, string>();
         private List<Obj> _objs;
         private List<Tag> _tags;
 
@@ -16,8 +15,7 @@ namespace TagBaseFileBrowser
         {
             _tags = tags;
             _objs = objs;
-            //UpdateIdTaggablePairs(tags);
-            //AddObjsIntoTags(tags, objs);
+            AddObjsIntoTags(_tags, _objs);
         }
 
         #region Find
@@ -163,29 +161,13 @@ namespace TagBaseFileBrowser
 
         private void AddObjsIntoTags(List<Tag> tags, List<Obj> objs)
         {
-            foreach (var t in tags)
+            foreach (var obj in objs)
             {
-                foreach (var o in objs)
+                foreach (var oParentTagId in obj.ParentTagIDs)
                 {
-                    foreach (var ptid in o.ParentTagIDs)
-                    {
-                        if (_idTaggablePairs.ContainsKey(ptid))
-                        {
-                            if (_idTaggablePairs[ptid] == t.Name)
-                            {
-                                t.ChildObjIDs.Add(o.Id);
-                            }
-                        }
-                    }
+                    var findedTag = FindTagById(oParentTagId);
+                    findedTag.ChildObjIDs.Add(obj.Id);
                 }
-            }
-        }
-
-        private void UpdateIdTaggablePairs(List<Tag> tags)
-        {
-            foreach (var t in tags)
-            {
-                _idTaggablePairs.Add(t.Id, t.Name);
             }
         }
     }
