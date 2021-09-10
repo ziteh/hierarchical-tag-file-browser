@@ -96,6 +96,28 @@ namespace TagBaseFileBrowser
             return tags;
         }
 
+        public List<Tag> GetParentTags(Obj obj)
+        {
+            var tags = new List<Tag>();
+            var targetTagTarentTagIDs = obj.ParentTagIDs;
+            foreach (var id in targetTagTarentTagIDs)
+            {
+                tags.Add(FindTagById(id));
+            }
+            return tags;
+        }
+
+        public List<Tag> GetParentTags(Tag tag)
+        {
+            var tags = new List<Tag>();
+            var targetTagTarentTagIDs = tag.ParentTagIDs;
+            foreach (var id in targetTagTarentTagIDs)
+            {
+                tags.Add(FindTagById(id));
+            }
+            return tags;
+        }
+
         #endregion Get
 
         #region Info
