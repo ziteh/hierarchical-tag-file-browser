@@ -79,5 +79,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TagBaseFileBrowser\TagBaseFileBrowser.csproj">
+      <Project>{770d0c39-fcae-41d5-a1cf-a534aad90497}</Project>
+      <Name>TagBaseFileBrowser</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
