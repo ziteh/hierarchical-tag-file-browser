@@ -16,6 +16,7 @@ namespace TagBaseFileBrowser
         }
 
         public string Path { get; set; }
+        public string PreviewPath { get; set; }
     }
 
     public class Tag : Taggable
@@ -25,45 +26,30 @@ namespace TagBaseFileBrowser
             Name = "root";
             Type = TagType.General;
             Id = "tr";
-            ParentTags = new List<Tag>();
-            ChildTags = new List<Tag>();
+            ParentTagIDs = new List<string>();
+            ChildTagIDs = new List<string>();
+            ChildObjIDs = new List<string>();
         }
 
-        public Tag(string name, int id, TagType type = TagType.General, List<Tag> parentTags = null)
+        public Tag(string name, int id, TagType type = TagType.General, List<string> parentTags = null)
         {
             Name = name;
             Id = $"t{id}";
             Type = type;
-            ParentTags = parentTags ?? new List<Tag>() { new Tag() };
-            ChildTags = new List<Tag>();
+            ParentTagIDs = parentTags ?? new List<string>() { new Tag().Id };
+            ChildTagIDs = new List<string>();
+            ChildObjIDs = new List<string>();
         }
 
         public Color BackgroundColor { get; set; } = Color.White;
-        public List<Tag> ChildTags { get; set; }
+        public List<string> ChildObjIDs { get; set; }
+        public List<string> ChildTagIDs { get; set; }
         public Color FontColor { get; set; } = Color.Black;
         public TagType Type { get; private set; }
 
         public bool Equals(Tag tagToMatch)
         {
             return tagToMatch.Id.Equals(this.Id);
-        }
-
-        private string GetTagId(Tag tag)
-        {
-            var parentTag = "";
-            if (tag.ParentTags != null)
-            {
-                if (tag.ParentTags.Count > 0)
-                {
-                    for (var i = 0; i < tag.ParentTags.Count; i++)
-                    {
-                        parentTag += tag.ParentTags[i].Name;
-                    }
-                }
-            }
-
-            var keyString = $"{tag.Name}{tag.Type}{parentTag}";
-            return keyString.ToMD5();
         }
     }
 
@@ -72,21 +58,21 @@ namespace TagBaseFileBrowser
         public List<string> Alias { get; set; }
         public string Id { get; protected set; }
         public string Name { get; protected set; }
-        public List<Tag> ParentTags { get; set; }
+        public List<string> ParentTagIDs { get; set; }
         public string Remark { get; set; }
         public string ThumbnailPath { get; set; }
 
-        public void AddTag(Tag tag)
-        {
-            ParentTags.Add(tag);
-        }
+        //public void AddTag(Tag tag)
+        //{
+        //    ParentTags.Add(tag);
+        //}
 
-        public void AddTag(Tag[] tags)
-        {
-            foreach (var tag in tags)
-            {
-                ParentTags.Add(tag);
-            }
-        }
+        //public void AddTag(Tag[] tags)
+        //{
+        //    foreach (var tag in tags)
+        //    {
+        //        ParentTags.Add(tag);
+        //    }
+        //}
     }
 }

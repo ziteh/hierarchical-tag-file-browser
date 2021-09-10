@@ -8,31 +8,8 @@ namespace TagBaseFileBrowser.IO
 {
     public class FakeTagDatabaseIO : ITagDatabaseIO
     {
-        public List<Tag> Read(string file)
+        public List<Tag> Read(string path, out Dictionary<string, string> tagNameIdPairs)
         {
-            //return new List<Tag>
-            //{
-            //    new Tag("fake tag-1")
-            //    {
-            //        ThumbnailPath = "fake thumbnail path",
-            //        Remark = "fake remark",
-            //        ParentTags = new List<Tag>
-            //        {
-            //            new Tag("fake tag-1a"),
-            //            new Tag("fake tag-1b"),
-            //        },
-            //    },
-            //    new Tag("fake tag-2")
-            //    {
-            //        ThumbnailPath = "fake thumbnail path",
-            //        Remark = "fake remark",
-            //        ParentTags = new List<Tag>
-            //        {
-            //            new Tag("fake tag-2a"),
-            //            new Tag("fake tag-2b"),
-            //        }
-            //    }
-            //};
             throw new NotImplementedException();
         }
 

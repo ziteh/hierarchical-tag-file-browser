@@ -20,56 +20,13 @@ namespace TagBaseFileBrowser.TestForm
 
         private void buttonReadXml_Click(object sender, EventArgs e)
         {
-            if (radioButtonTagDB.Checked)
-            {
-                labelContent.Text = ParseForTagDB();
-            }
-            else
-            {
-                labelContent.Text = ParseForObjDB();
-            }
-        }
+            var xmlTagIO = new XmlTagDatabaseIO();
+            var tagDB = xmlTagIO.Read(textBoxPath.Text + @"\tag_db.xml", out var tagNameIdPaids);
 
-        private string ParseForObjDB()
-        {
-            var xmlIO = new XmlObjDatabaseIO();
-            var xml = xmlIO.Read(textBoxPath.Text);
-            var text = "";
-            foreach (var t in xml)
-            {
-                text += $"{t.Name}({t.Id})\n" +
-                        $"{t.Path}\n";
-                foreach (var pt in t.ParentTags)
-                {
-                    text += $"{pt.Name},";
-                }
-                text += $"\n---\n\n";
-            }
-            return text;
-        }
+            var xmlObjIO = new XmlObjDatabaseIO(tagNameIdPaids);
+            var objDB = xmlObjIO.Read(textBoxPath.Text + @"\obj_db.xml");
 
-        private string ParseForTagDB()
-        {
-            var xmlIO = new XmlTagDatabaseIO();
-            var xml = xmlIO.Read(textBoxPath.Text);
-            var text = "";
-            foreach (var t in xml)
-            {
-                text += $"{t.Name}\n" +
-                        $"{t.Id}\n" +
-                        $"{t.Type}\n";
-                foreach (var p in t.ParentTags)
-                {
-                    text += $"{p.Name},";
-                }
-                text += $"\n";
-                foreach (var c in t.ChildTags)
-                {
-                    text += $"{c.Name},";
-                }
-                text += $"\n---\n\n";
-            }
-            return text;
+            var th = new TaggableItemHandler(tagDB, objDB);
         }
     }
 }

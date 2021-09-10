@@ -8,24 +8,8 @@ namespace TagBaseFileBrowser.IO
 {
     public class CsvTagDatabaseIo : ITagDatabaseIO
     {
-        public List<Tag> Read(string file)
+        public List<Tag> Read(string path, out Dictionary<string, string> tagNameIdPairs)
         {
-            //var tags = new List<Tag>();
-            //var csvContent = Csv.Read(file);
-
-            //foreach (var rowOfCsv in csvContent)
-            //{
-            //    var tag = new Tag(rowOfCsv[1].Split(';'))
-            //    {
-            //        ThumbnailPath = rowOfCsv[7],
-            //        Remark = rowOfCsv[8]
-            //    };
-            //    tag.AddTag(rowOfCsv[3].Split(';'));
-
-            //    tags.Add(tag);
-            //}
-
-            //return tags;
             throw new NotImplementedException();
         }
 

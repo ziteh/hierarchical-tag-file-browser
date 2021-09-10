@@ -10,8 +10,9 @@ namespace TagBaseFileBrowser.IO
 {
     public class XmlTagDatabaseIO : ITagDatabaseIO
     {
-        public List<Tag> Read(string path)
+        public List<Tag> Read(string path, out Dictionary<string, string> tagNameIdPairs)
         {
+            tagNameIdPairs = new Dictionary<string, string>();
             var rootTag = new Tag();
             var tags = new List<Tag>() { rootTag };
             int id = 0;
@@ -32,7 +33,7 @@ namespace TagBaseFileBrowser.IO
                 }
 
                 var sParentTags = node.SelectSingleNode(Define.ParentTags).InnerText.Trim();
-                List<Tag> parentTags = new List<Tag>();
+                List<string> parentTagIDs = new List<string>();
                 if (!String.IsNullOrWhiteSpace(sParentTags))
                 {
                     foreach (var pt in sParentTags.Split(Define.Spliter))
@@ -41,7 +42,8 @@ namespace TagBaseFileBrowser.IO
                         {
                             if (t.Name == pt.Trim())
                             {
-                                parentTags.Add(t);
+                                parentTagIDs.Add(t.Id);
+                                t.ChildTagIDs.Add($"t{id}");
                             }
                         }
                     }
@@ -49,7 +51,7 @@ namespace TagBaseFileBrowser.IO
                 else
                 {
                     // Add root-tag.
-                    parentTags.Add(rootTag);
+                    parentTagIDs.Add(rootTag.Id);
                 }
 
                 var sAlias = node.SelectSingleNode(Define.Alias).InnerText.Trim();
@@ -68,17 +70,13 @@ namespace TagBaseFileBrowser.IO
                     remark = "";
                 }
 
-                var tag = new Tag(name, id, type, parentTags)
+                var tag = new Tag(name, id, type, parentTagIDs)
                 {
                     Alias = alias,
                     Remark = remark
                 };
                 tags.Add(tag);
-                foreach (var pt in parentTags)
-                {
-                    pt.ChildTags.Add(tag);
-                }
-
+                tagNameIdPairs.Add(name, $"t{id}");
                 id++;
             }
             return tags;

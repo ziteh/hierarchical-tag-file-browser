@@ -33,21 +33,21 @@ namespace TagBaseFileBrowser.TestForm
             this.buttonReadXml = new System.Windows.Forms.Button();
             this.labelContent = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.radioButtonTagDB = new System.Windows.Forms.RadioButton();
             this.radioButtonObjDB = new System.Windows.Forms.RadioButton();
+            this.radioButtonTagDB = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBoxPath
             // 
-            this.textBoxPath.Location = new System.Drawing.Point(12, 33);
+            this.textBoxPath.Location = new System.Drawing.Point(23, 29);
             this.textBoxPath.Name = "textBoxPath";
             this.textBoxPath.Size = new System.Drawing.Size(547, 38);
             this.textBoxPath.TabIndex = 0;
             // 
             // buttonReadXml
             // 
-            this.buttonReadXml.Location = new System.Drawing.Point(12, 90);
+            this.buttonReadXml.Location = new System.Drawing.Point(23, 99);
             this.buttonReadXml.Name = "buttonReadXml";
             this.buttonReadXml.Size = new System.Drawing.Size(166, 85);
             this.buttonReadXml.TabIndex = 1;
@@ -58,7 +58,7 @@ namespace TagBaseFileBrowser.TestForm
             // labelContent
             // 
             this.labelContent.AutoSize = true;
-            this.labelContent.Location = new System.Drawing.Point(12, 196);
+            this.labelContent.Location = new System.Drawing.Point(37, 217);
             this.labelContent.Name = "labelContent";
             this.labelContent.Size = new System.Drawing.Size(33, 32);
             this.labelContent.TabIndex = 2;
@@ -75,6 +75,16 @@ namespace TagBaseFileBrowser.TestForm
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Type";
             // 
+            // radioButtonObjDB
+            // 
+            this.radioButtonObjDB.AutoSize = true;
+            this.radioButtonObjDB.Location = new System.Drawing.Point(19, 104);
+            this.radioButtonObjDB.Name = "radioButtonObjDB";
+            this.radioButtonObjDB.Size = new System.Drawing.Size(143, 36);
+            this.radioButtonObjDB.TabIndex = 0;
+            this.radioButtonObjDB.Text = "Obj DB";
+            this.radioButtonObjDB.UseVisualStyleBackColor = true;
+            // 
             // radioButtonTagDB
             // 
             this.radioButtonTagDB.AutoSize = true;
@@ -87,17 +97,7 @@ namespace TagBaseFileBrowser.TestForm
             this.radioButtonTagDB.Text = "Tag DB";
             this.radioButtonTagDB.UseVisualStyleBackColor = true;
             // 
-            // radioButtonObjDB
-            // 
-            this.radioButtonObjDB.AutoSize = true;
-            this.radioButtonObjDB.Location = new System.Drawing.Point(19, 104);
-            this.radioButtonObjDB.Name = "radioButtonObjDB";
-            this.radioButtonObjDB.Size = new System.Drawing.Size(143, 36);
-            this.radioButtonObjDB.TabIndex = 0;
-            this.radioButtonObjDB.Text = "Obj DB";
-            this.radioButtonObjDB.UseVisualStyleBackColor = true;
-            // 
-            // XmlTagDB
+            // XmlDB
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -106,7 +106,7 @@ namespace TagBaseFileBrowser.TestForm
             this.Controls.Add(this.labelContent);
             this.Controls.Add(this.buttonReadXml);
             this.Controls.Add(this.textBoxPath);
-            this.Name = "XmlTagDB";
+            this.Name = "XmlDB";
             this.Text = "XML DB Test";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

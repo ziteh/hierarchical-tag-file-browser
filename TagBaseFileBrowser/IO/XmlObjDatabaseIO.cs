@@ -10,6 +10,13 @@ namespace TagBaseFileBrowser.IO
 {
     public class XmlObjDatabaseIO : IObjDatabaseIO
     {
+        private Dictionary<string, string> _tagNameIdPairs;
+
+        public XmlObjDatabaseIO(Dictionary<string, string> tagNameIdPairs)
+        {
+            _tagNameIdPairs = tagNameIdPairs;
+        }
+
         public List<Obj> Read(string path)
         {
             var objs = new List<Obj>();
@@ -19,9 +26,9 @@ namespace TagBaseFileBrowser.IO
             {
                 var name = ParseName(node);
                 var p = ParsePath(node);
-                var tags = ParseTag(node);
+                var tagIDs = ParseTagID(node);
 
-                objs.Add(new Obj(name, id) { Path = p, ParentTags = tags });
+                objs.Add(new Obj(name, id) { Path = p, ParentTagIDs = tagIDs });
                 id++;
             }
             return objs;
@@ -54,21 +61,22 @@ namespace TagBaseFileBrowser.IO
             return path;
         }
 
-        private List<Tag> ParseTag(XmlNode node)
+        private List<string> ParseTagID(XmlNode node)
         {
             var nodes = node.SelectNodes(Define.Tag);
-            List<Tag> tags = new List<Tag>();
+            List<string> tagIDs = new List<string>();
             if (nodes != null)
             {
-                //if (nodes.Count > 0)
+                foreach (XmlNode n in nodes)
                 {
-                    foreach (XmlNode n in nodes)
+                    var tagName = n.InnerText.Trim();
+                    if (_tagNameIdPairs.ContainsKey(tagName))
                     {
-                        tags.Add(new Tag(n.InnerText.Trim(), -1));
+                        tagIDs.Add(_tagNameIdPairs[tagName]);
                     }
                 }
             }
-            return tags;
+            return tagIDs;
         }
 
         #endregion Parse
