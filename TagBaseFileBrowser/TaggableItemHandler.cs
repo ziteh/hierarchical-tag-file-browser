@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TagBaseFileBrowser.IO;
+using System.Windows.Forms;
 
 namespace TagBaseFileBrowser
 {
@@ -171,5 +172,45 @@ namespace TagBaseFileBrowser
                 }
             }
         }
+
+        #region TreeView
+
+        public void CreatTagTreeView(TreeView treeView)
+        {
+            var index = 0;
+            foreach (var tag in _tags)
+            {
+                var pt = GetParentTags(tag);
+                if (tag.Name != "root" &&
+                    pt.Count == 1 &&
+                    pt[0].Name == "root")
+                {
+                    var treeNode = CreatTreeNode(tag);
+                    treeView.Nodes.Add(treeNode);
+
+                    index++;
+                }
+            }
+            treeView.ExpandAll();
+        }
+
+        private TreeNode CreatTreeNode(Tag tag)
+        {
+            var treeNode = new TreeNode(tag.Name);
+
+            var childTags = GetChildTags(tag);
+            if (childTags.Count > 0)
+            {
+                foreach (var ct in childTags)
+                {
+                    var subNode = CreatTreeNode(ct);
+                    treeNode.Nodes.Add(subNode);
+                }
+            }
+
+            return treeNode;
+        }
+
+        #endregion TreeView
     }
 }
