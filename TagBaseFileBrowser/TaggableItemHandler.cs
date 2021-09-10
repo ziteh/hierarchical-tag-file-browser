@@ -94,21 +94,10 @@ namespace TagBaseFileBrowser
             return tags;
         }
 
-        public List<Tag> GetParentTags(Obj obj)
+        public List<Tag> GetParentTags(Taggable taggable)
         {
             var tags = new List<Tag>();
-            var targetTagTarentTagIDs = obj.ParentTagIDs;
-            foreach (var id in targetTagTarentTagIDs)
-            {
-                tags.Add(FindTagById(id));
-            }
-            return tags;
-        }
-
-        public List<Tag> GetParentTags(Tag tag)
-        {
-            var tags = new List<Tag>();
-            var targetTagTarentTagIDs = tag.ParentTagIDs;
+            var targetTagTarentTagIDs = taggable.ParentTagIDs;
             foreach (var id in targetTagTarentTagIDs)
             {
                 tags.Add(FindTagById(id));
