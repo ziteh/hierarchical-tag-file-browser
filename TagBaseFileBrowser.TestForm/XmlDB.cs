@@ -11,14 +11,44 @@ using TagBaseFileBrowser.IO;
 
 namespace TagBaseFileBrowser.TestForm
 {
-    public partial class XmlTagDB : Form
+    public partial class XmlDB : Form
     {
-        public XmlTagDB()
+        public XmlDB()
         {
             InitializeComponent();
         }
 
         private void buttonReadXml_Click(object sender, EventArgs e)
+        {
+            if (radioButtonTagDB.Checked)
+            {
+                labelContent.Text = ParseForTagDB();
+            }
+            else
+            {
+                labelContent.Text = ParseForObjDB();
+            }
+        }
+
+        private string ParseForObjDB()
+        {
+            var xmlIO = new XmlObjDatabaseIO();
+            var xml = xmlIO.Read(textBoxPath.Text);
+            var text = "";
+            foreach (var t in xml)
+            {
+                text += $"{t.Name}\n" +
+                        $"{t.Path}\n";
+                foreach (var pt in t.ParentTags)
+                {
+                    text += $"{pt.Name},";
+                }
+                text += $"\n---\n\n";
+            }
+            return text;
+        }
+
+        private string ParseForTagDB()
         {
             var xmlIO = new XmlTagDatabaseIO();
             var xml = xmlIO.Read(textBoxPath.Text);
@@ -39,7 +69,7 @@ namespace TagBaseFileBrowser.TestForm
                 }
                 text += $"\n---\n\n";
             }
-            labelContent.Text = text;
+            return text;
         }
     }
 }

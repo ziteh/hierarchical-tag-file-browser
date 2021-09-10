@@ -9,6 +9,11 @@ namespace TagBaseFileBrowser
 {
     public class Obj : Taggable
     {
+        public Obj(string name)
+        {
+            Name = name;
+        }
+
         public string Path { get; set; }
     }
 

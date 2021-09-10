@@ -10,9 +10,12 @@ namespace TagBaseFileBrowser
     {
         public static string Alias = "alias";
         public static string BackgroundColor = "backgroundColor";
+        public static string Error = "ERROR";
         public static string FontColor = "fontColor";
         public static string Name = "name";
+        public static string Obj = "obj";
         public static string ParentTags = "parentTags";
+        public static string Path = "path";
         public static string Remark = "remark";
         public static string Root = "root";
         public static char Spliter = ',';

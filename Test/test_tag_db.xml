@@ -2,7 +2,7 @@
 <root>
 
   <tag>
-    <name>Test Tag-1</name>
+    <name>TestTag-1</name>
     <alias>TT1,tt1</alias>
     <type>general</type>
     <remark>For testing.</remark>
@@ -10,7 +10,7 @@
   </tag>
 
   <tag>
-    <name>Test Tag-2</name>
+    <name>TestTag-2</name>
     <alias>TT2,tt2</alias>
     <type>general</type>
     <remark>For testing.</remark>
@@ -18,11 +18,11 @@
   </tag>
 
   <tag>
-    <name>Test Tag-3</name>
+    <name>TestTag-3</name>
     <alias>TT3,tt3</alias>
     <type>tagSet</type>
     <remark>For testing.</remark>
-    <parentTags>Test Tag-1,Test Tag-2</parentTags>
+    <parentTags>TestTag-1,TestTag-2</parentTags>
   </tag>
 
 </root>

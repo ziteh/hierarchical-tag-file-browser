@@ -16,7 +16,7 @@ namespace TagBaseFileBrowser.TestForm
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new XmlTagDB());
+            Application.Run(new XmlDB());
         }
     }
 }
