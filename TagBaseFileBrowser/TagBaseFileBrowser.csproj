@@ -51,6 +51,7 @@
     <Compile Include="IO\FackTagDatabaseIO.cs" />
     <Compile Include="Define.cs" />
     <Compile Include="IO\IObjDatabaseIO.cs" />
+    <Compile Include="IO\XmlObjDatabaseIO.cs" />
     <Compile Include="IO\XmlTagDatabaseIO.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
