@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TagBaseFileBrowser.IO;
 
 namespace TagBaseFileBrowser
 {
@@ -10,6 +11,17 @@ namespace TagBaseFileBrowser
     {
         private List<Obj> _objs;
         private List<Tag> _tags;
+
+        public TaggableItemHandler(string path)
+        {
+            var xmlTagIO = new XmlTagDatabaseIO();
+            _tags = xmlTagIO.Read(path + @"\tag_db.xml", out var tagNameIdPaids);
+
+            var xmlObjIO = new XmlObjDatabaseIO(tagNameIdPaids);
+            _objs = xmlObjIO.Read(path + @"\obj_db.xml");
+
+            AddObjsIntoTags(_tags, _objs);
+        }
 
         public TaggableItemHandler(List<Tag> tags, List<Obj> objs)
         {
