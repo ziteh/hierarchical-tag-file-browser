@@ -14,7 +14,7 @@ namespace TagBaseFileBrowser.IO
         {
             var rootTag = new Tag();
             var tags = new List<Tag>() { rootTag };
-            int id = rootTag.Id + 1;
+            int id = 0;
             var nodes = LoadXmlNodeList(path);
             foreach (XmlNode node in nodes)
             {

@@ -9,9 +9,10 @@ namespace TagBaseFileBrowser
 {
     public class Obj : Taggable
     {
-        public Obj(string name)
+        public Obj(string name, int id)
         {
             Name = name;
+            Id = $"o{id}";
         }
 
         public string Path { get; set; }
@@ -23,7 +24,7 @@ namespace TagBaseFileBrowser
         {
             Name = "root";
             Type = TagType.General;
-            Id = 0;
+            Id = "tr";
             ParentTags = new List<Tag>();
             ChildTags = new List<Tag>();
         }
@@ -31,13 +32,14 @@ namespace TagBaseFileBrowser
         public Tag(string name, int id, TagType type = TagType.General, List<Tag> parentTags = null)
         {
             Name = name;
-            Id = id;
+            Id = $"t{id}";
             Type = type;
             ParentTags = parentTags ?? new List<Tag>() { new Tag() };
             ChildTags = new List<Tag>();
         }
 
         public Color BackgroundColor { get; set; } = Color.White;
+        public List<Tag> ChildTags { get; set; }
         public Color FontColor { get; set; } = Color.Black;
         public TagType Type { get; private set; }
 
@@ -68,8 +70,7 @@ namespace TagBaseFileBrowser
     public abstract class Taggable
     {
         public List<string> Alias { get; set; }
-        public List<Tag> ChildTags { get; set; }
-        public int Id { get; protected set; }
+        public string Id { get; protected set; }
         public string Name { get; protected set; }
         public List<Tag> ParentTags { get; set; }
         public string Remark { get; set; }

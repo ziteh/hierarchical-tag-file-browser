@@ -13,7 +13,7 @@ namespace TagBaseFileBrowser.IO
         public List<Obj> Read(string path)
         {
             var objs = new List<Obj>();
-            //int id = 1;
+            int id = 0;
             var nodes = LoadXmlNodeList(path);
             foreach (XmlNode node in nodes)
             {
@@ -21,7 +21,8 @@ namespace TagBaseFileBrowser.IO
                 var p = ParsePath(node);
                 var tags = ParseTag(node);
 
-                objs.Add(new Obj(name) { Path = p, ParentTags = tags });
+                objs.Add(new Obj(name, id) { Path = p, ParentTags = tags });
+                id++;
             }
             return objs;
         }

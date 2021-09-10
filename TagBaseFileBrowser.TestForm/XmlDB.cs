@@ -37,7 +37,7 @@ namespace TagBaseFileBrowser.TestForm
             var text = "";
             foreach (var t in xml)
             {
-                text += $"{t.Name}\n" +
+                text += $"{t.Name}({t.Id})\n" +
                         $"{t.Path}\n";
                 foreach (var pt in t.ParentTags)
                 {
