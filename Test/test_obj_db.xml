@@ -14,4 +14,9 @@
     <tag>TestTag-2</tag>
   </obj>
 
+  <obj>
+    <name>TestObj-3</name>
+    <path>C:\</path>
+  </obj>
+
 </root>

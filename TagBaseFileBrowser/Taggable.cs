@@ -23,7 +23,7 @@ namespace TagBaseFileBrowser
         {
             Name = "root";
             Type = TagType.General;
-            Id = -1;
+            Id = 0;
             ParentTags = new List<Tag>();
             ChildTags = new List<Tag>();
         }

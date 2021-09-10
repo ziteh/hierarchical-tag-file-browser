@@ -63,7 +63,7 @@ namespace TagBaseFileBrowser.IO
                 {
                     foreach (XmlNode n in nodes)
                     {
-                        tags.Add(new Tag(n.InnerText.Trim(), -2));
+                        tags.Add(new Tag(n.InnerText.Trim(), -1));
                     }
                 }
             }
