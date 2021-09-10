@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+
+  <obj>
+    <name>TestObj-1</name>
+    <path>C:\</path>
+    <tag>TestTag-1</tag>
+  </obj>
+
+  <obj>
+    <name>TestObj-2</name>
+    <path>C:\</path>
+    <tag>TestTag-1</tag>
+    <tag>TestTag-2</tag>
+  </obj>
+
+  <obj>
+    <name>TestObj-3</name>
+    <path>D:\</path>
+  </obj>
+
+</root>

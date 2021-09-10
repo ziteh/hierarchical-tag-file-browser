@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{770D0C39-FCAE-41D5-A1CF-A534AAD90497}</ProjectGuid>
+    <ProjectGuid>{2C6B7AE1-D8C9-4C5E-A889-545C46F6FA39}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>TagBaseFileBrowser</RootNamespace>
-    <AssemblyName>TagBaseFileBrowser</AssemblyName>
+    <RootNamespace>TagBaseFileBrowser.TestForm</RootNamespace>
+    <AssemblyName>TagBaseFileBrowser.TestForm</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -46,27 +46,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Csv.cs" />
-    <Compile Include="IO\CsvTagDatabaseIO.cs" />
-    <Compile Include="IO\FackTagDatabaseIO.cs" />
-    <Compile Include="Define.cs" />
-    <Compile Include="IO\IObjDatabaseIO.cs" />
-    <Compile Include="IO\XmlObjDatabaseIO.cs" />
-    <Compile Include="IO\XmlTagDatabaseIO.cs" />
-    <Compile Include="MainForm.cs">
+    <Compile Include="XmlDB.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
+    <Compile Include="XmlDB.Designer.cs">
+      <DependentUpon>XmlDB.cs</DependentUpon>
     </Compile>
-    <Compile Include="MD5.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="IO\TagDatabateIO.cs" />
-    <Compile Include="Taggable.cs" />
-    <Compile Include="TaggableItemHandler.cs" />
-    <Compile Include="TagType.cs" />
-    <Compile Include="TagTypeParser.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -76,6 +63,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="XmlDB.resx">
+      <DependentUpon>XmlDB.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -88,6 +78,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TagBaseFileBrowser\TagBaseFileBrowser.csproj">
+      <Project>{770d0c39-fcae-41d5-a1cf-a534aad90497}</Project>
+      <Name>TagBaseFileBrowser</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
