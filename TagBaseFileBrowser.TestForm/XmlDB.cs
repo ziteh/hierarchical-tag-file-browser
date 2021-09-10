@@ -22,10 +22,12 @@ namespace TagBaseFileBrowser.TestForm
         {
             var th = new TaggableItemHandler(textBoxPath.Text);
 
-            var target = "TestTag-1";
-            var a1 = th.GetChildTags(th.FindTagByName(target));
-            var a2 = th.GetChildObjs(th.FindTagByName(target));
-            var a3 = th.GetParentTags(th.FindTagByName(target));
+            //var target = "TestTag-1";
+            //var a1 = th.GetChildTags(th.FindTagByName(target));
+            //var a2 = th.GetChildObjs(th.FindTagByName(target));
+            //var a3 = th.GetParentTags(th.FindTagByName(target));
+
+            th.CreatTagTreeView(treeViewTags);
         }
     }
 }

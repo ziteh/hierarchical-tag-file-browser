@@ -35,6 +35,7 @@ namespace TagBaseFileBrowser.TestForm
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.radioButtonObjDB = new System.Windows.Forms.RadioButton();
             this.radioButtonTagDB = new System.Windows.Forms.RadioButton();
+            this.treeViewTags = new System.Windows.Forms.TreeView();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -97,11 +98,19 @@ namespace TagBaseFileBrowser.TestForm
             this.radioButtonTagDB.Text = "Tag DB";
             this.radioButtonTagDB.UseVisualStyleBackColor = true;
             // 
+            // treeViewTags
+            // 
+            this.treeViewTags.Location = new System.Drawing.Point(182, 227);
+            this.treeViewTags.Name = "treeViewTags";
+            this.treeViewTags.Size = new System.Drawing.Size(443, 457);
+            this.treeViewTags.TabIndex = 4;
+            // 
             // XmlDB
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1130, 904);
+            this.Controls.Add(this.treeViewTags);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.labelContent);
             this.Controls.Add(this.buttonReadXml);
@@ -123,6 +132,7 @@ namespace TagBaseFileBrowser.TestForm
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton radioButtonObjDB;
         private System.Windows.Forms.RadioButton radioButtonTagDB;
+        private System.Windows.Forms.TreeView treeViewTags;
     }
 }
 

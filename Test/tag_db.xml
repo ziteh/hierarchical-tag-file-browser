@@ -25,4 +25,20 @@
     <parentTags>TestTag-1,TestTag-2</parentTags>
   </tag>
 
+  <tag>
+    <name>TestTag-4</name>
+    <alias>TT4</alias>
+    <type>general</type>
+    <remark>For testing.</remark>
+    <parentTags>TestTag-1</parentTags>
+  </tag>
+
+  <tag>
+    <name>TestTag-5</name>
+    <alias>TT5</alias>
+    <type>general</type>
+    <remark>For testing.</remark>
+    <parentTags>root</parentTags>
+  </tag>
+
 </root>
