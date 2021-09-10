@@ -9,13 +9,41 @@ namespace TagBaseFileBrowser
     public class TaggableItemHandler
     {
         private Dictionary<string, string> _idTaggablePairs = new Dictionary<string, string>();
+        private List<Obj> _objs;
         private List<Tag> _tags;
 
-        public TaggableItemHandler(List<Tag> tags)
+        public TaggableItemHandler(List<Tag> tags, List<Obj> objs)
         {
             _tags = tags;
+            _objs = objs;
             //UpdateIdTaggablePairs(tags);
             //AddObjsIntoTags(tags, objs);
+        }
+
+        #region Find
+
+        public Obj FindObjById(string id)
+        {
+            foreach (var o in _objs)
+            {
+                if (o.Id == id)
+                {
+                    return o;
+                }
+            }
+            return new Obj("null", -1);
+        }
+
+        public Obj FindObjByName(string name)
+        {
+            foreach (var o in _objs)
+            {
+                if (o.Name == name)
+                {
+                    return o;
+                }
+            }
+            return new Obj("null", -1);
         }
 
         public Tag FindTagById(string id)
@@ -42,6 +70,21 @@ namespace TagBaseFileBrowser
             return new Tag();
         }
 
+        #endregion Find
+
+        #region Get
+
+        public List<Obj> GetChildObjs(Tag tag)
+        {
+            var objs = new List<Obj>();
+            var targetTagChildObjIDs = tag.ChildObjIDs;
+            foreach (var id in targetTagChildObjIDs)
+            {
+                objs.Add(FindObjById(id));
+            }
+            return objs;
+        }
+
         public List<Tag> GetChildTags(Tag tag)
         {
             var tags = new List<Tag>();
@@ -53,7 +96,20 @@ namespace TagBaseFileBrowser
             return tags;
         }
 
-        public string GetTagInfo(Tag tag)
+        #endregion Get
+
+        #region Info
+
+        public string GetInfo(Obj obj)
+        {
+            var msg = "";
+            msg += $"Name: {obj.Name}\n" +
+                   $"ID: {obj.Id}\n" +
+                   $"Path: {obj.Path}";
+            return msg;
+        }
+
+        public string GetInfo(Tag tag)
         {
             var msg = "";
             msg += $"Name: {tag.Name}\n" +
@@ -71,10 +127,17 @@ namespace TagBaseFileBrowser
             return msg;
         }
 
-        public void ShowTagInfo(Tag tag)
+        public void ShowInfo(Obj obj)
         {
-            System.Windows.Forms.MessageBox.Show(GetTagInfo(tag));
+            System.Windows.Forms.MessageBox.Show(GetInfo(obj));
         }
+
+        public void ShowInfo(Tag tag)
+        {
+            System.Windows.Forms.MessageBox.Show(GetInfo(tag));
+        }
+
+        #endregion Info
 
         private void AddObjsIntoTags(List<Tag> tags, List<Obj> objs)
         {

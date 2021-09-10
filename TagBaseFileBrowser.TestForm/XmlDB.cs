@@ -29,7 +29,7 @@ namespace TagBaseFileBrowser.TestForm
             var th = new TaggableItemHandler(tagDB);
 
             var a = th.GetChildTags(th.FindTagByName("TestTag-1"));
-            th.ShowTagInfo(a[0]);
+            th.ShowInfo(a[0]);
         }
     }
 }
