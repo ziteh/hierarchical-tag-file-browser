@@ -26,7 +26,10 @@ namespace TagBaseFileBrowser.TestForm
             var xmlObjIO = new XmlObjDatabaseIO(tagNameIdPaids);
             var objDB = xmlObjIO.Read(textBoxPath.Text + @"\obj_db.xml");
 
-            var th = new TaggableItemHandler(tagDB, objDB);
+            var th = new TaggableItemHandler(tagDB);
+
+            var a = th.GetChildTags(th.FindTagByName("TestTag-1"));
+            th.ShowTagInfo(a[0]);
         }
     }
 }
