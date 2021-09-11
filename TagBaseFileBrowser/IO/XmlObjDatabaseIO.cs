@@ -80,15 +80,7 @@ namespace TagBaseFileBrowser.IO
 
         private string ParsePath(XmlNode node)
         {
-            /// TODO: resolve SelectSingleNode return null.
-            var path = node.SelectSingleNode(Define.Path).InnerText;
-
-            if (String.IsNullOrWhiteSpace(path))
-                path = Define.Error;
-            else
-                path = path.Trim();
-
-            return path;
+            return node.Attributes.GetNamedItem(Define.Path).Value.Trim();
         }
 
         #endregion Parse
