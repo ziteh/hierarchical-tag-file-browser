@@ -121,10 +121,10 @@ namespace TagBaseFileBrowser
         public List<Tag> GetParentTags(Taggable taggable)
         {
             var tags = new List<Tag>();
-            var targetTagTarentTagIDs = taggable.ParentTagNames;
-            foreach (var id in targetTagTarentTagIDs)
+            var targetTagTarentTagNames = taggable.ParentTagNames;
+            foreach (var name in targetTagTarentTagNames)
             {
-                tags.Add(FindTagById(id));
+                tags.Add(FindTagByName(name));
             }
             return tags;
         }
