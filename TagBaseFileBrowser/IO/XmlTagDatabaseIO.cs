@@ -87,7 +87,7 @@ namespace TagBaseFileBrowser.IO
 
         private string ParseName(XmlNode node)
         {
-            return node.SelectSingleNode(Define.Name).InnerText.Trim();
+            return node.Attributes.GetNamedItem(Define.Name).Value.Trim();
         }
 
         private List<string> ParseParentTagNames(XmlNode node)
