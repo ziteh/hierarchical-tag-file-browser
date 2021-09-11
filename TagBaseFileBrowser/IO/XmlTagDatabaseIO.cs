@@ -27,14 +27,6 @@ namespace TagBaseFileBrowser.IO
                     var alias = ParesAlias(node);
                     var remark = ParseRemark(node);
 
-                    // Add to tags.
-                    var tag = new Tag(name, id, type, parentTagNames)
-                    {
-                        Alias = alias,
-                        Remark = remark
-                    };
-                    tags.Add(tag);
-
                     // Add self to child-list of parent-tag.
                     foreach (var parentName in parentTagNames)
                     {
@@ -49,6 +41,14 @@ namespace TagBaseFileBrowser.IO
                             }
                         }
                     }
+
+                    // Add to tags.
+                    var tag = new Tag(name, id, type, parentTagNames)
+                    {
+                        Alias = alias,
+                        Remark = remark
+                    };
+                    tags.Add(tag);
 
                     tagNameIdPairs.Add(name, $"t{id}");
                     id++;
@@ -99,7 +99,7 @@ namespace TagBaseFileBrowser.IO
 
         private List<string> ParseParentTagNames(XmlNode node)
         {
-            List<string> parentTagIDs = new List<string>();
+            List<string> parentTagNames = new List<string>();
             var nodes = node.SelectNodes(Define.ParentTag);
             if (nodes != null)
             {
@@ -108,16 +108,16 @@ namespace TagBaseFileBrowser.IO
                     var name = n.InnerText;
                     if (String.IsNullOrWhiteSpace(name))
                     {
-                        name = Define.Error;
+                        name = new Tag().Name;
                     }
-                    parentTagIDs.Add(name.Trim());
+                    parentTagNames.Add(name.Trim());
                 }
             }
             else
             {
-                parentTagIDs.Add(new Tag().Id);
+                parentTagNames.Add(new Tag().Name);
             }
-            return parentTagIDs;
+            return parentTagNames;
         }
 
         private string ParseRemark(XmlNode node)

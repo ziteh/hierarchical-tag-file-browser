@@ -99,10 +99,10 @@ namespace TagBaseFileBrowser
         public List<Obj> GetChildObjs(Tag tag)
         {
             var objs = new List<Obj>();
-            var targetTagChildObjIDs = tag.ChildObjNames;
-            foreach (var id in targetTagChildObjIDs)
+            var targetTagChildObjNames = tag.ChildObjNames;
+            foreach (var name in targetTagChildObjNames)
             {
-                objs.Add(FindObjById(id));
+                objs.Add(FindObjByName(name));
             }
             return objs;
         }
@@ -110,10 +110,10 @@ namespace TagBaseFileBrowser
         public List<Tag> GetChildTags(Tag tag)
         {
             var tags = new List<Tag>();
-            var targetTagChildTagIDs = tag.ChildTagNames;
-            foreach (var id in targetTagChildTagIDs)
+            var targetTagChildTagNames = tag.ChildTagNames;
+            foreach (var name in targetTagChildTagNames)
             {
-                tags.Add(FindTagById(id));
+                tags.Add(FindTagByName(name));
             }
             return tags;
         }
@@ -189,7 +189,6 @@ namespace TagBaseFileBrowser
 
         public void CreatTagTreeView(TreeView treeView)
         {
-            var index = 0;
             foreach (var tag in _tags)
             {
                 var pt = GetParentTags(tag);
@@ -199,8 +198,6 @@ namespace TagBaseFileBrowser
                 {
                     var treeNode = CreatTreeNode(tag);
                     treeView.Nodes.Add(treeNode);
-
-                    index++;
                 }
             }
             treeView.ExpandAll();
