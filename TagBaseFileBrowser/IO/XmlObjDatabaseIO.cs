@@ -98,6 +98,7 @@ namespace TagBaseFileBrowser.IO
             var sr = MakeStreamReader(path);
             var xd = new XmlDocument();
             xd.LoadXml(sr.ReadToEnd());
+            sr.Close();
             return xd.SelectNodes($"/{Define.Root}/{Define.Obj}");
         }
 

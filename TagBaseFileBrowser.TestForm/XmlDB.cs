@@ -19,6 +19,8 @@ namespace TagBaseFileBrowser.TestForm
         public XmlDB()
         {
             InitializeComponent();
+
+            var a = new XmlParametersIO().Read(@"C:\Users\htf\GoogleDrive\01-Projects\hierarchical-tag-file-browser\Test\parameters.xml");
         }
 
         private void buttonReadXml_Click(object sender, EventArgs e)

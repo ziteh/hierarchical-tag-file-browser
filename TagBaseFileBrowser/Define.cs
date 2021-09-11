@@ -14,6 +14,7 @@ namespace TagBaseFileBrowser
         public static string FontColor = "fontColor";
         public static string Name = "name";
         public static string Obj = "obj";
+        public static string Paramemter = "param";
         public static string ParentTag = "parentTag";
         public static string Path = "path";
         public static string Remark = "remark";
@@ -22,5 +23,6 @@ namespace TagBaseFileBrowser
         public static string Tag = "tag";
         public static string ThumbnailPath = "thumbnailPath";
         public static string Type = "type";
+        public static string Value = "value";
     }
 }

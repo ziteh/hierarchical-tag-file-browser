@@ -52,6 +52,7 @@
     <Compile Include="Define.cs" />
     <Compile Include="IO\IObjDatabaseIO.cs" />
     <Compile Include="IO\XmlObjDatabaseIO.cs" />
+    <Compile Include="IO\XmlParametersIO.cs" />
     <Compile Include="IO\XmlTagDatabaseIO.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
