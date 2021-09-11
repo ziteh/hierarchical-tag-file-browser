@@ -191,10 +191,9 @@ namespace TagBaseFileBrowser
         {
             foreach (var tag in _tags)
             {
-                var pt = GetParentTags(tag);
                 if (tag.Name != "root" &&
-                    pt.Count == 1 &&
-                    pt[0].Name == "root")
+                    tag.ParentTagNames.Count == 1 &&
+                    tag.ParentTagNames[0] == "root")
                 {
                     var treeNode = CreatTreeNode(tag);
                     treeView.Nodes.Add(treeNode);
