@@ -85,14 +85,14 @@ namespace TagBaseFileBrowser
 
         #region Get
 
-        public static string ToString(List<Tag> tags)
+        public static string ToString(List<Tag> tags, char splicer = ',')
         {
             var s = "";
             foreach (var t in tags)
             {
-                s += $"{t.Name},";
+                s += $"{t.Name}{splicer}";
             }
-            s.TrimEnd(',');
+            s = s.TrimEnd(splicer);
             return s;
         }
 
@@ -138,7 +138,8 @@ namespace TagBaseFileBrowser
             var msg = "";
             msg += $"Name: {obj.Name}\n" +
                    $"ID: {obj.Id}\n" +
-                   $"Path: {obj.Path}";
+                   $"Path: {obj.Path}\n" +
+                   $"Tags: {ToString(GetParentTags(obj))}";
             return msg;
         }
 

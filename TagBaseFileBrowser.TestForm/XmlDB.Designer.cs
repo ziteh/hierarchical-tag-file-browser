@@ -33,6 +33,7 @@ namespace TagBaseFileBrowser.TestForm
             this.buttonReadXml = new System.Windows.Forms.Button();
             this.treeViewTags = new System.Windows.Forms.TreeView();
             this.listViewObjs = new System.Windows.Forms.ListView();
+            this.labelObjInfo = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // textBoxPath
@@ -74,13 +75,24 @@ namespace TagBaseFileBrowser.TestForm
             this.listViewObjs.Size = new System.Drawing.Size(494, 384);
             this.listViewObjs.TabIndex = 5;
             this.listViewObjs.UseCompatibleStateImageBehavior = false;
+            this.listViewObjs.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.listViewObjs_ItemSelectionChanged);
             this.listViewObjs.DoubleClick += new System.EventHandler(this.listViewObjs_DoubleClick);
+            // 
+            // labelObjInfo
+            // 
+            this.labelObjInfo.AutoSize = true;
+            this.labelObjInfo.Location = new System.Drawing.Point(903, 41);
+            this.labelObjInfo.Name = "labelObjInfo";
+            this.labelObjInfo.Size = new System.Drawing.Size(17, 15);
+            this.labelObjInfo.TabIndex = 6;
+            this.labelObjInfo.Text = "--";
             // 
             // XmlDB
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1094, 437);
+            this.Controls.Add(this.labelObjInfo);
             this.Controls.Add(this.listViewObjs);
             this.Controls.Add(this.treeViewTags);
             this.Controls.Add(this.buttonReadXml);
@@ -99,6 +111,7 @@ namespace TagBaseFileBrowser.TestForm
         private System.Windows.Forms.Button buttonReadXml;
         private System.Windows.Forms.TreeView treeViewTags;
         private System.Windows.Forms.ListView listViewObjs;
+        private System.Windows.Forms.Label labelObjInfo;
     }
 }
 

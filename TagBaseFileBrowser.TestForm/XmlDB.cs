@@ -34,6 +34,17 @@ namespace TagBaseFileBrowser.TestForm
             Process.Start(selected.SubItems[2].Text);
         }
 
+        private void listViewObjs_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            try
+            {
+                var selectedObjName = listViewObjs.SelectedItems[0].Text;
+                var objInfo = _taggableItemHandler.GetInfo(_taggableItemHandler.FindObjByName(selectedObjName));
+                labelObjInfo.Text = objInfo;
+            }
+            catch { }
+        }
+
         private void treeViewTags_AfterSelect(object sender, TreeViewEventArgs e)
         {
             var selected = treeViewTags.SelectedNode;
