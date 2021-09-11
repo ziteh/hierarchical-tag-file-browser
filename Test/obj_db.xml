@@ -3,7 +3,7 @@
 
   <obj>
     <name>TestObj-1</name>
-    <path>c:\test.png</path>
+    <path>{C}{TEST}.png</path>
     <parentTag>Tag-1</parentTag>
     <remark>For testing.</remark>
     <thumbnailPath></thumbnailPath>

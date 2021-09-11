@@ -11,6 +11,7 @@ namespace TagBaseFileBrowser
     public class TaggableItemHandler
     {
         private List<Obj> _objs;
+        private Dictionary<string, string> _parametersValuePairs = new Dictionary<string, string>();
         private List<Tag> _tags;
 
         public TaggableItemHandler(string path)
@@ -20,6 +21,9 @@ namespace TagBaseFileBrowser
 
             var xmlObjIO = new XmlObjDatabaseIO();
             _objs = xmlObjIO.Read(path + @"\obj_db.xml");
+
+            var xmlParamIO = new XmlParametersIO();
+            _parametersValuePairs = xmlParamIO.Read(path + @"\parameters.xml");
 
             AddObjsIntoTags(_tags, _objs);
         }
@@ -252,5 +256,42 @@ namespace TagBaseFileBrowser
         }
 
         #endregion ListView
+
+        #region Parameters
+
+        public string ReplaceParameter(string text)
+        {
+            while (CheckParameter(text, out var index, out var length))
+            {
+                var param = text.Substring(index, length);
+                text = text.Replace($"{Define.ParameterHead}{param}{Define.ParameterEnd}",
+                                    _parametersValuePairs[param]);
+            }
+            return text;
+        }
+
+        private bool CheckParameter(string text, out int index, out int length)
+        {
+            bool check;
+
+            var headIndex = text.IndexOf(Define.ParameterHead);
+            var endIndex = text.IndexOf(Define.ParameterEnd);
+            if (headIndex != -1 && endIndex != -1 && endIndex > headIndex)
+            {
+                check = true;
+                index = headIndex + 1;
+                length = endIndex - headIndex - 1;
+            }
+            else
+            {
+                check = false;
+                index = 0;
+                length = 0;
+            }
+
+            return check;
+        }
+
+        #endregion Parameters
     }
 }

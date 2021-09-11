@@ -35,7 +35,8 @@ namespace TagBaseFileBrowser.TestForm
             try
             {
                 var selected = listViewObjs.SelectedItems[0];
-                Process.Start(selected.SubItems[2].Text);
+                var path = selected.SubItems[2].Text;
+                Process.Start(_taggableItemHandler.ReplaceParameter(path));
             }
             catch (Exception ex)
             {

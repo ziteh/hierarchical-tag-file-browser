@@ -15,6 +15,8 @@ namespace TagBaseFileBrowser
         public static string Name = "name";
         public static string Obj = "obj";
         public static string Paramemter = "param";
+        public static string ParameterEnd = "}";
+        public static string ParameterHead = "{";
         public static string ParentTag = "parentTag";
         public static string Path = "path";
         public static string Remark = "remark";

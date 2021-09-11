@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
-  <param name="TestParam1" value="1" />
-  <param name="TestParam2" value="2" />
-  <param name="TestParam3" value="3asdf" />
+  <param name="C" value="c:{S}" />
+  <param name="TEST" value="test" />
+  <param name="S" value="\" />
 </root>
