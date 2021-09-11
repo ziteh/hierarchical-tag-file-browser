@@ -22,8 +22,8 @@
     <name>Tag-3</name>
     <type>tagSet</type>
     <remark>For testing.</remark>
-    <parentTag>TestTag-1</parentTag>
-    <parentTag>TestTag-2</parentTag>
+    <parentTag>Tag-1</parentTag>
+    <parentTag>Tag-2</parentTag>
   </tag>
 
   <tag>
@@ -31,7 +31,7 @@
     <alias>TT4</alias>
     <type>general</type>
     <remark>For testing.</remark>
-    <parentTag>TestTag-1</parentTag>
+    <parentTag>Tag-1</parentTag>
   </tag>
 
   <tag>
@@ -47,7 +47,7 @@
     <alias>TT6</alias>
     <type>general</type>
     <remark>For testing.</remark>
-    <parentTag>TestTag-3</parentTag>
+    <parentTag>Tag-3</parentTag>
   </tag>
 
 </root>
