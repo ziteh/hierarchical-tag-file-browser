@@ -25,6 +25,12 @@ namespace TagBaseFileBrowser.IO
                 var objPath = ParsePath(node);
                 var parentTagNames = ParseParentTagNames(node);
 
+                if (String.IsNullOrEmpty(name) && !String.IsNullOrEmpty(objPath))
+                {
+                    var ops = objPath.TrimEnd('\\').Split('\\');
+                    name = ops[ops.Length - 1];
+                }
+
                 objs.Add(new Obj(name, id) { Path = objPath, ParentTagNames = parentTagNames });
                 id++;
             }
@@ -35,12 +41,16 @@ namespace TagBaseFileBrowser.IO
 
         private string ParseName(XmlNode node)
         {
-            var name = node.SelectSingleNode(Define.Name).InnerText;
+            string name = null;
 
-            if (String.IsNullOrWhiteSpace(name))
-                name = Define.Error;
-            else
-                name = name.Trim();
+            var n = node.SelectSingleNode(Define.Name);
+            if (n != null)
+            {
+                name = n.InnerText;
+
+                if (!String.IsNullOrWhiteSpace(name))
+                    name = name.Trim();
+            }
 
             return name;
         }
