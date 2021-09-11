@@ -26,9 +26,9 @@ namespace TagBaseFileBrowser
             Name = "root";
             Type = TagType.General;
             Id = "tr";
-            ParentTagIDs = new List<string>();
-            ChildTagIDs = new List<string>();
-            ChildObjIDs = new List<string>();
+            ParentTagNames = new List<string>();
+            ChildTagNames = new List<string>();
+            ChildObjNames = new List<string>();
         }
 
         public Tag(string name, int id, TagType type = TagType.General, List<string> parentTags = null)
@@ -36,14 +36,14 @@ namespace TagBaseFileBrowser
             Name = name;
             Id = $"t{id}";
             Type = type;
-            ParentTagIDs = parentTags ?? new List<string>() { new Tag().Id };
-            ChildTagIDs = new List<string>();
-            ChildObjIDs = new List<string>();
+            ParentTagNames = parentTags ?? new List<string>() { new Tag().Id };
+            ChildTagNames = new List<string>();
+            ChildObjNames = new List<string>();
         }
 
         public Color BackgroundColor { get; set; } = Color.White;
-        public List<string> ChildObjIDs { get; set; }
-        public List<string> ChildTagIDs { get; set; }
+        public List<string> ChildObjNames { get; set; }
+        public List<string> ChildTagNames { get; set; }
         public Color FontColor { get; set; } = Color.Black;
         public TagType Type { get; private set; }
 
@@ -58,21 +58,8 @@ namespace TagBaseFileBrowser
         public List<string> Alias { get; set; }
         public string Id { get; protected set; }
         public string Name { get; protected set; }
-        public List<string> ParentTagIDs { get; set; }
+        public List<string> ParentTagNames { get; set; }
         public string Remark { get; set; }
         public string ThumbnailPath { get; set; }
-
-        //public void AddTag(Tag tag)
-        //{
-        //    ParentTags.Add(tag);
-        //}
-
-        //public void AddTag(Tag[] tags)
-        //{
-        //    foreach (var tag in tags)
-        //    {
-        //        ParentTags.Add(tag);
-        //    }
-        //}
     }
 }
