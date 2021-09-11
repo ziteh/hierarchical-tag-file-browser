@@ -5,6 +5,10 @@
     <name>TestObj-1</name>
     <path>c:\test.png</path>
     <parentTag>Tag-1</parentTag>
+    <remark>For testing.</remark>
+    <thumbnailPath></thumbnailPath>
+    <previewPath></previewPath>
+    <alias>TO1</alias>
   </obj>
 
   <obj>

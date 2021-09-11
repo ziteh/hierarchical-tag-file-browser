@@ -8,6 +8,9 @@
     <type>general</type>
     <remark>For testing.</remark>
     <parentTag></parentTag>
+    <thumbnailPath></thumbnailPath>
+    <fontColor>FFFFFF</fontColor>
+    <backgroundColor>000000</backgroundColor>
   </tag>
 
   <tag>
