@@ -19,13 +19,29 @@ namespace TagBaseFileBrowser.TestForm
         public XmlDB()
         {
             InitializeComponent();
-            Process.Start(@"c:\test.png");
         }
 
         private void buttonReadXml_Click(object sender, EventArgs e)
         {
             _taggableItemHandler = new TaggableItemHandler(textBoxPath.Text);
             _taggableItemHandler.CreatTagTreeView(treeViewTags);
+            _taggableItemHandler.CreateObjsListView(listViewObjs);
+        }
+
+        private void listViewObjs_DoubleClick(object sender, EventArgs e)
+        {
+            var selected = listViewObjs.SelectedItems[0];
+            Process.Start(selected.SubItems[2].Text);
+        }
+
+        private void treeViewTags_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            var selected = treeViewTags.SelectedNode;
+            if (selected != null)
+            {
+                var selectedTag = _taggableItemHandler.FindTagByName(selected.Text);
+                _taggableItemHandler.UpdateObjListView(listViewObjs, selectedTag);
+            }
         }
 
         private void treeViewTags_DoubleClick(object sender, EventArgs e)

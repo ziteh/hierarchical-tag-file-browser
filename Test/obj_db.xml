@@ -3,20 +3,20 @@
 
   <obj>
     <name>TestObj-1</name>
-    <path>C:\</path>
+    <path>c:\test.png</path>
     <tag>TestTag-1</tag>
   </obj>
 
   <obj>
     <name>TestObj-2</name>
-    <path>C:\</path>
+    <path>c:\</path>
     <tag>TestTag-1</tag>
     <tag>TestTag-2</tag>
   </obj>
 
   <obj>
     <name>TestObj-3</name>
-    <path>D:\</path>
+    <path>d:\</path>
   </obj>
 
 </root>

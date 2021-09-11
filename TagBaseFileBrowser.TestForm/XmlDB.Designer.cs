@@ -33,9 +33,6 @@ namespace TagBaseFileBrowser.TestForm
             this.buttonReadXml = new System.Windows.Forms.Button();
             this.treeViewTags = new System.Windows.Forms.TreeView();
             this.listViewObjs = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // textBoxPath
@@ -64,22 +61,20 @@ namespace TagBaseFileBrowser.TestForm
             this.treeViewTags.Name = "treeViewTags";
             this.treeViewTags.Size = new System.Drawing.Size(343, 386);
             this.treeViewTags.TabIndex = 4;
+            this.treeViewTags.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewTags_AfterSelect);
             this.treeViewTags.DoubleClick += new System.EventHandler(this.treeViewTags_DoubleClick);
             // 
             // listViewObjs
             // 
-            this.listViewObjs.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3});
             this.listViewObjs.FullRowSelect = true;
             this.listViewObjs.GridLines = true;
             this.listViewObjs.HideSelection = false;
             this.listViewObjs.Location = new System.Drawing.Point(385, 41);
             this.listViewObjs.Name = "listViewObjs";
-            this.listViewObjs.Size = new System.Drawing.Size(265, 384);
+            this.listViewObjs.Size = new System.Drawing.Size(494, 384);
             this.listViewObjs.TabIndex = 5;
             this.listViewObjs.UseCompatibleStateImageBehavior = false;
+            this.listViewObjs.DoubleClick += new System.EventHandler(this.listViewObjs_DoubleClick);
             // 
             // XmlDB
             // 
@@ -104,9 +99,6 @@ namespace TagBaseFileBrowser.TestForm
         private System.Windows.Forms.Button buttonReadXml;
         private System.Windows.Forms.TreeView treeViewTags;
         private System.Windows.Forms.ListView listViewObjs;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.ColumnHeader columnHeader3;
     }
 }
 

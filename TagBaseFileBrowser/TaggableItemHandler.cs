@@ -85,6 +85,17 @@ namespace TagBaseFileBrowser
 
         #region Get
 
+        public static string ToString(List<Tag> tags)
+        {
+            var s = "";
+            foreach (var t in tags)
+            {
+                s += $"{t.Name},";
+            }
+            s.TrimEnd(',');
+            return s;
+        }
+
         public List<Obj> GetChildObjs(Tag tag)
         {
             var objs = new List<Obj>();
@@ -212,5 +223,37 @@ namespace TagBaseFileBrowser
         }
 
         #endregion TreeView
+
+        #region ListView
+
+        public void CreateObjsListView(ListView listView)
+        {
+            listView.View = View.Details;
+            listView.GridLines = true;
+            listView.LabelEdit = false;
+            listView.FullRowSelect = true;
+            listView.MultiSelect = false;
+            listView.Columns.Add("Name", 100);
+            listView.Columns.Add("Tags", 100);
+            listView.Columns.Add("Path", 100);
+        }
+
+        public void UpdateObjListView(ListView listView, Tag tag)
+        {
+            tag = tag ?? new Tag();
+            listView.Items.Clear();
+
+            var childObjs = GetChildObjs(tag);
+            foreach (var co in childObjs)
+            {
+                var item = new ListViewItem(co.Name);
+                item.SubItems.Add(ToString(GetParentTags(co)));
+                item.SubItems.Add(co.Path);
+
+                listView.Items.Add(item);
+            }
+        }
+
+        #endregion ListView
     }
 }
