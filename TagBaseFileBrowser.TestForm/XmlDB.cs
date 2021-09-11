@@ -30,8 +30,15 @@ namespace TagBaseFileBrowser.TestForm
 
         private void listViewObjs_DoubleClick(object sender, EventArgs e)
         {
-            var selected = listViewObjs.SelectedItems[0];
-            Process.Start(selected.SubItems[2].Text);
+            try
+            {
+                var selected = listViewObjs.SelectedItems[0];
+                Process.Start(selected.SubItems[2].Text);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void listViewObjs_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
