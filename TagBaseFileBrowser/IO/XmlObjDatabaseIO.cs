@@ -25,10 +25,10 @@ namespace TagBaseFileBrowser.IO
             foreach (XmlNode node in nodes)
             {
                 var name = ParseName(node);
-                var p = ParsePath(node);
-                var tagIDs = ParseTagID(node);
+                var objPath = ParsePath(node);
+                var parentTagNames = ParseParentTagNames(node);
 
-                objs.Add(new Obj(name, id) { Path = p, ParentTagNames = tagIDs });
+                objs.Add(new Obj(name, id) { Path = objPath, ParentTagNames = parentTagNames });
                 id++;
             }
             return objs;
@@ -48,6 +48,29 @@ namespace TagBaseFileBrowser.IO
             return name;
         }
 
+        private List<string> ParseParentTagNames(XmlNode node)
+        {
+            List<string> parentTagIDs = new List<string>();
+            var nodes = node.SelectNodes(Define.ParentTag);
+            if (nodes != null)
+            {
+                foreach (XmlNode n in nodes)
+                {
+                    var name = n.InnerText;
+                    if (String.IsNullOrWhiteSpace(name))
+                    {
+                        name = Define.Error;
+                    }
+                    parentTagIDs.Add(name.Trim());
+                }
+            }
+            else
+            {
+                parentTagIDs.Add(new Tag().Id);
+            }
+            return parentTagIDs;
+        }
+
         private string ParsePath(XmlNode node)
         {
             /// TODO: resolve SelectSingleNode return null.
@@ -59,24 +82,6 @@ namespace TagBaseFileBrowser.IO
                 path = path.Trim();
 
             return path;
-        }
-
-        private List<string> ParseTagID(XmlNode node)
-        {
-            var nodes = node.SelectNodes(Define.Tag);
-            List<string> tagIDs = new List<string>();
-            if (nodes != null)
-            {
-                foreach (XmlNode n in nodes)
-                {
-                    var tagName = n.InnerText.Trim();
-                    if (_tagNameIdPairs.ContainsKey(tagName))
-                    {
-                        tagIDs.Add(_tagNameIdPairs[tagName]);
-                    }
-                }
-            }
-            return tagIDs;
         }
 
         #endregion Parse
