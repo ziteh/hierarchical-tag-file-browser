@@ -41,4 +41,12 @@
     <parentTags>root</parentTags>
   </tag>
 
+  <tag>
+    <name>TestTag-6</name>
+    <alias>TT6</alias>
+    <type>general</type>
+    <remark>For testing.</remark>
+    <parentTags>TestTag-3</parentTags>
+  </tag>
+
 </root>
