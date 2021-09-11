@@ -28,7 +28,7 @@ namespace TagBaseFileBrowser.IO
                 var p = ParsePath(node);
                 var tagIDs = ParseTagID(node);
 
-                objs.Add(new Obj(name, id) { Path = p, ParentTagIDs = tagIDs });
+                objs.Add(new Obj(name, id) { Path = p, ParentTagNames = tagIDs });
                 id++;
             }
             return objs;

@@ -99,7 +99,7 @@ namespace TagBaseFileBrowser
         public List<Obj> GetChildObjs(Tag tag)
         {
             var objs = new List<Obj>();
-            var targetTagChildObjIDs = tag.ChildObjIDs;
+            var targetTagChildObjIDs = tag.ChildObjNames;
             foreach (var id in targetTagChildObjIDs)
             {
                 objs.Add(FindObjById(id));
@@ -110,7 +110,7 @@ namespace TagBaseFileBrowser
         public List<Tag> GetChildTags(Tag tag)
         {
             var tags = new List<Tag>();
-            var targetTagChildTagIDs = tag.ChildTagIDs;
+            var targetTagChildTagIDs = tag.ChildTagNames;
             foreach (var id in targetTagChildTagIDs)
             {
                 tags.Add(FindTagById(id));
@@ -121,7 +121,7 @@ namespace TagBaseFileBrowser
         public List<Tag> GetParentTags(Taggable taggable)
         {
             var tags = new List<Tag>();
-            var targetTagTarentTagIDs = taggable.ParentTagIDs;
+            var targetTagTarentTagIDs = taggable.ParentTagNames;
             foreach (var id in targetTagTarentTagIDs)
             {
                 tags.Add(FindTagById(id));
@@ -177,10 +177,10 @@ namespace TagBaseFileBrowser
         {
             foreach (var obj in objs)
             {
-                foreach (var oParentTagId in obj.ParentTagIDs)
+                foreach (var oParentTagId in obj.ParentTagNames)
                 {
                     var findedTag = FindTagById(oParentTagId);
-                    findedTag.ChildObjIDs.Add(obj.Id);
+                    findedTag.ChildObjNames.Add(obj.Id);
                 }
             }
         }

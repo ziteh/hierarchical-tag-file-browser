@@ -13,71 +13,32 @@ namespace TagBaseFileBrowser.IO
         public List<Tag> Read(string path, out Dictionary<string, string> tagNameIdPairs)
         {
             tagNameIdPairs = new Dictionary<string, string>();
-            var rootTag = new Tag();
-            var tags = new List<Tag>() { rootTag };
+            var tags = new List<Tag>() { new Tag() };
             int id = 0;
             var nodes = LoadXmlNodeList(path);
             foreach (XmlNode node in nodes)
             {
-                var name = node.SelectSingleNode(Define.Name).InnerText.Trim();
+                try
+                {
+                    var name = ParseName(node);
+                    var type = ParseTagType(node);
+                    var parentTagNames = ParseParentTagNames(node);
+                    var alias = ParesAlias(node);
+                    var remark = ParseRemark(node);
 
-                var sType = node.SelectSingleNode(Define.Type).InnerText.Trim();
-                TagType type;
-                if (!String.IsNullOrWhiteSpace(sType))
-                {
-                    type = TagTypeParser.Parse(sType);
-                }
-                else
-                {
-                    type = TagType.General;
-                }
-
-                var sParentTags = node.SelectSingleNode(Define.ParentTags).InnerText.Trim();
-                List<string> parentTagIDs = new List<string>();
-                if (!String.IsNullOrWhiteSpace(sParentTags))
-                {
-                    foreach (var pt in sParentTags.Split(Define.Spliter))
+                    var tag = new Tag(name, id, type, parentTagNames)
                     {
-                        foreach (var t in tags)
-                        {
-                            if (t.Name == pt.Trim())
-                            {
-                                parentTagIDs.Add(t.Id);
-                                t.ChildTagIDs.Add($"t{id}");
-                            }
-                        }
-                    }
+                        Alias = alias,
+                        Remark = remark
+                    };
+                    tags.Add(tag);
+                    tagNameIdPairs.Add(name, $"t{id}");
+                    id++;
                 }
-                else
+                catch
                 {
-                    // Add root-tag.
-                    parentTagIDs.Add(rootTag.Id);
+                    continue;
                 }
-
-                var sAlias = node.SelectSingleNode(Define.Alias).InnerText.Trim();
-                var alias = new List<string>();
-                if (!String.IsNullOrWhiteSpace(sAlias))
-                {
-                    foreach (var a in sAlias.Split(Define.Spliter))
-                    {
-                        alias.Add(a.Trim());
-                    }
-                }
-
-                var remark = node.SelectSingleNode(Define.Remark).InnerText.Trim();
-                if (String.IsNullOrWhiteSpace(remark))
-                {
-                    remark = "";
-                }
-
-                var tag = new Tag(name, id, type, parentTagIDs)
-                {
-                    Alias = alias,
-                    Remark = remark
-                };
-                tags.Add(tag);
-                tagNameIdPairs.Add(name, $"t{id}");
-                id++;
             }
             return tags;
         }
@@ -91,6 +52,93 @@ namespace TagBaseFileBrowser.IO
         {
             throw new NotImplementedException();
         }
+
+        #region Parse
+
+        private List<string> ParesAlias(XmlNode node)
+        {
+            List<string> alias = new List<string>();
+            var nodes = node.SelectNodes(Define.Alias);
+            if (nodes != null)
+            {
+                foreach (XmlNode n in nodes)
+                {
+                    var name = n.InnerText;
+                    if (String.IsNullOrWhiteSpace(name))
+                    {
+                        name = Define.Error;
+                    }
+                    alias.Add(name.Trim());
+                }
+            }
+            return alias;
+        }
+
+        private string ParseName(XmlNode node)
+        {
+            return node.SelectSingleNode(Define.Name).InnerText.Trim();
+        }
+
+        private List<string> ParseParentTagNames(XmlNode node)
+        {
+            List<string> parentTagIDs = new List<string>();
+            var nodes = node.SelectNodes(Define.ParentTag);
+            if (nodes != null)
+            {
+                foreach (XmlNode n in nodes)
+                {
+                    var name = n.InnerText;
+                    if (String.IsNullOrWhiteSpace(name))
+                    {
+                        name = Define.Error;
+                    }
+                    parentTagIDs.Add(name.Trim());
+                }
+            }
+            else
+            {
+                parentTagIDs.Add(new Tag().Id);
+            }
+            return parentTagIDs;
+        }
+
+        private string ParseRemark(XmlNode node)
+        {
+            try
+            {
+                return node.SelectSingleNode(Define.Remark).InnerText.Trim();
+            }
+            catch
+            {
+                return "";
+            }
+        }
+
+        private TagType ParseTagType(XmlNode node)
+        {
+            TagType type;
+            var typeNode = node.SelectSingleNode(Define.Type);
+            if (typeNode != null)
+            {
+                var stringType = typeNode.InnerText.Trim();
+                if (!String.IsNullOrWhiteSpace(stringType))
+                {
+                    type = TagTypeParser.Parse(stringType);
+                }
+                else
+                {
+                    type = TagType.General;
+                }
+            }
+            else
+            {
+                type = TagType.General;
+            }
+
+            return type;
+        }
+
+        #endregion Parse
 
         private XmlNodeList LoadXmlNodeList(string path)
         {
