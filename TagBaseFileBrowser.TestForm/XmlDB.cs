@@ -13,6 +13,8 @@ namespace TagBaseFileBrowser.TestForm
 {
     public partial class XmlDB : Form
     {
+        private TaggableItemHandler _taggableItemHandler;
+
         public XmlDB()
         {
             InitializeComponent();
@@ -20,14 +22,18 @@ namespace TagBaseFileBrowser.TestForm
 
         private void buttonReadXml_Click(object sender, EventArgs e)
         {
-            var th = new TaggableItemHandler(textBoxPath.Text);
+            _taggableItemHandler = new TaggableItemHandler(textBoxPath.Text);
+            _taggableItemHandler.CreatTagTreeView(treeViewTags);
+        }
 
-            //var target = "TestTag-1";
-            //var a1 = th.GetChildTags(th.FindTagByName(target));
-            //var a2 = th.GetChildObjs(th.FindTagByName(target));
-            //var a3 = th.GetParentTags(th.FindTagByName(target));
-
-            th.CreatTagTreeView(treeViewTags);
+        private void treeViewTags_DoubleClick(object sender, EventArgs e)
+        {
+            var selected = treeViewTags.SelectedNode;
+            if (selected != null)
+            {
+                MessageBox.Show(_taggableItemHandler.GetInfo(
+                    _taggableItemHandler.FindTagByName(selected.Text)));
+            }
         }
     }
 }

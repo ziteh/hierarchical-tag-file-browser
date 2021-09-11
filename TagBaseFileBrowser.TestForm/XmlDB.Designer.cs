@@ -104,6 +104,7 @@ namespace TagBaseFileBrowser.TestForm
             this.treeViewTags.Name = "treeViewTags";
             this.treeViewTags.Size = new System.Drawing.Size(443, 457);
             this.treeViewTags.TabIndex = 4;
+            this.treeViewTags.DoubleClick += new System.EventHandler(this.treeViewTags_DoubleClick);
             // 
             // XmlDB
             // 
