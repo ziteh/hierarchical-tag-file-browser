@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,7 @@ namespace TagBaseFileBrowser.TestForm
         public XmlDB()
         {
             InitializeComponent();
+            Process.Start(@"c:\test.png");
         }
 
         private void buttonReadXml_Click(object sender, EventArgs e)
