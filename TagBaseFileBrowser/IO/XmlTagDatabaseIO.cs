@@ -18,45 +18,38 @@ namespace TagBaseFileBrowser.IO
             var nodes = LoadXmlNodeList(path);
             foreach (XmlNode node in nodes)
             {
-                try
+                // Parse xml node.
+                var name = ParseName(node);
+                var type = ParseTagType(node);
+                var parentTagNames = ParseParentTagNames(node);
+                var alias = ParesAlias(node);
+                var remark = ParseRemark(node);
+
+                // Add self to child-list of parent-tag.
+                foreach (var parentName in parentTagNames)
                 {
-                    // Parse xml node.
-                    var name = ParseName(node);
-                    var type = ParseTagType(node);
-                    var parentTagNames = ParseParentTagNames(node);
-                    var alias = ParesAlias(node);
-                    var remark = ParseRemark(node);
-
-                    // Add self to child-list of parent-tag.
-                    foreach (var parentName in parentTagNames)
+                    foreach (var t in tags)
                     {
-                        foreach (var t in tags)
+                        if (parentName == t.Name)
                         {
-                            if (parentName == t.Name)
-                            {
-                                if (t.ChildTagNames == null)
-                                    t.ChildTagNames = new List<string>();
+                            if (t.ChildTagNames == null)
+                                t.ChildTagNames = new List<string>();
 
-                                t.ChildTagNames.Add(name);
-                            }
+                            t.ChildTagNames.Add(name);
                         }
                     }
-
-                    // Add to tags.
-                    var tag = new Tag(name, id, type, parentTagNames)
-                    {
-                        Alias = alias,
-                        Remark = remark
-                    };
-                    tags.Add(tag);
-
-                    tagNameIdPairs.Add(name, $"t{id}");
-                    id++;
                 }
-                catch
+
+                // Add to tags.
+                var tag = new Tag(name, id, type, parentTagNames)
                 {
-                    continue;
-                }
+                    Alias = alias,
+                    Remark = remark
+                };
+                tags.Add(tag);
+
+                //tagNameIdPairs.Add(name, $"t{id}");
+                id++;
             }
             return tags;
         }
@@ -103,14 +96,21 @@ namespace TagBaseFileBrowser.IO
             var nodes = node.SelectNodes(Define.ParentTag);
             if (nodes != null)
             {
-                foreach (XmlNode n in nodes)
+                if (nodes.Count > 0)
                 {
-                    var name = n.InnerText;
-                    if (String.IsNullOrWhiteSpace(name))
+                    foreach (XmlNode n in nodes)
                     {
-                        name = new Tag().Name;
+                        var name = n.InnerText;
+                        if (String.IsNullOrWhiteSpace(name))
+                        {
+                            name = new Tag().Name;
+                        }
+                        parentTagNames.Add(name.Trim());
                     }
-                    parentTagNames.Add(name.Trim());
+                }
+                else
+                {
+                    parentTagNames.Add(new Tag().Name);
                 }
             }
             else
@@ -124,7 +124,15 @@ namespace TagBaseFileBrowser.IO
         {
             try
             {
-                return node.SelectSingleNode(Define.Remark).InnerText.Trim();
+                var n = node.SelectSingleNode(Define.Remark);
+                if (n != null)
+                {
+                    return n.InnerText.Trim();
+                }
+                else
+                {
+                    return "";
+                }
             }
             catch
             {

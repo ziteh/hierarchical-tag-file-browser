@@ -156,7 +156,7 @@ namespace TagBaseFileBrowser
             {
                 msg += $"{ct.Name},";
             }
-            msg.Trim(',');
+            msg = msg.Trim(',');
 
             return msg;
         }
