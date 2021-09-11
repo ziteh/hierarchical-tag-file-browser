@@ -20,7 +20,9 @@ namespace TagBaseFileBrowser.TestForm
         {
             InitializeComponent();
 
-            var a = new XmlParametersIO().Read(@"C:\Users\htf\GoogleDrive\01-Projects\hierarchical-tag-file-browser\Test\parameters.xml");
+            var x = new XmlObjDatabaseIO();
+            x.Write(@"C:\Users\htf\GoogleDrive\01-Projects\hierarchical-tag-file-browser\Test\obj_db.xml", "321",
+                new List<string> { "A1", "B2", "C3" });
         }
 
         private void buttonReadXml_Click(object sender, EventArgs e)

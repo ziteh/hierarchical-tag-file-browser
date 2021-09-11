@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <obj>
+    <name>TestObj-1</name>
+    <path>{C}{TEST}.png</path>
+    <parentTag>Tag-1</parentTag>
+    <remark>For testing.</remark>
+    <thumbnailPath>
+    </thumbnailPath>
+    <previewPath>
+    </previewPath>
+    <alias>TO1</alias>
+  </obj>
+  <obj>
+    <name>TestObj-2</name>
+    <path>c:\</path>
+    <parentTag>Tag-1</parentTag>
+    <parentTag>Tag-2</parentTag>
+  </obj>
+  <obj>
+    <name>TestObj-3</name>
+    <path>d:\</path>
+  </obj>
+  <obj path="321">
+    <parentTag>A1</parentTag>
+    <parentTag>B2</parentTag>
+    <parentTag>C3</parentTag>
+  </obj>
+</root>
