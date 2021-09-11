@@ -2,51 +2,52 @@
 <root>
 
   <tag>
-    <name>TestTag-1</name>
-    <alias>TT1,tt1</alias>
+    <name>Tag-1</name>
+    <alias>TT1</alias>
+    <alias>tt1</alias>
     <type>general</type>
     <remark>For testing.</remark>
-    <parentTags></parentTags>
+    <parentTag></parentTag>
   </tag>
 
   <tag>
-    <name>TestTag-2</name>
-    <alias>TT2,tt2</alias>
+    <name>Tag-2</name>
+    <alias>TT2</alias>
     <type>general</type>
     <remark>For testing.</remark>
-    <parentTags></parentTags>
+    <parentTag></parentTag>
   </tag>
 
   <tag>
-    <name>TestTag-3</name>
-    <alias>TT3,tt3</alias>
+    <name>Tag-3</name>
     <type>tagSet</type>
     <remark>For testing.</remark>
-    <parentTags>TestTag-1,TestTag-2</parentTags>
+    <parentTag>TestTag-1</parentTag>
+    <parentTag>TestTag-2</parentTag>
   </tag>
 
   <tag>
-    <name>TestTag-4</name>
+    <name>Tag-4</name>
     <alias>TT4</alias>
     <type>general</type>
     <remark>For testing.</remark>
-    <parentTags>TestTag-1</parentTags>
+    <parentTag>TestTag-1</parentTag>
   </tag>
 
   <tag>
-    <name>TestTag-5</name>
+    <name>Tag-5</name>
     <alias>TT5</alias>
     <type>general</type>
     <remark>For testing.</remark>
-    <parentTags>root</parentTags>
+    <parentTag>root</parentTag>
   </tag>
 
   <tag>
-    <name>TestTag-6</name>
+    <name>Tag-6</name>
     <alias>TT6</alias>
     <type>general</type>
     <remark>For testing.</remark>
-    <parentTags>TestTag-3</parentTags>
+    <parentTag>TestTag-3</parentTag>
   </tag>
 
 </root>

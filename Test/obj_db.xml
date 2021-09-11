@@ -4,14 +4,14 @@
   <obj>
     <name>TestObj-1</name>
     <path>c:\test.png</path>
-    <tag>TestTag-1</tag>
+    <parentTag>TestTag-1</parentTag>
   </obj>
 
   <obj>
     <name>TestObj-2</name>
     <path>c:\</path>
-    <tag>TestTag-1</tag>
-    <tag>TestTag-2</tag>
+    <parentTag>TestTag-1</parentTag>
+    <parentTag>TestTag-2</parentTag>
   </obj>
 
   <obj>
