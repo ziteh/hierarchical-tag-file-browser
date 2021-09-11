@@ -18,7 +18,7 @@ namespace TagBaseFileBrowser
             var xmlTagIO = new XmlTagDatabaseIO();
             _tags = xmlTagIO.Read(path + @"\tag_db.xml", out var tagNameIdPaids);
 
-            var xmlObjIO = new XmlObjDatabaseIO(tagNameIdPaids);
+            var xmlObjIO = new XmlObjDatabaseIO();
             _objs = xmlObjIO.Read(path + @"\obj_db.xml");
 
             AddObjsIntoTags(_tags, _objs);
@@ -177,10 +177,10 @@ namespace TagBaseFileBrowser
         {
             foreach (var obj in objs)
             {
-                foreach (var oParentTagId in obj.ParentTagNames)
+                foreach (var oParentTagName in obj.ParentTagNames)
                 {
-                    var findedTag = FindTagById(oParentTagId);
-                    findedTag.ChildObjNames.Add(obj.Id);
+                    var findedTag = FindTagByName(oParentTagName);
+                    findedTag.ChildObjNames.Add(obj.Name);
                 }
             }
         }

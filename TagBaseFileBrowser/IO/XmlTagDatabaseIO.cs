@@ -20,18 +20,36 @@ namespace TagBaseFileBrowser.IO
             {
                 try
                 {
+                    // Parse xml node.
                     var name = ParseName(node);
                     var type = ParseTagType(node);
                     var parentTagNames = ParseParentTagNames(node);
                     var alias = ParesAlias(node);
                     var remark = ParseRemark(node);
 
+                    // Add to tags.
                     var tag = new Tag(name, id, type, parentTagNames)
                     {
                         Alias = alias,
                         Remark = remark
                     };
                     tags.Add(tag);
+
+                    // Add self to child-list of parent-tag.
+                    foreach (var parentName in parentTagNames)
+                    {
+                        foreach (var t in tags)
+                        {
+                            if (parentName == t.Name)
+                            {
+                                if (t.ChildTagNames == null)
+                                    t.ChildTagNames = new List<string>();
+
+                                t.ChildTagNames.Add(name);
+                            }
+                        }
+                    }
+
                     tagNameIdPairs.Add(name, $"t{id}");
                     id++;
                 }

@@ -10,11 +10,8 @@ namespace TagBaseFileBrowser.IO
 {
     public class XmlObjDatabaseIO : IObjDatabaseIO
     {
-        private Dictionary<string, string> _tagNameIdPairs;
-
-        public XmlObjDatabaseIO(Dictionary<string, string> tagNameIdPairs)
+        public XmlObjDatabaseIO()
         {
-            _tagNameIdPairs = tagNameIdPairs;
         }
 
         public List<Obj> Read(string path)
