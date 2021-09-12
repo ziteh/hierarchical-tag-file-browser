@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <root>
-  <param name="C" value="c:{S}" />
-  <param name="TEST" value="test" />
-  <param name="S" value="\" />
+  <param name="TestFolder" value="..\..\..\Test\" />
+  <param name="App" value="{TestFolder}\app\" />
 </root>

@@ -1,5 +1,5 @@
 {
-  "defaultPath": "\\",
+  "defaultPath": "..\\..\\..\\Test\\",
   "tagDatabases": [
     "tag_db.xml"
   ],

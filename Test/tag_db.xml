@@ -1,50 +1,25 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <root>
-
-  <tag name="T1">
-    <alias>TT1</alias>
-    <alias>tt1</alias>
+  <tag name="Example">
+    <alias>example</alias>
+    <alias>EXAMPLE</alias>
     <type>general</type>
-    <remark>For testing.</remark>
+    <remark>For test.</remark>
     <parentTag></parentTag>
     <thumbnailPath></thumbnailPath>
     <fontColor>FFFFFF</fontColor>
     <backgroundColor>000000</backgroundColor>
   </tag>
-
-  <tag name="T2">
-    <alias>TT2</alias>
-    <type>general</type>
-    <remark>For testing.</remark>
-    <parentTag></parentTag>
-  </tag>
-
-  <tag name="T3">
+  <tag name="Personal" />
+  <tag name="Starred" />
+  <tag name="Projects">
     <type>tagSet</type>
-    <remark>For testing.</remark>
-    <parentTag>T1</parentTag>
-    <parentTag>T2</parentTag>
   </tag>
-
-  <tag name="T4">
-    <alias>TT4</alias>
-    <type>general</type>
-    <remark>For testing.</remark>
-    <parentTag>T1</parentTag>
+  <tag name="Blog">
+    <parentTag>Projects</parentTag>
+    <parentTag>Personal</parentTag>
   </tag>
-
-  <tag name="T5">
-    <alias>TT5</alias>
-    <type>general</type>
-    <remark>For testing.</remark>
-    <parentTag>root</parentTag>
+  <tag name="APP">
+    <parentTag>Projects</parentTag>
   </tag>
-
-  <tag name="T6">
-    <alias>TT6</alias>
-    <type>general</type>
-    <remark>For testing.</remark>
-    <parentTag>T3</parentTag>
-  </tag>
-
 </root>

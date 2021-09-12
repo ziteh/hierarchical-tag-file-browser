@@ -1,27 +1,19 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <root>
-  <obj path="{C}{TEST}.png">
-    <parentTag>T1</parentTag>
-    <remark>For testing.</remark>
-    <thumbnailPath>
-    </thumbnailPath>
-    <previewPath>
-    </previewPath>
-    <alias>TO1</alias>
+  <obj path="{TestFolder}ECC802S(12AU7).jpg">
+    <name>ECC802S</name>
+    <alias>12AU7</alias>
+    <parentTag>Example</parentTag>
+    <parentTag>Starred</parentTag>
+    <remark>For test.</remark>
+    <thumbnailPath></thumbnailPath>
+    <previewPath></previewPath>
   </obj>
-  <obj path="c:\">
-    <parentTag>T1</parentTag>
-    <parentTag>T2</parentTag>
+  <obj path="{TestFolder}test.md">
+    <parentTag>Blog</parentTag>
+    <parentTag>Example</parentTag>
   </obj>
-  <obj path="d:\">
-    <parentTag>T2</parentTag>
-  </obj>
-  <obj path="C:\Users\htf\Downloads\虎尾科技大學Windows_KMS啟動教學.pdf">
-    <parentTag>T3</parentTag>
-    <parentTag>T4</parentTag>
-    <parentTag>T3</parentTag>
-  </obj>
-  <obj path="C:\Users\htf\Downloads\Programs\xmlcopyeditor-1.2.1.3-x64-install.exe">
-    <parentTag>T3</parentTag>
+  <obj path="{App}app.txt">
+    <parentTag>APP</parentTag>
   </obj>
 </root>
