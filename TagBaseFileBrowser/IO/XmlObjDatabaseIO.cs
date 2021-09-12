@@ -86,7 +86,7 @@ namespace TagBaseFileBrowser.IO
                 }
             }
 
-            //xd.Save(@"C:\Users\htf\GoogleDrive\01-Projects\hierarchical-tag-file-browser\Test\TEST.xml");
+            xd.Save(@"C:\Users\htf\GoogleDrive\01-Projects\hierarchical-tag-file-browser\Test\TEST.xml");
         }
 
         #region Parse

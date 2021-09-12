@@ -21,7 +21,7 @@ namespace TagBaseFileBrowser.TestForm
             InitializeComponent();
 
             var x = new XmlObjDatabaseIO();
-            x.Write(@"C:\Users\htf\GoogleDrive\01-Projects\hierarchical-tag-file-browser\Test\obj_db.xml", "321",
+            x.Write(@"C:\Users\htf\GoogleDrive\01-Projects\hierarchical-tag-file-browser\Test\obj_db.xml", @"c:\",
                 new List<string> { "A1", "B2", "C3" });
         }
 
