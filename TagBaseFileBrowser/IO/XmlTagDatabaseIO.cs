@@ -10,9 +10,8 @@ namespace TagBaseFileBrowser.IO
 {
     public class XmlTagDatabaseIO : ITagDatabaseIO
     {
-        public List<Tag> Read(string path, out Dictionary<string, string> tagNameIdPairs)
+        public List<Tag> Read(string path)
         {
-            tagNameIdPairs = new Dictionary<string, string>();
             var tags = new List<Tag>() { new Tag() };
             int id = 0;
             var nodes = LoadXmlNodeList(path);
@@ -48,7 +47,6 @@ namespace TagBaseFileBrowser.IO
                 };
                 tags.Add(tag);
 
-                //tagNameIdPairs.Add(name, $"t{id}");
                 id++;
             }
             return tags;

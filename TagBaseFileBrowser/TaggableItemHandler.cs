@@ -30,7 +30,7 @@ namespace TagBaseFileBrowser
             }
 
             var xmlTagIO = new XmlTagDatabaseIO();
-            _tags = xmlTagIO.Read(_path + _config.tagDatabases[0], out var tagNameIdPaids);
+            _tags = xmlTagIO.Read(_path + _config.tagDatabases[0]);
 
             var xmlObjIO = new XmlObjDatabaseIO();
             _objs = xmlObjIO.Read(_path + _config.objDatabases[0]);

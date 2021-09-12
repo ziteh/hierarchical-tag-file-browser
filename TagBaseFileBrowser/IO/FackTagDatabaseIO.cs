@@ -8,7 +8,7 @@ namespace TagBaseFileBrowser.IO
 {
     public class FakeTagDatabaseIO : ITagDatabaseIO
     {
-        public List<Tag> Read(string path, out Dictionary<string, string> tagNameIdPairs)
+        public List<Tag> Read(string path)
         {
             throw new NotImplementedException();
         }

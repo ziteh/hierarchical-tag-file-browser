@@ -5,7 +5,7 @@ namespace TagBaseFileBrowser.IO
 {
     public interface ITagDatabaseIO
     {
-        List<Tag> Read(string path, out Dictionary<string, string> tagNameIdPairs);
+        List<Tag> Read(string path);
 
         void Write(string path, Tag tag);
 
