@@ -1,16 +1,12 @@
 {
   "defaultPath": "\\",
-  "tagDatabases": {
-    "Files": [
-      "tag_db.xml"
-    ],
-    "Type": "xml"
-  },
-  "objDatabases": {
-    "Files": [
-      "obj_db.xml"
-    ],
-    "Type": "xml"
-  },
-  "parameter": "parameters.xml"
+  "tagDatabases": [
+    "tag_db.xml"
+  ],
+  "tagDatabaseType": "xml",
+  "objDatabases": [
+    "obj_db.xml"
+  ],
+  "objDatabaseType": "xml",
+  "parameterFile": "parameters.xml"
 }

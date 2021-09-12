@@ -21,6 +21,7 @@ namespace TagBaseFileBrowser
         public MainForm()
         {
             InitializeComponent();
+            var c = new ConfigHandler();
         }
 
         private void buttonAddTag_Click(object sender, EventArgs e)
