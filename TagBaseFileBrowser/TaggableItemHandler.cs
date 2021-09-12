@@ -10,23 +10,33 @@ namespace TagBaseFileBrowser
 {
     public class TaggableItemHandler
     {
+        private Config _config;
         private List<Obj> _objs;
         private Dictionary<string, string> _parametersValuePairs = new Dictionary<string, string>();
         private string _path;
         private List<Tag> _tags;
 
-        public TaggableItemHandler(string path)
+        public TaggableItemHandler(string path = null)
         {
-            _path = path;
+            _config = ConfigHandler.Read("");
+
+            if (String.IsNullOrEmpty(path))
+            {
+                _path = _config.defaultPath.TrimEnd('\\') + '\\';
+            }
+            else
+            {
+                _path = path.TrimEnd('\\') + '\\';
+            }
 
             var xmlTagIO = new XmlTagDatabaseIO();
-            _tags = xmlTagIO.Read(path + @"\tag_db.xml", out var tagNameIdPaids);
+            _tags = xmlTagIO.Read(_path + _config.tagDatabases[0], out var tagNameIdPaids);
 
             var xmlObjIO = new XmlObjDatabaseIO();
-            _objs = xmlObjIO.Read(path + @"\obj_db.xml");
+            _objs = xmlObjIO.Read(_path + _config.objDatabases[0]);
 
             var xmlParamIO = new XmlParametersIO();
-            _parametersValuePairs = xmlParamIO.Read(path + @"\parameters.xml");
+            _parametersValuePairs = xmlParamIO.Read(_path + _config.parameterFile);
 
             AddObjsIntoTags(_tags, _objs);
         }
@@ -41,8 +51,8 @@ namespace TagBaseFileBrowser
         public void AddTag(string objPath, List<string> tagNames)
         {
             var xmlObjIO = new XmlObjDatabaseIO();
-            xmlObjIO.Write($"{_path}\\obj_db.xml", objPath, tagNames);
-            _objs = xmlObjIO.Read($"{_path}\\obj_db.xml");
+            xmlObjIO.Write(_path + _config.objDatabases[0], objPath, tagNames);
+            _objs = xmlObjIO.Read(_path + _config.objDatabases[0]);
         }
 
         #region Find
