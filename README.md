@@ -1,4 +1,5 @@
 # Hierarchical Tag File Browser
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/ziteh/hierarchical-tag-file-browser/blob/main/LICENSE)  
 A simple hierarchical tagging file browser.   
 一個簡單的階層式標籤檔案瀏覽器。
 
