@@ -11,7 +11,7 @@ namespace TagBaseFileBrowser
 {
     public static class ConfigHandler
     {
-        private const string configFile = "config.json";
+        public const string configFile = "config.json";
 
         public static Config Read(string path)
         {
