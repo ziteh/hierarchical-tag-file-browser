@@ -18,7 +18,8 @@ namespace TagBaseFileBrowser
             Config config;
             try
             {
-                using (var streamReader = new StreamReader(PathHandler(path)))
+                path = PathHandler(path);
+                using (var streamReader = new StreamReader(path))
                 {
                     var jsonContent = streamReader.ReadToEnd();
                     config = JsonConvert.DeserializeObject<Config>(jsonContent);
@@ -26,7 +27,7 @@ namespace TagBaseFileBrowser
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Can't load or parse \"{configFile}\".\r\n{ex.Message}");
+                MessageBox.Show($"Can't load or parse \'{path}\'.\r\n{ex.Message}");
                 config = null;
             }
 
