@@ -113,8 +113,31 @@ namespace TagBaseFileBrowser
             try
             {
                 var selectedObjName = listViewObjs.SelectedItems[0].Text;
-                var objInfo = _taggableItemHandler.GetInfo(_taggableItemHandler.FindObjByName(selectedObjName));
+                var selectedObj = _taggableItemHandler.FindObjByName(selectedObjName);
+                var objInfo = _taggableItemHandler.GetInfo(selectedObj);
                 textBoxObjInfo.Text = objInfo;
+
+                var path = "";
+                if (String.IsNullOrWhiteSpace(selectedObj.PreviewPath))
+                {
+                    if (String.IsNullOrWhiteSpace(selectedObj.ThumbnailPath))
+                    {
+                        path = selectedObj.Path;
+                    }
+                    else
+                    {
+                        path = selectedObj.ThumbnailPath;
+                    }
+                }
+                else
+                {
+                    path = selectedObj.PreviewPath;
+                }
+                path = _taggableItemHandler.ReplaceParameter(path);
+
+                var objFileS = File.OpenRead(path);
+                pictureBoxObjPreview.Image = Image.FromStream(objFileS);
+                objFileS.Close();
             }
             catch { }
         }
