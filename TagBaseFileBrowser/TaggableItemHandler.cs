@@ -110,13 +110,25 @@ namespace TagBaseFileBrowser
             return s;
         }
 
-        public List<Obj> GetChildObjs(Tag tag)
+        public List<Obj> GetChildObjs(Tag tag, bool showObjsOfChildTag = true)
         {
             var objs = new List<Obj>();
-            var targetTagChildObjNames = tag.ChildObjNames;
-            foreach (var name in targetTagChildObjNames)
+            var tags = new List<Tag> { tag };
+            if (showObjsOfChildTag)
             {
-                objs.Add(FindObjByName(name));
+                tags.AddRange(GetChildChildTags(tag));
+            }
+            foreach (var t in tags)
+            {
+                var targetTagChildObjNames = t.ChildObjNames;
+                foreach (var name in targetTagChildObjNames)
+                {
+                    var targetObj = FindObjByName(name);
+                    if (!objs.Contains(targetObj))
+                    {
+                        objs.Add(targetObj);
+                    }
+                }
             }
             return objs;
         }
@@ -139,6 +151,21 @@ namespace TagBaseFileBrowser
             foreach (var name in targetTagTarentTagNames)
             {
                 tags.Add(FindTagByName(name));
+            }
+            return tags;
+        }
+
+        private List<Tag> GetChildChildTags(Tag tag)
+        {
+            var tags = new List<Tag>();
+            foreach (var ctn in tag.ChildTagNames)
+            {
+                var thisTag = FindTagByName(ctn);
+                tags.Add(thisTag);
+                if (thisTag.ChildTagNames.Count > 0)
+                {
+                    tags.AddRange(GetChildChildTags(thisTag));
+                }
             }
             return tags;
         }
@@ -250,12 +277,11 @@ namespace TagBaseFileBrowser
             listView.Columns.Add("Path", 100);
         }
 
-        public void UpdateObjListView(ListView listView, Tag tag)
+        public void UpdateObjListView(ListView listView, Tag tag, bool showObjsOfChildTags = true)
         {
             tag = tag ?? new Tag();
             listView.Items.Clear();
-
-            var childObjs = GetChildObjs(tag);
+            var childObjs = GetChildObjs(tag, showObjsOfChildTags);
             foreach (var co in childObjs)
             {
                 var item = new ListViewItem(co.Name);
