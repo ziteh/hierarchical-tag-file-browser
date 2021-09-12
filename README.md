@@ -4,7 +4,7 @@ A simple hierarchical tagging file browser.
 一個簡單的階層式標籤檔案瀏覽器。
 
 > You use tags to organize files and folders, why not organize tags by tags too?  
-> --This is why you need hierarchical-tag.
+> --This is why you need Hierarchical-Tag.
 
 ![fig](https://i.imgur.com/8SxXHNl.png)
 
@@ -30,6 +30,7 @@ A simple hierarchical tagging file browser.
 </root>
 <!--
 You can get:
+
 root
  ├──Example
  ├──Personal
