@@ -18,7 +18,7 @@ namespace TagBaseFileBrowser
 
         public TaggableItemHandler(string path = null)
         {
-            _config = ConfigHandler.Read("");
+            _config = ConfigHandler.Read();
 
             if (String.IsNullOrEmpty(path))
             {

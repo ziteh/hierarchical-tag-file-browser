@@ -13,7 +13,7 @@ namespace TagBaseFileBrowser
     {
         public const string configFile = "config.json";
 
-        public static Config Read(string path)
+        public static Config Read(string path = "")
         {
             Config config;
             try
