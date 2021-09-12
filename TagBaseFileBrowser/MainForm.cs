@@ -14,6 +14,8 @@ namespace TagBaseFileBrowser
 {
     public partial class MainForm : Form
     {
+        private List<string> _selectedFiles = new List<string>();
+        private List<string> _selectedTagNames = new List<string>();
         private TaggableItemHandler _taggableItemHandler;
 
         public MainForm()
@@ -26,17 +28,21 @@ namespace TagBaseFileBrowser
             var select = treeViewTags.SelectedNode;
             if (select != null)
             {
-                var ofd = new OpenFileDialog() { Title = "Select a file", Multiselect = false };
-                if (ofd.ShowDialog() == DialogResult.OK)
-                {
-                    var path = ofd.FileName;
-                    _taggableItemHandler.AddTag(path, select.Text);
-                }
+                _selectedTagNames.Add(select.Text);
+                textBoxSelectedTags.Text += select.Text + "\r\n";
             }
-            else
-            {
-                MessageBox.Show("No tag selected.");
-            }
+        }
+
+        private void buttonClearFile_Click(object sender, EventArgs e)
+        {
+            _selectedFiles.Clear();
+            textBoxSelectedObjs.Text = "";
+        }
+
+        private void buttonClearTags_Click(object sender, EventArgs e)
+        {
+            _selectedTagNames.Clear();
+            textBoxSelectedTags.Text = "";
         }
 
         private void buttonLoad_Click(object sender, EventArgs e)
@@ -45,6 +51,48 @@ namespace TagBaseFileBrowser
             _taggableItemHandler = new TaggableItemHandler(loadPath);
             _taggableItemHandler.CreatTagTreeView(treeViewTags);
             _taggableItemHandler.CreateObjsListView(listViewObjs);
+        }
+
+        private void buttonOpenFile_Click(object sender, EventArgs e)
+        {
+            var ofd = new OpenFileDialog() { Title = "Select a file", Multiselect = true };
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                foreach (var f in ofd.FileNames)
+                {
+                    _selectedFiles.Add(f);
+                    textBoxSelectedObjs.Text += f + "\r\n";
+                }
+            }
+        }
+
+        private void buttonSelectFile_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var sel = listViewObjs.SelectedItems[0];
+                _selectedFiles.Add(sel.SubItems[2].Text);
+                textBoxSelectedObjs.Text += sel.SubItems[2].Text + "\r\n";
+            }
+            catch
+            { }
+        }
+
+        private void buttonWriteAndClear_Click(object sender, EventArgs e)
+        {
+            buttonWriteObj.PerformClick();
+            buttonClearTags.PerformClick();
+        }
+
+        private void buttonWriteObj_Click(object sender, EventArgs e)
+        {
+            if (_selectedTagNames.Count > 0 && _selectedFiles.Count > 0)
+            {
+                foreach (var f in _selectedFiles)
+                {
+                    _taggableItemHandler.AddTag(f, _selectedTagNames);
+                }
+            }
         }
 
         private void listViewObjs_DoubleClick(object sender, EventArgs e)

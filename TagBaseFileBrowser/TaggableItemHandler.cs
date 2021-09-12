@@ -38,10 +38,11 @@ namespace TagBaseFileBrowser
             AddObjsIntoTags(_tags, _objs);
         }
 
-        public void AddTag(string objPath, string tagName)
+        public void AddTag(string objPath, List<string> tagNames)
         {
             var xmlObjIO = new XmlObjDatabaseIO();
-            xmlObjIO.Write($"{_path}\\obj_db.xml", objPath, new List<string> { tagName });
+            xmlObjIO.Write($"{_path}\\obj_db.xml", objPath, tagNames);
+            _objs = xmlObjIO.Read($"{_path}\\obj_db.xml");
         }
 
         #region Find
@@ -202,6 +203,7 @@ namespace TagBaseFileBrowser
 
         public void CreatTagTreeView(TreeView treeView)
         {
+            treeView.Nodes.Clear();
             foreach (var tag in _tags)
             {
                 if (tag.Name != "root" &&
