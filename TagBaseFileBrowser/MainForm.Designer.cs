@@ -91,6 +91,7 @@ namespace TagBaseFileBrowser
             this.buttonAddTag.TabIndex = 5;
             this.buttonAddTag.Text = "Add Tag";
             this.buttonAddTag.UseVisualStyleBackColor = true;
+            this.buttonAddTag.Click += new System.EventHandler(this.buttonAddTag_Click);
             // 
             // MainForm
             // 

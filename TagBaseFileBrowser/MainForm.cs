@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,24 @@ namespace TagBaseFileBrowser
         public MainForm()
         {
             InitializeComponent();
+        }
+
+        private void buttonAddTag_Click(object sender, EventArgs e)
+        {
+            var select = treeViewTags.SelectedNode;
+            if (select != null)
+            {
+                var ofd = new OpenFileDialog() { Title = "Select a file", Multiselect = false };
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    var path = ofd.FileName;
+                    _taggableItemHandler.AddTag(path, select.Text);
+                }
+            }
+            else
+            {
+                MessageBox.Show("No tag selected.");
+            }
         }
 
         private void buttonLoad_Click(object sender, EventArgs e)
