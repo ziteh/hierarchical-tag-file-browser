@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
 
-  <tag>
-    <name>Tag-1</name>
+  <tag name="T1">
     <alias>TT1</alias>
     <alias>tt1</alias>
     <type>general</type>
@@ -13,44 +12,39 @@
     <backgroundColor>000000</backgroundColor>
   </tag>
 
-  <tag>
-    <name>Tag-2</name>
+  <tag name="T2">
     <alias>TT2</alias>
     <type>general</type>
     <remark>For testing.</remark>
     <parentTag></parentTag>
   </tag>
 
-  <tag>
-    <name>Tag-3</name>
+  <tag name="T3">
     <type>tagSet</type>
     <remark>For testing.</remark>
-    <parentTag>Tag-1</parentTag>
-    <parentTag>Tag-2</parentTag>
+    <parentTag>T1</parentTag>
+    <parentTag>T2</parentTag>
   </tag>
 
-  <tag>
-    <name>Tag-4</name>
+  <tag name="T4">
     <alias>TT4</alias>
     <type>general</type>
     <remark>For testing.</remark>
-    <parentTag>Tag-1</parentTag>
+    <parentTag>T1</parentTag>
   </tag>
 
-  <tag>
-    <name>Tag-5</name>
+  <tag name="T5">
     <alias>TT5</alias>
     <type>general</type>
     <remark>For testing.</remark>
     <parentTag>root</parentTag>
   </tag>
 
-  <tag>
-    <name>Tag-6</name>
+  <tag name="T6">
     <alias>TT6</alias>
     <type>general</type>
     <remark>For testing.</remark>
-    <parentTag>Tag-3</parentTag>
+    <parentTag>T3</parentTag>
   </tag>
 
 </root>

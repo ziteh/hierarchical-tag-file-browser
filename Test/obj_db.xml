@@ -2,7 +2,7 @@
 <root>
 
   <obj path="{C}{TEST}.png">
-    <parentTag>Tag-1</parentTag>
+    <parentTag>T1</parentTag>
     <remark>For testing.</remark>
     <thumbnailPath></thumbnailPath>
     <previewPath></previewPath>
@@ -10,12 +10,12 @@
   </obj>
 
   <obj path="c:\">
-    <parentTag>Tag-1</parentTag>
-    <parentTag>Tag-2</parentTag>
+    <parentTag>T1</parentTag>
+    <parentTag>T2</parentTag>
   </obj>
 
   <obj path="d:\">
-    <parentTag>Tag-2</parentTag>
+    <parentTag>T2</parentTag>
   </obj>
 
 </root>
