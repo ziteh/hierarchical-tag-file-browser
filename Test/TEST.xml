@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <root>
   <obj path="{C}{TEST}.png">
-    <parentTag>Tag-1</parentTag>
+    <parentTag>T1</parentTag>
     <remark>For testing.</remark>
     <thumbnailPath>
     </thumbnailPath>
@@ -10,13 +10,13 @@
     <alias>TO1</alias>
   </obj>
   <obj path="c:\">
-    <parentTag>Tag-1</parentTag>
-    <parentTag>Tag-2</parentTag>
-    <parentTag>A1</parentTag>
-    <parentTag>B2</parentTag>
-    <parentTag>C3</parentTag>
+    <parentTag>T1</parentTag>
+    <parentTag>T2</parentTag>
   </obj>
   <obj path="d:\">
-    <parentTag>Tag-2</parentTag>
+    <parentTag>T2</parentTag>
+  </obj>
+  <obj path="C:\Users\htf\Downloads\虎尾科技大學Windows_KMS啟動教學.pdf">
+    <parentTag>T6</parentTag>
   </obj>
 </root>

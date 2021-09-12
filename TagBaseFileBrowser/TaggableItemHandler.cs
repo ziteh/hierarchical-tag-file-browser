@@ -12,10 +12,13 @@ namespace TagBaseFileBrowser
     {
         private List<Obj> _objs;
         private Dictionary<string, string> _parametersValuePairs = new Dictionary<string, string>();
+        private string _path;
         private List<Tag> _tags;
 
         public TaggableItemHandler(string path)
         {
+            _path = path;
+
             var xmlTagIO = new XmlTagDatabaseIO();
             _tags = xmlTagIO.Read(path + @"\tag_db.xml", out var tagNameIdPaids);
 
@@ -33,6 +36,12 @@ namespace TagBaseFileBrowser
             _tags = tags;
             _objs = objs;
             AddObjsIntoTags(_tags, _objs);
+        }
+
+        public void AddTag(string objPath, string tagName)
+        {
+            var xmlObjIO = new XmlObjDatabaseIO();
+            xmlObjIO.Write($"{_path}\\obj_db.xml", objPath, new List<string> { tagName });
         }
 
         #region Find
