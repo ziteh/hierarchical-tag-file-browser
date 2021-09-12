@@ -1,9 +1,51 @@
 # Hierarchical Tag File Browser
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/ziteh/hierarchical-tag-file-browser/blob/main/LICENSE)  
+[![License: MIT](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/ziteh/hierarchical-tag-file-browser/blob/main/LICENSE)  
 A simple hierarchical tagging file browser.   
 一個簡單的階層式標籤檔案瀏覽器。
 
 ![fig](https://i.imgur.com/8SxXHNl.png)
+
+# XML-Based
+## Tag Database
+From [tag_db.xml](Test/tag_db.xml):
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <tag name="Example">
+    <alias>example</alias>
+    <alias>EXAMPLE</alias>
+    <type>general</type>
+    <remark>For test.</remark>
+    <parentTag></parentTag>
+    <thumbnailPath></thumbnailPath>
+    <fontColor>FFFFFF</fontColor>
+    <backgroundColor>000000</backgroundColor>
+  </tag>
+  <tag name="Personal" />
+  <tag name="Starred" />
+  <tag name="Projects">
+    <type>tagSet</type>
+  </tag>
+  <tag name="Blog">
+    <parentTag>Projects</parentTag>
+    <parentTag>Personal</parentTag>
+  </tag>
+  <tag name="APP">
+    <parentTag>Projects</parentTag>
+  </tag>
+</root>
+```
+You can get:
+```
+root
+├──Example
+├──Personal
+│   └──Blog
+├──Starred
+└──Projects
+    ├──Blog
+    └──APP
+```
 
 # Demo
 1. Open `TagBaseFileBrowser.sln` with Visual Studio.
