@@ -50,42 +50,6 @@ namespace TagBaseFileBrowser.IO
             xd.LoadXml(sr.ReadToEnd());
             sr.Close();
 
-            var ns = xd.SelectNodes($"/{Define.Root}/{Define.Obj}");
-            foreach (XmlNode xmlNode in ns)
-            {
-                var xna = xmlNode.Attributes.GetNamedItem(Define.Path).Value;
-                if (objPath == xna)
-                {
-                }
-            }
-
-            var obj = xd.CreateElement(Define.Obj);
-            obj.SetAttribute("path", objPath);
-            xd.DocumentElement.AppendChild(obj);
-
-            foreach (var n in parentTagsName)
-            {
-                var parentTag = xd.CreateElement(Define.ParentTag);
-                parentTag.InnerText = n;
-                obj.AppendChild(parentTag);
-            }
-
-            xd.Save(@"C:\Users\htf\GoogleDrive\01-Projects\hierarchical-tag-file-browser\Test\TEST.xml");
-        }
-
-        public void Write(string path, string objPath, List<string> parentTagsName, string objName = null)
-        {
-            if (String.IsNullOrEmpty(objName))
-            {
-                var ps = objPath.TrimEnd('\\').Split('\\');
-                objName = ps[ps.Length - 1];
-            }
-
-            var sr = MakeStreamReader(path);
-            var xd = new XmlDocument();
-            xd.LoadXml(sr.ReadToEnd());
-            sr.Close();
-
             var finded = false;
             XmlNode xn = null;
             var ns = xd.SelectNodes($"/{Define.Root}/{Define.Obj}");
@@ -112,7 +76,7 @@ namespace TagBaseFileBrowser.IO
             else
             {
                 var obj = xd.CreateElement(Define.Obj);
-                obj.SetAttribute("path", objPath);
+                obj.SetAttribute(Define.Path, objPath);
                 xd.DocumentElement.AppendChild(obj);
                 foreach (var n in parentTagsName)
                 {
