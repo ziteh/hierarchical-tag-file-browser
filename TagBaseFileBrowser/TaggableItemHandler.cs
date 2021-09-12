@@ -246,7 +246,25 @@ namespace TagBaseFileBrowser
 
         private TreeNode CreatTreeNode(Tag tag)
         {
-            var treeNode = new TreeNode(tag.Name);
+            var treeNode = new TreeNode();
+            var tagName = "";
+            switch (tag.Type)
+            {
+                case TagType.TagSet:
+                    tagName = $"[{tag.Name}]";
+                    break;
+
+                case TagType.Folder:
+                    tagName = $"*{tag.Name}";
+                    break;
+
+                case TagType.General:
+                    tagName = tag.Name;
+                    break;
+            }
+            treeNode.Text = tagName;
+            treeNode.ForeColor = tag.FontColor;
+            treeNode.BackColor = tag.BackgroundColor;
 
             var childTags = GetChildTags(tag);
             if (childTags.Count > 0)
@@ -272,6 +290,7 @@ namespace TagBaseFileBrowser
             listView.LabelEdit = false;
             listView.FullRowSelect = true;
             listView.MultiSelect = false;
+            listView.Columns.Clear();
             listView.Columns.Add("Name", 100);
             listView.Columns.Add("Tags", 100);
             listView.Columns.Add("Path", 100);
