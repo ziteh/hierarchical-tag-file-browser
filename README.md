@@ -7,20 +7,11 @@ A simple hierarchical tagging file browser.
 
 # XML-Based
 ## Tag Database
-From [tag_db.xml](Test/tag_db.xml):
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
-  <tag name="Example">
-    <alias>example</alias>
-    <alias>EXAMPLE</alias>
-    <type>general</type>
-    <remark>For test.</remark>
-    <parentTag></parentTag>
-    <thumbnailPath></thumbnailPath>
-    <fontColor>FFFFFF</fontColor>
-    <backgroundColor>000000</backgroundColor>
-  </tag>
+  <tag name="Example" />
   <tag name="Personal" />
   <tag name="Starred" />
   <tag name="Projects">
@@ -34,17 +25,17 @@ From [tag_db.xml](Test/tag_db.xml):
     <parentTag>Projects</parentTag>
   </tag>
 </root>
-```
+<!--
 You can get:
-```
 root
-├──Example
-├──Personal
-│   └──Blog
-├──Starred
-└──Projects
-    ├──Blog
-    └──APP
+ ├──Example
+ ├──Personal
+ │   └──Blog
+ ├──Starred
+ └──[Projects]
+     ├──Blog
+     └──APP
+-->
 ```
 
 # Demo
