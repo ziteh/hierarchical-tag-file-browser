@@ -177,9 +177,9 @@ namespace TagBaseFileBrowser
         public string GetInfo(Obj obj)
         {
             var msg = "";
-            msg += $"Name: {obj.Name}\n" +
-                   $"ID: {obj.Id}\n" +
-                   $"Path: {obj.Path}\n" +
+            msg += $"Name: {obj.Name}\r\n" +
+                   //$"ID: {obj.Id}\r\n" +
+                   $"Path: {obj.Path}\r\n" +
                    $"Tags: {ToString(GetParentTags(obj))}";
             return msg;
         }
@@ -187,9 +187,9 @@ namespace TagBaseFileBrowser
         public string GetInfo(Tag tag)
         {
             var msg = "";
-            msg += $"Name: {tag.Name}\n" +
-                   $"ID: {tag.Id}\n" +
-                   $"Type: {tag.Type}\n" +
+            msg += $"Name: {tag.Name}\r\n" +
+                   //$"ID: {tag.Id}\r\n" +
+                   $"Type: {tag.Type}\r\n" +
                    $"Child Tags: ";
 
             var childTags = GetChildTags(tag);
