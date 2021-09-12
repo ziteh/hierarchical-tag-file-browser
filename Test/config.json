@@ -1,0 +1,16 @@
+{
+  "defaultPath": "\\",
+  "tagDatabases": {
+    "Files": [
+      "tag_db.xml"
+    ],
+    "Type": "xml"
+  },
+  "objDatabases": {
+    "Files": [
+      "obj_db.xml"
+    ],
+    "Type": "xml"
+  },
+  "parameter": "parameters.xml"
+}
