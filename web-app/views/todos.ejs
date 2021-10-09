@@ -1,0 +1,9 @@
+<h1>Todos</h1>
+
+<a href="/">Home</a>
+
+<ul>
+<% for(let i = 0; i < todos.length; i++) { %>
+  <li><%= todos[i].id %>: <a href="/todos/<%= todos[i].id %>"><%= todos[i].content %></a></li>
+<% } %>
+</ul>
