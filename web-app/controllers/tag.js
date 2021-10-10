@@ -12,13 +12,20 @@ const tagController = {
 
   get: (req, res) => {
     const id = req.params.id
+    var thisTag
+    var childTags
     tagModel.get(id, (err, results) => {
       if (err) return console.log(err);
+      thisTag = results[0]
+    })
+    tagModel.getChildTagsId(id, (err, results) => {
+      if (err) return console.log(err);
+      childTags = results
       res.render('tag', {
-        tag: results[0]
+        tag: thisTag,
+        childTags
       })
     })
-  }
-}
+  }}
 
 module.exports = tagController

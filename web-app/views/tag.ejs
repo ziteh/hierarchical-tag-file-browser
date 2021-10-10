@@ -1,0 +1,13 @@
+<h1>Tag</h1>
+
+<h2>
+  <%= tag.name %>
+</h2>
+
+<ul>
+  <% for(let i=0; i < childTags.length; i++) { %>
+    <li>
+      <%= childTags[i].id %>
+    </li>
+    <% } %>
+</ul>

@@ -5,7 +5,6 @@ const port = 5002;
 const express = require('express');
 const app = express();
 const db = require('./db')
-const todoController = require('./controllers/todo')
 const tagController = require('./controllers/tag')
 
 app.set('view engine', 'ejs')
@@ -16,9 +15,6 @@ app.get('/', (req, res) => {
 
 app.get('/tags', tagController.getAll)
 app.get('/tags/:id', tagController.get)
-
-app.get('/todos', todoController.getAll)
-app.get('/todos/:id', todoController.get)
 
 app.listen(port, () => {
   db.connect()
