@@ -37,9 +37,24 @@ const tagModel = {
     )
   },
 
-  add: (tagName, tagType, cb) => {
+  add: (tag, cb) => {
+    tag.type = tag.type || 1; // tag type 1: general.
+    tag.alias = tag.alias || null;
+    tag.remark = tag.remark || null;
+    tag.thumbnallPath = tag.thumbnallPath || null;
+    tag.fontColor = tag.fontColor || null;
+    tag.backColor = tag.backColor || null;
+
     db.query(
-      'INSERT INTO `tags` (`id`, `type`, `name`, `alias`, `remark`, `thumbnail_path`, `font_color`, `back_color`) VALUES (NULL, ?, ?, NULL, NULL, NULL, NULL, NULL)', [tagType, tagName], (err, results) => {
+      'INSERT INTO `tags` (`id`, `name`, `type`, `alias`, `remark`, `thumbnail_path`, `font_color`, `back_color`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)',
+      [tag.name,
+      tag.type,
+      tag.alias,
+      tag.remark,
+      tag.thumbnallPath,
+      tag.fontColor,
+      tag.backColor],
+      (err, results) => {
         if (err) return cb(err);
         cb(null, results);
       }

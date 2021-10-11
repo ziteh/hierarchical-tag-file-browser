@@ -37,16 +37,10 @@ const tagController = {
   },
 
   add: (req, res) => {
-    var name = req.body.name;
-    var type = req.body.type;
-
-    console.log(name + type);
-
-    tagModel.add(name, type, (err, results) => {
+    tagModel.add(req.body, (err, results) => {
       if (err) return console.log(err);
       res.redirect('/');
     })
-
   }
 }
 
