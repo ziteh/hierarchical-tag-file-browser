@@ -7,7 +7,12 @@ const app = express();
 const db = require('./db')
 const tagController = require('./controllers/tag')
 
+// Middleware
+app.use(express.urlencoded({ extender: true }))
+
 app.set('view engine', 'ejs')
+
+app.post('/', tagController.add)
 
 app.get('/', (req, res) => {
   res.render('hello')

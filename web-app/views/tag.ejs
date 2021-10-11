@@ -4,10 +4,20 @@
   <%= tag.name %>
 </h2>
 
+<p>Child Tags</p>
 <ul>
   <% for(let i=0; i < childTags.length; i++) { %>
     <li>
       <%= childTags[i].name %>
+    </li>
+    <% } %>
+</ul>
+
+<p>Child Files</p>
+<ul>
+  <% for(let i=0; i < childFiles.length; i++) { %>
+    <li>
+      <%= childFiles[i].name %>
     </li>
     <% } %>
 </ul>
