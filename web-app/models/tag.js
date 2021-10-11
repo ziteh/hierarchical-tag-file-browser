@@ -59,6 +59,17 @@ const tagModel = {
         cb(null, results);
       }
     )
+  },
+
+  addParentTag: (thisTag, parentTag, cb) => {
+    db.query(
+      'INSERT INTO `tag_relation` (`id`, `child_tag_id`, `parent_tag_id`) VALUES (NULL, ?, ?)',
+      [thisTag.id, parentTag.id],
+      (err, results) => {
+        if (err) return cb(err);
+        cb(null, results);
+      }
+    )
   }
 }
 

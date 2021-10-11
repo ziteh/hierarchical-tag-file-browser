@@ -13,9 +13,14 @@ const tagController = {
 
   get: (req, res) => {
     const id = req.params.id
+    var allTags
     var thisTag
     var childTags
     var childFiles
+    tagModel.getAll((err, results) => {
+      if (err) return console.log(err);
+      allTags = results
+    });
     tagModel.get(id, (err, results) => {
       if (err) return console.log(err);
       thisTag = results[0]
@@ -31,7 +36,8 @@ const tagController = {
       res.render('tag', {
         tag: thisTag,
         childTags,
-        childFiles
+        childFiles,
+        allTags
       })
     });
   },
