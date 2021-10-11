@@ -18,7 +18,7 @@ const tagController = {
       if (err) return console.log(err);
       thisTag = results[0]
     })
-    tagModel.getChildTagsId(id, (err, results) => {
+    tagModel.getChildTags(id, (err, results) => {
       if (err) return console.log(err);
       childTags = results
       res.render('tag', {
