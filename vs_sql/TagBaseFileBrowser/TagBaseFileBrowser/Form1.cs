@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TagHandler;
 
 namespace TagBaseFileBrowser
 {
@@ -15,6 +16,8 @@ namespace TagBaseFileBrowser
         public Form1()
         {
             InitializeComponent();
+            var tr = new TaggableItemHandler();
+            tr.UpdateTreeView(ref treeViewTags);
         }
     }
 }

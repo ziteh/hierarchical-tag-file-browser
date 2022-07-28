@@ -35,6 +35,24 @@ namespace TagHandler
 
         public int Id => _id;
 
+        public bool IsRoot
+        {
+            get
+            {
+                if (Tags == null)
+                {
+                    return true;
+                }
+
+                if (Tags.Count == 0)
+                {
+                    return true;
+                }
+
+                return false;
+            }
+        }
+
         public bool Equals(Taggable taggable)
         {
             var id = this.Id == taggable.Id;
