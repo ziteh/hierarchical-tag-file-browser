@@ -39,7 +39,8 @@ namespace TagHandler
         {
             var node = new TreeNode
             {
-                Text = tag.Name
+                Text = tag.Name,
+                Tag = tag
             };
 
             var childTags = _tagReader.ReadChildTags(tag.Id);
@@ -57,9 +58,17 @@ namespace TagHandler
 
         #endregion TreeView
 
-        public void AddTag(Tag tag)
+        public void AddTag(Tag tag, Tag parentTag = null)
         {
             _tagReader.AddTag(tag);
+
+            if (parentTag == null)
+            {
+                return;
+            }
+
+            tag = _tagReader.ReadTag(tag.Name);
+            _tagReader.AddTagRelation(parentTag, tag);
         }
     }
 }

@@ -13,13 +13,27 @@ namespace TagBaseFileBrowser
 {
     public partial class Form1 : Form
     {
+        private readonly TaggableItemHandler _taggableItemHandler;
+
         public Form1()
         {
             InitializeComponent();
-            var tr = new TaggableItemHandler();
-            tr.UpdateTreeView(ref treeViewTags);
+            _taggableItemHandler = new TaggableItemHandler();
+            _taggableItemHandler.UpdateTreeView(ref treeViewTags);
+        }
 
-            tr.AddTag(new Tag("Test_1"));
+        private void buttonAddTag_Click(object sender, EventArgs e)
+        {
+            var node = treeViewTags.SelectedNode;
+            if (node == null)
+            {
+                return;
+            }
+
+            var pTag = node.Tag as Tag;
+            _taggableItemHandler.AddTag(new Tag("Test"), pTag);
+
+            _taggableItemHandler.UpdateTreeView(ref treeViewTags);
         }
     }
 }

@@ -94,6 +94,59 @@ namespace TagHandler
             conn.Close();
         }
 
+        public void AddTagRelation(Tag parentTag, Tag childTag)
+        {
+            var conn = MakeConn();
+            conn.Open();
+
+            var cmdText = $"INSERT INTO `{_tagRelationTable}` (`id`, `parent_tag_id`, `child_tag_id`) VALUES (NULL, '{parentTag.Id}', '{childTag.Id}');";
+            var cmd = new MySqlCommand(cmdText, conn);
+            var n = cmd.ExecuteNonQuery();
+            conn.Close();
+        }
+
+        public Tag ReadTag(string name)
+        {
+            Tag tag = null;
+
+            var conn = MakeConn();
+            conn.Open();
+            var cmdText = $"SELECT * FROM `{_tagsTable}` WHERE `name` LIKE '{name}'";
+            var cmd = new MySqlCommand(cmdText, conn);
+            var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                var data = new List<string>();
+                for (int col = 0; col < reader.FieldCount; col++)
+                {
+                    string s;
+                    if (reader.IsDBNull(col))
+                    {
+                        s = "";
+                    }
+                    else
+                    {
+                        s = reader.GetString(col);
+                    }
+                    data.Add(s);
+                }
+
+                // TODO
+                //var parentTag = resursive ? ReadParentTags(id) : null;
+
+                tag = new Tag(name)
+                {
+                    Id = int.Parse(data[0]),
+                    Remark = data[4],
+                    ThumbnailPath = data[5],
+                    Tags = null
+                };
+            }
+            conn.Close();
+
+            return tag;
+        }
+
         public Tag ReadTag(int id, bool resursive = true)
         {
             Tag tag = null;
