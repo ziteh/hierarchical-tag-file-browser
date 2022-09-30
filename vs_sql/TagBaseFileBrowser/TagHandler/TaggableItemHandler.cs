@@ -60,7 +60,12 @@ namespace TagHandler
 
         public void AddTag(Tag tag, Tag parentTag = null)
         {
-            _tagReader.AddTag(tag);
+            try
+            {
+                _tagReader.AddTag(tag);
+            }
+            catch
+            { }
 
             if (parentTag == null)
             {

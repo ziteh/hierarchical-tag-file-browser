@@ -84,6 +84,11 @@ namespace TagHandler
 
         public void AddTag(Tag tag)
         {
+            if (ReadTag(tag.Name) != null)
+            {
+                throw new Exception("Tag already exists.");
+            }
+
             var conn = MakeConn();
             conn.Open();
 
