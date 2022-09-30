@@ -82,6 +82,18 @@ namespace TagHandler
             return file;
         }
 
+        public void AddTag(Tag tag)
+        {
+            var conn = MakeConn();
+            conn.Open();
+
+            // TODO
+            var cmdText = $"INSERT INTO `{_tagsTable}` (`id`, `type`, `name`, `alias`, `remark`, `thumbnail_path`, `font_color`, `back_color`) VALUES (NULL, '1', '{tag.Name}', NULL, NULL, NULL, NULL, NULL);";
+            var cmd = new MySqlCommand(cmdText, conn);
+            var n = cmd.ExecuteNonQuery();
+            conn.Close();
+        }
+
         public Tag ReadTag(int id, bool resursive = true)
         {
             Tag tag = null;

@@ -18,6 +18,8 @@ namespace TagBaseFileBrowser
             InitializeComponent();
             var tr = new TaggableItemHandler();
             tr.UpdateTreeView(ref treeViewTags);
+
+            tr.AddTag(new Tag("Test_1"));
         }
     }
 }

@@ -8,7 +8,7 @@ namespace TagHandler
 {
     public class Tag : Taggable
     {
-        public Tag(string name, int id) : base(name, id)
+        public Tag(string name, int id = -1) : base(name, id)
         {
         }
 

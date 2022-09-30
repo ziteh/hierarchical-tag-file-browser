@@ -16,24 +16,22 @@ namespace TagHandler
 
         public List<Tag> Tags = new List<Tag>();
 
+        public int Id;
+
         private readonly string _name;
 
-        private readonly int _id;
-
-        public Taggable(string name, int id)
+        public Taggable(string name, int id = -1)
         {
             if (string.IsNullOrEmpty(name))
             {
-                throw new ArgumentException("'name' can't be null or empty.");
+                throw new ArgumentNullException("name", "'name' can't be null or empty.");
             }
 
             _name = name;
-            _id = id;
+            Id = id;
         }
 
         public string Name => _name;
-
-        public int Id => _id;
 
         public bool IsRoot
         {

@@ -56,5 +56,10 @@ namespace TagHandler
         }
 
         #endregion TreeView
+
+        public void AddTag(Tag tag)
+        {
+            _tagReader.AddTag(tag);
+        }
     }
 }
