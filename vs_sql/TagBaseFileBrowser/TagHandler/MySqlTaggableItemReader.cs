@@ -48,7 +48,7 @@ namespace TagHandler
 
             var conn = MakeConn();
             conn.Open();
-            var cmdText = MakeCmdText(_filesTable, "id", "=", id.ToString());
+            var cmdText = MakeSelectCmdText(_filesTable, "id", id);
             var cmd = new MySqlCommand(cmdText, conn);
             var reader = cmd.ExecuteReader();
             while (reader.Read())
@@ -101,7 +101,7 @@ namespace TagHandler
             colValPairs.Add("thumbnail_path", file.ThumbnailPath);
             colValPairs.Add("preview_path", file.PreviewPath);
 
-            var cmdText = MakeInsertCmd(_filesTable, colValPairs);
+            var cmdText = MakeInsertCmdText(_filesTable, colValPairs);
             var cmd = new MySqlCommand(cmdText, conn);
             var n = cmd.ExecuteNonQuery();
             conn.Close();
@@ -133,7 +133,7 @@ namespace TagHandler
             colValPairs.Add("parent_tag_id", parentTag.Id.ToString());
             colValPairs.Add("child_file_id", childFile.Id.ToString());
 
-            var cmdText = MakeInsertCmd(_fileRelationTable, colValPairs);
+            var cmdText = MakeInsertCmdText(_fileRelationTable, colValPairs);
             var cmd = new MySqlCommand(cmdText, conn);
             var n = cmd.ExecuteNonQuery();
             conn.Close();
@@ -156,7 +156,7 @@ namespace TagHandler
 
             var conn = MakeConn();
             conn.Open();
-            var cmdText = MakeSelectCmd(_filesTable, "name", name);
+            var cmdText = MakeSelectCmdText(_filesTable, "name", name);
             var cmd = new MySqlCommand(cmdText, conn);
             var reader = cmd.ExecuteReader();
             while (reader.Read())
@@ -241,7 +241,7 @@ namespace TagHandler
 
             var conn = MakeConn();
             conn.Open();
-            var cmdText = MakeCmdText(_tagsTable, "id", "=", id.ToString());
+            var cmdText = MakeSelectCmdText(_tagsTable, "id", id);
             var cmd = new MySqlCommand(cmdText, conn);
             var reader = cmd.ExecuteReader();
             while (reader.Read())
@@ -281,7 +281,7 @@ namespace TagHandler
 
             var conn = MakeConn();
             conn.Open();
-            var cmdText = MakeCmdText(_tagsTable);
+            var cmdText = MakeSelectCmdText(_tagsTable);
             var cmd = new MySqlCommand(cmdText, conn);
             var reader = cmd.ExecuteReader();
             while (reader.Read())
@@ -358,49 +358,6 @@ namespace TagHandler
             return files;
         }
 
-        private string MakeSelectCmd(string table, string columnName, int value)
-        {
-            return $"SELECT * FROM `{table}` WHERE `{columnName}` = {value};";
-        }
-
-        private string MakeSelectCmd(string table, string columnName, string value)
-        {
-            return $"SELECT * FROM `{table}` WHERE `{columnName}` LIKE '{value}';";
-        }
-
-        private string MakeInsertCmd(string table, Dictionary<string, string> colValuePairs)
-        {
-            var cols = "`id`, ";
-            var vals = "NULL, ";
-
-            foreach (var cv in colValuePairs)
-            {
-                if (string.IsNullOrEmpty(cv.Key))
-                {
-                    throw new Exception("Column name shouldn't be null or empty.");
-                }
-                else
-                {
-                    cols += $"`{cv.Key}`, ";
-                }
-
-                if (cv.Value == null)
-                {
-                    vals += "NULL, ";
-                }
-                else
-                {
-                    vals += $"'{cv.Value}', ";
-                }
-            }
-
-            // Remove the last ", ".
-            cols = cols.TrimEnd().TrimEnd(',');
-            vals = vals.TrimEnd().TrimEnd(',');
-
-            return $"INSERT INTO `{table}` ({cols}) VALUES ({vals});";
-        }
-
         private MySqlConnection MakeConn()
         {
             var connText = $"server={_server};" +
@@ -420,7 +377,7 @@ namespace TagHandler
             var ids = new List<int>();
             var conn = MakeConn();
             conn.Open();
-            var cmdText = MakeCmdText(_tagRelationTable, "child_tag_id", "=", id.ToString());
+            var cmdText = MakeSelectCmdText(_tagRelationTable, "child_tag_id", id);
             var cmd = new MySqlCommand(cmdText, conn);
             var reader = cmd.ExecuteReader();
             while (reader.Read())
@@ -455,7 +412,7 @@ namespace TagHandler
             var ids = new List<int>();
             var conn = MakeConn();
             conn.Open();
-            var cmdText = MakeCmdText(_tagRelationTable, "parent_tag_id", "=", id.ToString());
+            var cmdText = MakeSelectCmdText(_tagRelationTable, "parent_tag_id", id);
             var cmd = new MySqlCommand(cmdText, conn);
             var reader = cmd.ExecuteReader();
             while (reader.Read())
@@ -473,14 +430,56 @@ namespace TagHandler
             return ids;
         }
 
-        private string MakeCmdText(string table, string column = "*")
+        #region Make Command Text
+
+        private string MakeSelectCmdText(string table, string column = "*")
         {
-            return $"SELECT {column} FROM `{table}`";
+            return $"SELECT {column} FROM `{table}`;";
         }
 
-        private string MakeCmdText(string table, string where, string op, string value)
+        private string MakeSelectCmdText(string table, string columnName, int value)
         {
-            return $"SELECT * FROM `{table}` WHERE `{where}` {op} {value}";
+            return $"SELECT * FROM `{table}` WHERE `{columnName}` = {value};";
         }
+
+        private string MakeSelectCmdText(string table, string columnName, string value)
+        {
+            return $"SELECT * FROM `{table}` WHERE `{columnName}` LIKE '{value}';";
+        }
+
+        private string MakeInsertCmdText(string table, Dictionary<string, string> colValuePairs)
+        {
+            var cols = "`id`, ";
+            var vals = "NULL, ";
+
+            foreach (var cv in colValuePairs)
+            {
+                if (string.IsNullOrEmpty(cv.Key))
+                {
+                    throw new Exception("Column name shouldn't be null or empty.");
+                }
+                else
+                {
+                    cols += $"`{cv.Key}`, ";
+                }
+
+                if (cv.Value == null)
+                {
+                    vals += "NULL, ";
+                }
+                else
+                {
+                    vals += $"'{cv.Value}', ";
+                }
+            }
+
+            // Remove the last ", ".
+            cols = cols.TrimEnd().TrimEnd(',');
+            vals = vals.TrimEnd().TrimEnd(',');
+
+            return $"INSERT INTO `{table}` ({cols}) VALUES ({vals});";
+        }
+
+        #endregion Make Command Text
     }
 }
