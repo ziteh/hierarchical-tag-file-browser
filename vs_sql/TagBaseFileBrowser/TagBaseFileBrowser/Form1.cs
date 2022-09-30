@@ -29,10 +29,22 @@ namespace TagBaseFileBrowser
             {
                 return;
             }
-
             var pTag = node.Tag as Tag;
-            _taggableItemHandler.AddTag(new Tag("Test"), pTag);
 
+            _taggableItemHandler.AddTag(new Tag("Test"), pTag);
+            _taggableItemHandler.UpdateTreeView(ref treeViewTags);
+        }
+
+        private void buttonAddFile_Click(object sender, EventArgs e)
+        {
+            var node = treeViewTags.SelectedNode;
+            if (node == null)
+            {
+                return;
+            }
+            var pTag = node.Tag as Tag;
+
+            _taggableItemHandler.AddFile(new File("TestFile", "./"), pTag);
             _taggableItemHandler.UpdateTreeView(ref treeViewTags);
         }
     }

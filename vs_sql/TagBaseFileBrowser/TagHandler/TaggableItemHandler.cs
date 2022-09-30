@@ -58,6 +58,24 @@ namespace TagHandler
 
         #endregion TreeView
 
+        public void AddFile(File file, Tag parentTag = null)
+        {
+            try
+            {
+                _tagReader.AddFile(file);
+            }
+            catch
+            { }
+
+            if (parentTag == null)
+            {
+                return;
+            }
+
+            file = _tagReader.ReadFile(file.Name);
+            _tagReader.AddFileRelation(parentTag, file);
+        }
+
         public void AddTag(Tag tag, Tag parentTag = null)
         {
             try

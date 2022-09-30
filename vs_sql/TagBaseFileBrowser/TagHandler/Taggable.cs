@@ -8,9 +8,9 @@ namespace TagHandler
 {
     public abstract class Taggable
     {
-        public string Remark = "";
+        public string Remark;
 
-        public string ThumbnailPath = "";
+        public string ThumbnailPath;
 
         public List<string> Alias = new List<string>();
 

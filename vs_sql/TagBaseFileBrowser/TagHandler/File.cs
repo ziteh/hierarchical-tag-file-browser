@@ -8,8 +8,13 @@ namespace TagHandler
 {
     public class File : Taggable
     {
-        public File(string name, int id = -1) : base(name, id)
+        public string Path;
+
+        public string PreviewPath;
+
+        public File(string name, string path, int id = -1) : base(name, id)
         {
+            Path = path;
         }
     }
 }

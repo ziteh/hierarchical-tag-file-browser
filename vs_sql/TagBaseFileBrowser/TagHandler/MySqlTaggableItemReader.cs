@@ -70,16 +70,41 @@ namespace TagHandler
 
                 var parentTag = resursive ? ReadParentTags(id) : null;
 
-                file = new File(data[1], id)
+                file = new File(data[1], data[4], id)
                 {
                     Remark = data[3],
-                    ThumbnailPath = data[4],
+                    ThumbnailPath = data[5],
+                    PreviewPath = data[6],
                     Tags = parentTag
                 };
             }
             conn.Close();
 
             return file;
+        }
+
+        public void AddFile(File file)
+        {
+            if (ReadFile(file.Name) != null)
+            {
+                throw new Exception("File already exists.");
+            }
+
+            var conn = MakeConn();
+            conn.Open();
+
+            var colValPairs = new Dictionary<string, string>();
+            colValPairs.Add("name", file.Name);
+            colValPairs.Add("alias", null); // TODO
+            colValPairs.Add("remark", file.Remark);
+            colValPairs.Add("path", file.Path);
+            colValPairs.Add("thumbnail_path", file.ThumbnailPath);
+            colValPairs.Add("preview_path", file.PreviewPath);
+
+            var cmdText = MakeInsertCmd(_filesTable, colValPairs);
+            var cmd = new MySqlCommand(cmdText, conn);
+            var n = cmd.ExecuteNonQuery();
+            conn.Close();
         }
 
         public void AddTag(Tag tag)
@@ -99,6 +124,21 @@ namespace TagHandler
             conn.Close();
         }
 
+        public void AddFileRelation(Tag parentTag, File childFile)
+        {
+            var conn = MakeConn();
+            conn.Open();
+
+            var colValPairs = new Dictionary<string, string>();
+            colValPairs.Add("parent_tag_id", parentTag.Id.ToString());
+            colValPairs.Add("child_file_id", childFile.Id.ToString());
+
+            var cmdText = MakeInsertCmd(_fileRelationTable, colValPairs);
+            var cmd = new MySqlCommand(cmdText, conn);
+            var n = cmd.ExecuteNonQuery();
+            conn.Close();
+        }
+
         public void AddTagRelation(Tag parentTag, Tag childTag)
         {
             var conn = MakeConn();
@@ -108,6 +148,49 @@ namespace TagHandler
             var cmd = new MySqlCommand(cmdText, conn);
             var n = cmd.ExecuteNonQuery();
             conn.Close();
+        }
+
+        public File ReadFile(string name)
+        {
+            File file = null;
+
+            var conn = MakeConn();
+            conn.Open();
+            var cmdText = MakeSelectCmd(_filesTable, "name", name);
+            var cmd = new MySqlCommand(cmdText, conn);
+            var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                var data = new List<string>();
+                for (int col = 0; col < reader.FieldCount; col++)
+                {
+                    string s;
+                    if (reader.IsDBNull(col))
+                    {
+                        s = null;
+                    }
+                    else
+                    {
+                        s = reader.GetString(col);
+                    }
+                    data.Add(s);
+                }
+
+                // TODO
+                //var parentTag = resursive ? ReadParentTags(id) : null;
+
+                file = new File(name, data[4])
+                {
+                    Id = int.Parse(data[0]),
+                    Remark = data[3],
+                    ThumbnailPath = data[5],
+                    PreviewPath = data[6],
+                    Tags = null
+                };
+            }
+            conn.Close();
+
+            return file;
         }
 
         public Tag ReadTag(string name)
@@ -273,6 +356,49 @@ namespace TagHandler
                 files.Add(file);
             }
             return files;
+        }
+
+        private string MakeSelectCmd(string table, string columnName, int value)
+        {
+            return $"SELECT * FROM `{table}` WHERE `{columnName}` = {value};";
+        }
+
+        private string MakeSelectCmd(string table, string columnName, string value)
+        {
+            return $"SELECT * FROM `{table}` WHERE `{columnName}` LIKE '{value}';";
+        }
+
+        private string MakeInsertCmd(string table, Dictionary<string, string> colValuePairs)
+        {
+            var cols = "`id`, ";
+            var vals = "NULL, ";
+
+            foreach (var cv in colValuePairs)
+            {
+                if (string.IsNullOrEmpty(cv.Key))
+                {
+                    throw new Exception("Column name shouldn't be null or empty.");
+                }
+                else
+                {
+                    cols += $"`{cv.Key}`, ";
+                }
+
+                if (cv.Value == null)
+                {
+                    vals += "NULL, ";
+                }
+                else
+                {
+                    vals += $"'{cv.Value}', ";
+                }
+            }
+
+            // Remove the last ", ".
+            cols = cols.TrimEnd().TrimEnd(',');
+            vals = vals.TrimEnd().TrimEnd(',');
+
+            return $"INSERT INTO `{table}` ({cols}) VALUES ({vals});";
         }
 
         private MySqlConnection MakeConn()
