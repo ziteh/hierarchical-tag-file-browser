@@ -72,7 +72,7 @@ namespace TagHandler
                 return;
             }
 
-            file = _tagReader.ReadFile(file.Name);
+            file = _tagReader.QueryFile(file.Name);
             _tagReader.AddFileRelation(parentTag, file);
         }
 
@@ -90,8 +90,13 @@ namespace TagHandler
                 return;
             }
 
-            tag = _tagReader.ReadTag(tag.Name);
+            tag = _tagReader.QueryTag(tag.Name);
             _tagReader.AddTagRelation(parentTag, tag);
+        }
+
+        public List<File> GetChildFiles(Tag tag)
+        {
+            return _tagReader.GetChildFiles(tag.Id);
         }
     }
 }

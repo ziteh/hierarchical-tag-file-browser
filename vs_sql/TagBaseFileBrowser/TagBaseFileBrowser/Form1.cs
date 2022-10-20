@@ -42,10 +42,37 @@ namespace TagBaseFileBrowser
             {
                 return;
             }
-            var pTag = node.Tag as Tag;
 
+            var pTag = node.Tag as Tag;
             _taggableItemHandler.AddFile(new File("TestFile", "./"), pTag);
             _taggableItemHandler.UpdateTreeView(ref treeViewTags);
+        }
+
+        private void treeViewTags_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            var node = treeViewTags.SelectedNode;
+            if (node == null)
+            {
+                return;
+            }
+
+            listViewChildren.Items.Clear();
+
+            var pTag = node.Tag as Tag;
+            var childFiles = _taggableItemHandler.GetChildFiles(pTag);
+            foreach (var file in childFiles)
+            {
+                var item = new System.Windows.Forms.ListViewItem();
+                item.SubItems[0].Text = file.Name;
+                item.SubItems.Add(file.Path);
+
+                listViewChildren.Items.Add(item);
+            }
+
+            if (listViewChildren.Items.Count > 0)
+            {
+                listViewChildren.Items[0].Selected = true;
+            }
         }
     }
 }

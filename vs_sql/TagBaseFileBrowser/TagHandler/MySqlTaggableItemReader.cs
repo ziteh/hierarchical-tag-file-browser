@@ -42,50 +42,9 @@ namespace TagHandler
         {
         }
 
-        public File ReadFile(int id, bool resursive = true)
-        {
-            File file = null;
-
-            var conn = MakeConn();
-            conn.Open();
-            var cmdText = MakeSelectCmdText(_filesTable, "id", id);
-            var cmd = new MySqlCommand(cmdText, conn);
-            var reader = cmd.ExecuteReader();
-            while (reader.Read())
-            {
-                var data = new List<string>();
-                for (int col = 1; col < reader.FieldCount; col++)
-                {
-                    string s;
-                    if (reader.IsDBNull(col))
-                    {
-                        s = "";
-                    }
-                    else
-                    {
-                        s = reader.GetString(col);
-                    }
-                    data.Add(s);
-                }
-
-                var parentTag = resursive ? ReadParentTags(id) : null;
-
-                file = new File(data[1], data[4], id)
-                {
-                    Remark = data[3],
-                    ThumbnailPath = data[5],
-                    PreviewPath = data[6],
-                    Tags = parentTag
-                };
-            }
-            conn.Close();
-
-            return file;
-        }
-
         public void AddFile(File file)
         {
-            if (ReadFile(file.Name) != null)
+            if (QueryFile(file.Name) != null)
             {
                 throw new Exception("File already exists.");
             }
@@ -109,7 +68,7 @@ namespace TagHandler
 
         public void AddTag(Tag tag)
         {
-            if (ReadTag(tag.Name) != null)
+            if (QueryTag(tag.Name) != null)
             {
                 throw new Exception("Tag already exists.");
             }
@@ -150,7 +109,48 @@ namespace TagHandler
             conn.Close();
         }
 
-        public File ReadFile(string name)
+        public File QueryFile(int id, bool includeParent = true)
+        {
+            File file = null;
+
+            var conn = MakeConn();
+            conn.Open();
+            var cmdText = MakeSelectCmdText(_filesTable, "id", id);
+            var cmd = new MySqlCommand(cmdText, conn);
+            var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                var data = new List<string>();
+                for (int col = 1; col < reader.FieldCount; col++)
+                {
+                    string s;
+                    if (reader.IsDBNull(col))
+                    {
+                        s = "";
+                    }
+                    else
+                    {
+                        s = reader.GetString(col);
+                    }
+                    data.Add(s);
+                }
+
+                var parentTag = includeParent ? ReadParentTagsOfFile(id) : null;
+
+                file = new File(data[0], data[3], id)
+                {
+                    Remark = data[2],
+                    ThumbnailPath = data[4],
+                    PreviewPath = data[5],
+                    Tags = parentTag
+                };
+            }
+            conn.Close();
+
+            return file;
+        }
+
+        public File QueryFile(string name, bool includeParent = true)
         {
             File file = null;
 
@@ -176,16 +176,16 @@ namespace TagHandler
                     data.Add(s);
                 }
 
-                // TODO
-                //var parentTag = resursive ? ReadParentTags(id) : null;
+                var id = int.Parse(data[0]);
+                var parentTag = includeParent ? ReadParentTagsOfFile(id) : null;
 
                 file = new File(name, data[4])
                 {
-                    Id = int.Parse(data[0]),
+                    Id = id,
                     Remark = data[3],
                     ThumbnailPath = data[5],
                     PreviewPath = data[6],
-                    Tags = null
+                    Tags = parentTag
                 };
             }
             conn.Close();
@@ -193,13 +193,13 @@ namespace TagHandler
             return file;
         }
 
-        public Tag ReadTag(string name)
+        public Tag QueryTag(string name, bool includeParent = true)
         {
             Tag tag = null;
 
             var conn = MakeConn();
             conn.Open();
-            var cmdText = $"SELECT * FROM `{_tagsTable}` WHERE `name` LIKE '{name}'";
+            var cmdText = MakeSelectCmdText(_tagsTable, "name", name);
             var cmd = new MySqlCommand(cmdText, conn);
             var reader = cmd.ExecuteReader();
             while (reader.Read())
@@ -219,15 +219,15 @@ namespace TagHandler
                     data.Add(s);
                 }
 
-                // TODO
-                //var parentTag = resursive ? ReadParentTags(id) : null;
+                var id = int.Parse(data[0]);
+                var parentTag = includeParent ? ReadParentTagsOfTag(id) : null;
 
                 tag = new Tag(name)
                 {
-                    Id = int.Parse(data[0]),
+                    Id = id,
                     Remark = data[4],
                     ThumbnailPath = data[5],
-                    Tags = null
+                    Tags = parentTag
                 };
             }
             conn.Close();
@@ -235,7 +235,7 @@ namespace TagHandler
             return tag;
         }
 
-        public Tag ReadTag(int id, bool resursive = true)
+        public Tag QueryTag(int id, bool includeParent = true)
         {
             Tag tag = null;
 
@@ -261,7 +261,7 @@ namespace TagHandler
                     data.Add(s);
                 }
 
-                var parentTag = resursive ? ReadParentTags(id) : null;
+                var parentTag = includeParent ? ReadParentTagsOfTag(id) : null;
 
                 tag = new Tag(data[1], id)
                 {
@@ -277,10 +277,11 @@ namespace TagHandler
 
         public List<Tag> ReadAllTags()
         {
-            List<Tag> tags = new List<Tag>();
+            var tags = new List<Tag>();
 
             var conn = MakeConn();
             conn.Open();
+
             var cmdText = MakeSelectCmdText(_tagsTable);
             var cmd = new MySqlCommand(cmdText, conn);
             var reader = cmd.ExecuteReader();
@@ -305,7 +306,7 @@ namespace TagHandler
                     thumbnail = reader.GetString(5);
                 }
 
-                var parentTag = ReadParentTags(id);
+                var parentTag = ReadParentTagsOfTag(id);
 
                 var tag = new Tag(name, id)
                 {
@@ -334,28 +335,50 @@ namespace TagHandler
             return count;
         }
 
-        public List<Tag> ReadChildTags(int id)
+        public List<Tag> ReadChildTags(int parentTagId)
         {
             var tags = new List<Tag>();
-            var childIds = ReadChildTagsId(id);
+            var childIds = GetChildTagIds(parentTagId, false);
             foreach (var ci in childIds)
             {
-                var tag = ReadTag(ci, false);
+                var tag = QueryTag(ci, false);
                 tags.Add(tag);
             }
             return tags;
         }
 
-        public List<File> ReadChildFiles(int id)
+        public List<File> ReadChildFiles(int parentTagId)
         {
             var files = new List<File>();
-            var children = ReadChildTagsId(id);
+            var children = GetChildTagIds(parentTagId);
             foreach (var c in children)
             {
-                var file = ReadFile(c, false);
+                var file = QueryFile(c, false);
                 files.Add(file);
             }
             return files;
+        }
+
+        public List<File> GetChildFiles(int parentTagId, bool recusive = true)
+        {
+            var childFiles = new List<File>();
+            var childFileIds = GetChildFileIds(parentTagId, recusive);
+            foreach (var childId in childFileIds)
+            {
+                childFiles.Add(QueryFile(childId, false));
+            }
+            return childFiles;
+        }
+
+        public List<Tag> GetChildTags(int parentTagId, bool recusive = true)
+        {
+            var childTags = new List<Tag>();
+            var childTagIds = GetChildTagIds(parentTagId, recusive);
+            foreach (var childId in childTagIds)
+            {
+                childTags.Add(QueryTag(childId, false));
+            }
+            return childTags;
         }
 
         private MySqlConnection MakeConn()
@@ -372,12 +395,14 @@ namespace TagHandler
             return new MySqlConnection(connText);
         }
 
-        private List<int> ReadParentTagsId(int id)
+        private List<int> ReadParentTagsId(int childId, string relationTable, string childColumnName)
         {
             var ids = new List<int>();
+
             var conn = MakeConn();
             conn.Open();
-            var cmdText = MakeSelectCmdText(_tagRelationTable, "child_tag_id", id);
+
+            var cmdText = MakeSelectCmdText(relationTable, childColumnName, childId);
             var cmd = new MySqlCommand(cmdText, conn);
             var reader = cmd.ExecuteReader();
             while (reader.Read())
@@ -392,27 +417,52 @@ namespace TagHandler
                 ids.Add(parentTagId);
             }
             conn.Close();
+
             return ids;
         }
 
-        private List<Tag> ReadParentTags(int id)
+        private List<int> ReadParentTagsIdOfFile(int childFileId)
         {
-            var tags = new List<Tag>();
-            var parentIds = ReadParentTagsId(id);
-            foreach (var pi in parentIds)
-            {
-                var tag = ReadTag(pi, false);
-                tags.Add(tag);
-            }
-            return tags;
+            return ReadParentTagsId(childFileId, _fileRelationTable, "child_file_id");
         }
 
-        private List<int> ReadChildTagsId(int id)
+        private List<int> ReadParentTagsIdOfTag(int childTagId)
+        {
+            return ReadParentTagsId(childTagId, _tagRelationTable, "child_tag_id");
+        }
+
+        private List<Tag> ReadParentTagsOfFile(int childFileId)
+        {
+            var parentTags = new List<Tag>();
+            var parentIds = ReadParentTagsIdOfFile(childFileId);
+            foreach (var pId in parentIds)
+            {
+                var pTag = QueryTag(pId, false);
+                parentTags.Add(pTag);
+            }
+            return parentTags;
+        }
+
+        private List<Tag> ReadParentTagsOfTag(int childTagId)
+        {
+            var parentTegs = new List<Tag>();
+            var parentIds = ReadParentTagsIdOfTag(childTagId);
+            foreach (var pId in parentIds)
+            {
+                var pTag = QueryTag(pId, false);
+                parentTegs.Add(pTag);
+            }
+            return parentTegs;
+        }
+
+        private List<int> GetChildIds(int parentTagId, string relationTable)
         {
             var ids = new List<int>();
+
             var conn = MakeConn();
             conn.Open();
-            var cmdText = MakeSelectCmdText(_tagRelationTable, "parent_tag_id", id);
+
+            var cmdText = MakeSelectCmdText(relationTable, "parent_tag_id", parentTagId);
             var cmd = new MySqlCommand(cmdText, conn);
             var reader = cmd.ExecuteReader();
             while (reader.Read())
@@ -423,11 +473,48 @@ namespace TagHandler
                     continue;
                 }
 
-                var childTagId = reader.GetInt16(col);
-                ids.Add(childTagId);
+                var childId = reader.GetInt16(col);
+                ids.Add(childId);
             }
+
             conn.Close();
             return ids;
+        }
+
+        private List<int> GetChildFileIds(int parentTagId, bool recursive = true)
+        {
+            var tagIds = new List<int>();
+            tagIds.Add(parentTagId);
+
+            if (recursive)
+            {
+                tagIds.AddRange(GetChildTagIds(parentTagId, true));
+            }
+
+            var childFileIds = new List<int>();
+            foreach (var id in tagIds)
+            {
+                childFileIds.AddRange(GetChildIds(id, _fileRelationTable));
+            }
+
+            return childFileIds;
+        }
+
+        private List<int> GetChildTagIds(int parentTagId, bool recursive = true)
+        {
+            var childTagIds = GetChildIds(parentTagId, _tagRelationTable);
+
+            if (recursive && childTagIds.Count > 0)
+            {
+                var resursiveIds = new List<int>();
+                foreach (var childTagId in childTagIds)
+                {
+                    resursiveIds.AddRange(GetChildTagIds(childTagId, true));
+                }
+                childTagIds.AddRange(resursiveIds);
+            }
+
+            return childTagIds;
         }
 
         #region Make Command Text
