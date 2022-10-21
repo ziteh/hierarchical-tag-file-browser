@@ -11,11 +11,11 @@ using TagHandler;
 
 namespace TagBaseFileBrowser
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         private readonly TaggableItemHandler _taggableItemHandler;
 
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
 
