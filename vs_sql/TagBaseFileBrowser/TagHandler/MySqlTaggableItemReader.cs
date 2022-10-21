@@ -42,6 +42,12 @@ namespace TagHandler
         {
         }
 
+        // TODO.
+        public void CreateNewDatabase()
+        {
+            throw new NotImplementedException();
+        }
+
         public void AddFile(File file)
         {
             if (QueryFile(file.Name) != null)
