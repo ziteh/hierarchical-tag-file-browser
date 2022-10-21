@@ -39,12 +39,12 @@
             this.comboBoxParentTag.Location = new System.Drawing.Point(27, 28);
             this.comboBoxParentTag.Margin = new System.Windows.Forms.Padding(1);
             this.comboBoxParentTag.Name = "comboBoxParentTag";
-            this.comboBoxParentTag.Size = new System.Drawing.Size(95, 20);
+            this.comboBoxParentTag.Size = new System.Drawing.Size(121, 20);
             this.comboBoxParentTag.TabIndex = 0;
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(144, 199);
+            this.buttonAdd.Location = new System.Drawing.Point(39, 135);
             this.buttonAdd.Margin = new System.Windows.Forms.Padding(1);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(85, 24);
@@ -56,7 +56,7 @@
             // comboBoxChildTag
             // 
             this.comboBoxChildTag.FormattingEnabled = true;
-            this.comboBoxChildTag.Location = new System.Drawing.Point(144, 28);
+            this.comboBoxChildTag.Location = new System.Drawing.Point(27, 68);
             this.comboBoxChildTag.Name = "comboBoxChildTag";
             this.comboBoxChildTag.Size = new System.Drawing.Size(121, 20);
             this.comboBoxChildTag.TabIndex = 4;
@@ -65,7 +65,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(452, 268);
+            this.ClientSize = new System.Drawing.Size(180, 194);
             this.Controls.Add(this.comboBoxChildTag);
             this.Controls.Add(this.buttonAdd);
             this.Controls.Add(this.comboBoxParentTag);

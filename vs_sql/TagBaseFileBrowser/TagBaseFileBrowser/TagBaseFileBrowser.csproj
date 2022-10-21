@@ -89,6 +89,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddFileForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddFileForm.Designer.cs">
+      <DependentUpon>AddFileForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="AddTagForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -103,6 +109,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AddFileForm.resx">
+      <DependentUpon>AddFileForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AddTagForm.resx">
       <DependentUpon>AddTagForm.cs</DependentUpon>
     </EmbeddedResource>

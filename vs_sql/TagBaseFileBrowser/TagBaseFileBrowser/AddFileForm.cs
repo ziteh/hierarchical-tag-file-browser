@@ -11,39 +11,43 @@ using TagHandler;
 
 namespace TagBaseFileBrowser
 {
-    public partial class AddTagForm : Form
+    public partial class AddFileForm : Form
     {
-        private readonly Action<string, Tag> _callbackFunc;
+        private readonly Action<string, File> _callbackFunc;
 
-        public AddTagForm(List<Tag> existTags, Action<string, Tag> callbackFunc)
+        public AddFileForm(List<Tag> existTags, Action<string, File> callbackFunc)
         {
             InitializeComponent();
 
             _callbackFunc = callbackFunc;
-            var tags = existTags ?? new List<Tag>();
 
             comboBoxParentTag.Items.Clear();
-            comboBoxChildTag.Items.Clear();
-            foreach (var tag in tags)
+            foreach (var tag in existTags)
             {
                 comboBoxParentTag.Items.Add(tag.Name);
-                comboBoxChildTag.Items.Add(tag.Name);
             }
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            var parentTagName = comboBoxParentTag.Text;
-            var tagName = comboBoxChildTag.Text;
-
-            if (string.IsNullOrEmpty(parentTagName) ||
-                string.IsNullOrEmpty(tagName))
+            if (comboBoxParentTag.SelectedIndex == -1)
             {
                 return;
             }
 
-            var tag = new Tag(tagName);
-            _callbackFunc(parentTagName, tag);
+            var parentTagName = comboBoxParentTag.SelectedItem.ToString();
+            var fileName = textBoxFileName.Text;
+            var filePath = textBoxPath.Text;
+
+            if (string.IsNullOrEmpty(parentTagName) ||
+                string.IsNullOrEmpty(fileName) ||
+                string.IsNullOrEmpty(filePath))
+            {
+                return;
+            }
+
+            var file = new File(fileName, filePath);
+            _callbackFunc(parentTagName, file);
             this.Close();
         }
     }

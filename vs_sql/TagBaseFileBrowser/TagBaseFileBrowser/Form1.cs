@@ -27,15 +27,14 @@ namespace TagBaseFileBrowser
         {
             var allTags = _taggableItemHandler.ReadAllTags();
 
-            Action<string, string> callback = (parentName, newTagName) =>
+            Action<string, Tag> callback = (parentName, childTag) =>
             {
-                if (string.IsNullOrEmpty(parentName) ||
-                    string.IsNullOrEmpty(newTagName))
+                if (string.IsNullOrEmpty(parentName))
                 {
                     return;
                 }
 
-                _taggableItemHandler.AddTag(new Tag(newTagName), parentName);
+                _taggableItemHandler.AddTag(childTag, parentName);
                 _taggableItemHandler.UpdateTreeView(ref treeViewTags);
             };
 
@@ -45,18 +44,29 @@ namespace TagBaseFileBrowser
 
         private void buttonAddFile_Click(object sender, EventArgs e)
         {
-            var node = treeViewTags.SelectedNode;
-            if (node == null)
-            {
-                return;
-            }
+            var allTags = _taggableItemHandler.ReadAllTags();
 
-            var pTag = node.Tag as Tag;
-            _taggableItemHandler.AddFile(new File("TestFile", "./"), pTag);
-            _taggableItemHandler.UpdateTreeView(ref treeViewTags);
+            Action<string, File> callback = (parentName, childFile) =>
+            {
+                if (string.IsNullOrEmpty(parentName))
+                {
+                    return;
+                }
+
+                _taggableItemHandler.AddFile(childFile, parentName);
+                UpdateListView();
+            };
+
+            var subForm = new AddFileForm(allTags, callback);
+            subForm.Show();
         }
 
         private void treeViewTags_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            UpdateListView();
+        }
+
+        private void UpdateListView()
         {
             var node = treeViewTags.SelectedNode;
             if (node == null)

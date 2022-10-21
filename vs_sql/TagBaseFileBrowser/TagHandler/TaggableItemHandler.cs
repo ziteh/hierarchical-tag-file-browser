@@ -63,6 +63,12 @@ namespace TagHandler
             return _tagReader.ReadAllTags();
         }
 
+        public void AddFile(File file, string parentTagName)
+        {
+            var parentTag = _tagReader.QueryTag(parentTagName);
+            AddFile(file, parentTag);
+        }
+
         public void AddFile(File file, Tag parentTag = null)
         {
             try
@@ -83,16 +89,8 @@ namespace TagHandler
 
         public void AddTag(Tag tag, string parentTagName)
         {
-            try
-            {
-                _tagReader.AddTag(tag);
-            }
-            catch
-            { }
-
             var parentTag = _tagReader.QueryTag(parentTagName);
-            tag = _tagReader.QueryTag(tag.Name);
-            _tagReader.AddTagRelation(parentTag, tag);
+            AddTag(tag, parentTag);
         }
 
         public void AddTag(Tag tag, Tag parentTag = null)
