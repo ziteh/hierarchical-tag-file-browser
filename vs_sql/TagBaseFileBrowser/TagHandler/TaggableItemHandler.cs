@@ -58,6 +58,11 @@ namespace TagHandler
 
         #endregion TreeView
 
+        public List<Tag> ReadAllTags()
+        {
+            return _tagReader.ReadAllTags();
+        }
+
         public void AddFile(File file, Tag parentTag = null)
         {
             try
@@ -74,6 +79,20 @@ namespace TagHandler
 
             file = _tagReader.QueryFile(file.Name);
             _tagReader.AddFileRelation(parentTag, file);
+        }
+
+        public void AddTag(Tag tag, string parentTagName)
+        {
+            try
+            {
+                _tagReader.AddTag(tag);
+            }
+            catch
+            { }
+
+            var parentTag = _tagReader.QueryTag(parentTagName);
+            tag = _tagReader.QueryTag(tag.Name);
+            _tagReader.AddTagRelation(parentTag, tag);
         }
 
         public void AddTag(Tag tag, Tag parentTag = null)

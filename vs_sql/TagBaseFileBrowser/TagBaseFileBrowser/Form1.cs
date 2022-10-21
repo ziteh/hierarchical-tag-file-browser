@@ -18,21 +18,29 @@ namespace TagBaseFileBrowser
         public Form1()
         {
             InitializeComponent();
+
             _taggableItemHandler = new TaggableItemHandler();
             _taggableItemHandler.UpdateTreeView(ref treeViewTags);
         }
 
         private void buttonAddTag_Click(object sender, EventArgs e)
         {
-            var node = treeViewTags.SelectedNode;
-            if (node == null)
-            {
-                return;
-            }
-            var pTag = node.Tag as Tag;
+            var allTags = _taggableItemHandler.ReadAllTags();
 
-            _taggableItemHandler.AddTag(new Tag("Test"), pTag);
-            _taggableItemHandler.UpdateTreeView(ref treeViewTags);
+            Action<string, string> callback = (parentName, newTagName) =>
+            {
+                if (string.IsNullOrEmpty(parentName) ||
+                    string.IsNullOrEmpty(newTagName))
+                {
+                    return;
+                }
+
+                _taggableItemHandler.AddTag(new Tag(newTagName), parentName);
+                _taggableItemHandler.UpdateTreeView(ref treeViewTags);
+            };
+
+            var subForm = new AddTagForm(allTags, callback);
+            subForm.Show();
         }
 
         private void buttonAddFile_Click(object sender, EventArgs e)
