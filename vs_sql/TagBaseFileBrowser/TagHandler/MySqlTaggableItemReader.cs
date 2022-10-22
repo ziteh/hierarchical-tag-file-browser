@@ -82,8 +82,17 @@ namespace TagHandler
             var conn = MakeConn();
             conn.Open();
 
-            // TODO
-            var cmdText = $"INSERT INTO `{_tagsTable}` (`id`, `type`, `name`, `alias`, `remark`, `thumbnail_path`, `font_color`, `back_color`) VALUES (NULL, '1', '{tag.Name}', NULL, NULL, NULL, NULL, NULL);";
+            var colValPairs = new Dictionary<string, string>
+            {
+                {"type", "1"},
+                {"name", tag.Name},
+                {"alias", null },
+                {"remark", null },
+                {"thumbnail_path", null },
+                {"font_color", null },
+                {"back_color", null }
+            };
+            var cmdText = MakeInsertCmdText(_tagsTable, colValPairs);
             var cmd = new MySqlCommand(cmdText, conn);
             var n = cmd.ExecuteNonQuery();
             conn.Close();
