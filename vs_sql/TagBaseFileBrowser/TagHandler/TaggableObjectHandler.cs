@@ -7,11 +7,11 @@ using System.Windows.Forms;
 
 namespace TagHandler
 {
-    public class TaggableItemHandler
+    public class TaggableObjectHandler
     {
         private readonly MySqlTaggableItemReader _tagReader;
 
-        public TaggableItemHandler()
+        public TaggableObjectHandler()
         {
             _tagReader = new MySqlTaggableItemReader("tag_system");
         }

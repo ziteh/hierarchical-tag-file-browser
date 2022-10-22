@@ -13,13 +13,13 @@ namespace TagBaseFileBrowser
 {
     public partial class MainForm : Form
     {
-        private readonly TaggableItemHandler _taggableItemHandler;
+        private readonly TaggableObjectHandler _taggableItemHandler;
 
         public MainForm()
         {
             InitializeComponent();
 
-            _taggableItemHandler = new TaggableItemHandler();
+            _taggableItemHandler = new TaggableObjectHandler();
             _taggableItemHandler.UpdateTreeView(ref treeViewTags);
         }
 
