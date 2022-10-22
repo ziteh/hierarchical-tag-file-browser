@@ -380,7 +380,7 @@ namespace TagHandler
             var childItemIds = GetChildItemIds(parentTagId, recusive);
             foreach (var childId in childItemIds)
             {
-                childItems.Add(QueryItem(childId, false));
+                childItems.Add(QueryItem(childId, true));
             }
             return childItems;
         }
@@ -391,7 +391,7 @@ namespace TagHandler
             var childTagIds = GetChildTagIds(parentTagId, recusive);
             foreach (var childId in childTagIds)
             {
-                childTags.Add(QueryTag(childId, false));
+                childTags.Add(QueryTag(childId, true));
             }
             return childTags;
         }

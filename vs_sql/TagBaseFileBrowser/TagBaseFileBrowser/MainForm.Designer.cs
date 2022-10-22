@@ -35,6 +35,7 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.pictureBoxPreview = new System.Windows.Forms.PictureBox();
+            this.textBoxItemInfo = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPreview)).BeginInit();
             this.SuspendLayout();
             // 
@@ -100,11 +101,21 @@
             this.pictureBoxPreview.TabIndex = 3;
             this.pictureBoxPreview.TabStop = false;
             // 
+            // textBoxItemInfo
+            // 
+            this.textBoxItemInfo.Location = new System.Drawing.Point(728, 368);
+            this.textBoxItemInfo.Multiline = true;
+            this.textBoxItemInfo.Name = "textBoxItemInfo";
+            this.textBoxItemInfo.ReadOnly = true;
+            this.textBoxItemInfo.Size = new System.Drawing.Size(292, 59);
+            this.textBoxItemInfo.TabIndex = 4;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1032, 439);
+            this.Controls.Add(this.textBoxItemInfo);
             this.Controls.Add(this.pictureBoxPreview);
             this.Controls.Add(this.listViewChildren);
             this.Controls.Add(this.buttonAddFile);
@@ -114,6 +125,7 @@
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPreview)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -126,6 +138,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.PictureBox pictureBoxPreview;
+        private System.Windows.Forms.TextBox textBoxItemInfo;
     }
 }
 
