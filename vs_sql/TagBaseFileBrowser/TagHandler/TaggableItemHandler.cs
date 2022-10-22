@@ -76,7 +76,9 @@ namespace TagHandler
                 _tagReader.AddFile(file);
             }
             catch
-            { }
+            {
+                return;
+            }
 
             if (parentTag == null)
             {
@@ -100,7 +102,9 @@ namespace TagHandler
                 _tagReader.AddTag(tag);
             }
             catch
-            { }
+            {
+                return;
+            }
 
             if (parentTag == null)
             {
