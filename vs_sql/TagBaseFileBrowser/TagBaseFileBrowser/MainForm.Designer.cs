@@ -38,19 +38,17 @@
             // 
             // treeViewTags
             // 
-            this.treeViewTags.Location = new System.Drawing.Point(61, 77);
-            this.treeViewTags.Margin = new System.Windows.Forms.Padding(7, 7, 7, 7);
+            this.treeViewTags.Location = new System.Drawing.Point(26, 32);
             this.treeViewTags.Name = "treeViewTags";
-            this.treeViewTags.Size = new System.Drawing.Size(650, 789);
+            this.treeViewTags.Size = new System.Drawing.Size(281, 329);
             this.treeViewTags.TabIndex = 0;
             this.treeViewTags.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewTags_AfterSelect);
             // 
             // buttonAddTag
             // 
-            this.buttonAddTag.Location = new System.Drawing.Point(93, 909);
-            this.buttonAddTag.Margin = new System.Windows.Forms.Padding(7, 7, 7, 7);
+            this.buttonAddTag.Location = new System.Drawing.Point(40, 376);
             this.buttonAddTag.Name = "buttonAddTag";
-            this.buttonAddTag.Size = new System.Drawing.Size(175, 56);
+            this.buttonAddTag.Size = new System.Drawing.Size(75, 23);
             this.buttonAddTag.TabIndex = 1;
             this.buttonAddTag.Text = "Add Tag";
             this.buttonAddTag.UseVisualStyleBackColor = true;
@@ -58,12 +56,11 @@
             // 
             // buttonAddFile
             // 
-            this.buttonAddFile.Location = new System.Drawing.Point(93, 979);
-            this.buttonAddFile.Margin = new System.Windows.Forms.Padding(7, 7, 7, 7);
+            this.buttonAddFile.Location = new System.Drawing.Point(40, 405);
             this.buttonAddFile.Name = "buttonAddFile";
-            this.buttonAddFile.Size = new System.Drawing.Size(175, 56);
+            this.buttonAddFile.Size = new System.Drawing.Size(75, 23);
             this.buttonAddFile.TabIndex = 1;
-            this.buttonAddFile.Text = "Add File";
+            this.buttonAddFile.Text = "Add Item";
             this.buttonAddFile.UseVisualStyleBackColor = true;
             this.buttonAddFile.Click += new System.EventHandler(this.buttonAddFile_Click);
             // 
@@ -75,10 +72,9 @@
             this.listViewChildren.FullRowSelect = true;
             this.listViewChildren.GridLines = true;
             this.listViewChildren.HideSelection = false;
-            this.listViewChildren.Location = new System.Drawing.Point(730, 77);
-            this.listViewChildren.Margin = new System.Windows.Forms.Padding(7, 7, 7, 7);
+            this.listViewChildren.Location = new System.Drawing.Point(313, 32);
             this.listViewChildren.Name = "listViewChildren";
-            this.listViewChildren.Size = new System.Drawing.Size(949, 789);
+            this.listViewChildren.Size = new System.Drawing.Size(409, 329);
             this.listViewChildren.TabIndex = 2;
             this.listViewChildren.UseCompatibleStateImageBehavior = false;
             this.listViewChildren.View = System.Windows.Forms.View.Details;
@@ -92,17 +88,16 @@
             // 
             this.columnHeader2.Text = "Path";
             // 
-            // Form1
+            // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(14F, 29F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1867, 1088);
+            this.ClientSize = new System.Drawing.Size(800, 439);
             this.Controls.Add(this.listViewChildren);
             this.Controls.Add(this.buttonAddFile);
             this.Controls.Add(this.buttonAddTag);
             this.Controls.Add(this.treeViewTags);
-            this.Margin = new System.Windows.Forms.Padding(7, 7, 7, 7);
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "Form1";
             this.ResumeLayout(false);
 

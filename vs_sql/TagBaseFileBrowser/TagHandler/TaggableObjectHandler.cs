@@ -63,17 +63,17 @@ namespace TagHandler
             return _tagReader.ReadAllTags();
         }
 
-        public void AddFile(File file, string parentTagName)
+        public void AddItem(Item item, string parentTagName)
         {
             var parentTag = _tagReader.QueryTag(parentTagName);
-            AddFile(file, parentTag);
+            AddFile(item, parentTag);
         }
 
-        public void AddFile(File file, Tag parentTag = null)
+        public void AddFile(Item item, Tag parentTag = null)
         {
             try
             {
-                _tagReader.AddFile(file);
+                _tagReader.AddItem(item);
             }
             catch
             {
@@ -85,8 +85,8 @@ namespace TagHandler
                 return;
             }
 
-            file = _tagReader.QueryFile(file.Name);
-            _tagReader.AddFileRelation(parentTag, file);
+            item = _tagReader.QueryItem(item.Name);
+            _tagReader.AddItemRelation(parentTag, item);
         }
 
         public void AddTag(Tag tag, string parentTagName)
@@ -115,9 +115,9 @@ namespace TagHandler
             _tagReader.AddTagRelation(parentTag, tag);
         }
 
-        public List<File> GetChildFiles(Tag tag)
+        public List<Item> GetChildItems(Tag tag)
         {
-            return _tagReader.GetChildFiles(tag.Id);
+            return _tagReader.GetChildItems(tag.Id);
         }
     }
 }

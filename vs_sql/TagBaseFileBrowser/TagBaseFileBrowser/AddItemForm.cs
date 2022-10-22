@@ -11,11 +11,11 @@ using TagHandler;
 
 namespace TagBaseFileBrowser
 {
-    public partial class AddFileForm : Form
+    public partial class AddItemForm : Form
     {
-        private readonly Action<string, File> _callbackFunc;
+        private readonly Action<string, Item> _callbackFunc;
 
-        public AddFileForm(List<Tag> existTags, Action<string, File> callbackFunc)
+        public AddItemForm(List<Tag> existTags, Action<string, Item> callbackFunc)
         {
             InitializeComponent();
 
@@ -46,7 +46,7 @@ namespace TagBaseFileBrowser
                 return;
             }
 
-            var file = new File(fileName, filePath);
+            var file = new Item(fileName, filePath);
             _callbackFunc(parentTagName, file);
             this.Close();
         }

@@ -46,18 +46,18 @@ namespace TagBaseFileBrowser
         {
             var allTags = _taggableItemHandler.ReadAllTags();
 
-            Action<string, File> callback = (parentName, childFile) =>
+            Action<string, Item> callback = (parentName, childItem) =>
             {
                 if (string.IsNullOrEmpty(parentName))
                 {
                     return;
                 }
 
-                _taggableItemHandler.AddFile(childFile, parentName);
+                _taggableItemHandler.AddItem(childItem, parentName);
                 UpdateListView();
             };
 
-            var subForm = new AddFileForm(allTags, callback);
+            var subForm = new AddItemForm(allTags, callback);
             subForm.Show();
         }
 
@@ -77,14 +77,14 @@ namespace TagBaseFileBrowser
             listViewChildren.Items.Clear();
 
             var pTag = node.Tag as Tag;
-            var childFiles = _taggableItemHandler.GetChildFiles(pTag);
-            foreach (var file in childFiles)
+            var childItems = _taggableItemHandler.GetChildItems(pTag);
+            foreach (var childItem in childItems)
             {
-                var item = new System.Windows.Forms.ListViewItem();
-                item.SubItems[0].Text = file.Name;
-                item.SubItems.Add(file.Path);
+                var listItem = new System.Windows.Forms.ListViewItem();
+                listItem.SubItems[0].Text = childItem.Name;
+                listItem.SubItems.Add(childItem.Path);
 
-                listViewChildren.Items.Add(item);
+                listViewChildren.Items.Add(listItem);
             }
 
             if (listViewChildren.Items.Count > 0)

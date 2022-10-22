@@ -14,8 +14,8 @@ namespace TagHandler
         private readonly string _tagsTable = "tags";
         private readonly string _tagRelationTable = "tag_relation";
 
-        private readonly string _filesTable = "files";
-        private readonly string _fileRelationTable = "file_relation";
+        private readonly string _itemsTable = "files";
+        private readonly string _itemRelationTable = "file_relation";
 
         #endregion Table
 
@@ -48,9 +48,9 @@ namespace TagHandler
             throw new NotImplementedException();
         }
 
-        public void AddFile(File file)
+        public void AddItem(Item item)
         {
-            if (QueryFile(file.Name) != null)
+            if (QueryItem(item.Name) != null)
             {
                 throw new Exception("File already exists.");
             }
@@ -59,14 +59,14 @@ namespace TagHandler
             conn.Open();
 
             var colValPairs = new Dictionary<string, string>();
-            colValPairs.Add("name", file.Name);
+            colValPairs.Add("name", item.Name);
             colValPairs.Add("alias", null); // TODO
-            colValPairs.Add("remark", file.Remark);
-            colValPairs.Add("path", file.Path);
-            colValPairs.Add("thumbnail_path", file.ThumbnailPath);
-            colValPairs.Add("preview_path", file.PreviewPath);
+            colValPairs.Add("remark", item.Remark);
+            colValPairs.Add("path", item.Path);
+            colValPairs.Add("thumbnail_path", item.ThumbnailPath);
+            colValPairs.Add("preview_path", item.PreviewPath);
 
-            var cmdText = MakeInsertCmdText(_filesTable, colValPairs);
+            var cmdText = MakeInsertCmdText(_itemsTable, colValPairs);
             var cmd = new MySqlCommand(cmdText, conn);
             var n = cmd.ExecuteNonQuery();
             conn.Close();
@@ -89,16 +89,16 @@ namespace TagHandler
             conn.Close();
         }
 
-        public void AddFileRelation(Tag parentTag, File childFile)
+        public void AddItemRelation(Tag parentTag, Item childItem)
         {
             var conn = MakeConn();
             conn.Open();
 
             var colValPairs = new Dictionary<string, string>();
             colValPairs.Add("parent_tag_id", parentTag.Id.ToString());
-            colValPairs.Add("child_file_id", childFile.Id.ToString());
+            colValPairs.Add("child_file_id", childItem.Id.ToString());
 
-            var cmdText = MakeInsertCmdText(_fileRelationTable, colValPairs);
+            var cmdText = MakeInsertCmdText(_itemRelationTable, colValPairs);
             var cmd = new MySqlCommand(cmdText, conn);
             var n = cmd.ExecuteNonQuery();
             conn.Close();
@@ -115,13 +115,13 @@ namespace TagHandler
             conn.Close();
         }
 
-        public File QueryFile(int id, bool includeParent = true)
+        public Item QueryItem(int id, bool includeParent = true)
         {
-            File file = null;
+            Item item = null;
 
             var conn = MakeConn();
             conn.Open();
-            var cmdText = MakeSelectCmdText(_filesTable, "id", id);
+            var cmdText = MakeSelectCmdText(_itemsTable, "id", id);
             var cmd = new MySqlCommand(cmdText, conn);
             var reader = cmd.ExecuteReader();
             while (reader.Read())
@@ -141,9 +141,9 @@ namespace TagHandler
                     data.Add(s);
                 }
 
-                var parentTag = includeParent ? ReadParentTagsOfFile(id) : null;
+                var parentTag = includeParent ? ReadParentTagsOfItem(id) : null;
 
-                file = new File(data[0], data[3], id)
+                item = new Item(data[0], data[3], id)
                 {
                     Remark = data[2],
                     ThumbnailPath = data[4],
@@ -153,16 +153,16 @@ namespace TagHandler
             }
             conn.Close();
 
-            return file;
+            return item;
         }
 
-        public File QueryFile(string name, bool includeParent = true)
+        public Item QueryItem(string name, bool includeParent = true)
         {
-            File file = null;
+            Item item = null;
 
             var conn = MakeConn();
             conn.Open();
-            var cmdText = MakeSelectCmdText(_filesTable, "name", name);
+            var cmdText = MakeSelectCmdText(_itemsTable, "name", name);
             var cmd = new MySqlCommand(cmdText, conn);
             var reader = cmd.ExecuteReader();
             while (reader.Read())
@@ -183,9 +183,9 @@ namespace TagHandler
                 }
 
                 var id = int.Parse(data[0]);
-                var parentTag = includeParent ? ReadParentTagsOfFile(id) : null;
+                var parentTag = includeParent ? ReadParentTagsOfItem(id) : null;
 
-                file = new File(name, data[4])
+                item = new Item(name, data[4])
                 {
                     Id = id,
                     Remark = data[3],
@@ -196,7 +196,7 @@ namespace TagHandler
             }
             conn.Close();
 
-            return file;
+            return item;
         }
 
         public Tag QueryTag(string name, bool includeParent = true)
@@ -353,27 +353,27 @@ namespace TagHandler
             return tags;
         }
 
-        public List<File> ReadChildFiles(int parentTagId)
+        public List<Item> ReadChildItems(int parentTagId)
         {
-            var files = new List<File>();
+            var items = new List<Item>();
             var children = GetChildTagIds(parentTagId);
             foreach (var c in children)
             {
-                var file = QueryFile(c, false);
-                files.Add(file);
+                var item = QueryItem(c, false);
+                items.Add(item);
             }
-            return files;
+            return items;
         }
 
-        public List<File> GetChildFiles(int parentTagId, bool recusive = true)
+        public List<Item> GetChildItems(int parentTagId, bool recusive = true)
         {
-            var childFiles = new List<File>();
-            var childFileIds = GetChildFileIds(parentTagId, recusive);
-            foreach (var childId in childFileIds)
+            var childItems = new List<Item>();
+            var childItemIds = GetChildItemIds(parentTagId, recusive);
+            foreach (var childId in childItemIds)
             {
-                childFiles.Add(QueryFile(childId, false));
+                childItems.Add(QueryItem(childId, false));
             }
-            return childFiles;
+            return childItems;
         }
 
         public List<Tag> GetChildTags(int parentTagId, bool recusive = true)
@@ -427,9 +427,9 @@ namespace TagHandler
             return ids;
         }
 
-        private List<int> ReadParentTagsIdOfFile(int childFileId)
+        private List<int> ReadParentTagsIdOfItem(int childItemId)
         {
-            return ReadParentTagsId(childFileId, _fileRelationTable, "child_file_id");
+            return ReadParentTagsId(childItemId, _itemRelationTable, "child_file_id");
         }
 
         private List<int> ReadParentTagsIdOfTag(int childTagId)
@@ -437,10 +437,10 @@ namespace TagHandler
             return ReadParentTagsId(childTagId, _tagRelationTable, "child_tag_id");
         }
 
-        private List<Tag> ReadParentTagsOfFile(int childFileId)
+        private List<Tag> ReadParentTagsOfItem(int childItemId)
         {
             var parentTags = new List<Tag>();
-            var parentIds = ReadParentTagsIdOfFile(childFileId);
+            var parentIds = ReadParentTagsIdOfItem(childItemId);
             foreach (var pId in parentIds)
             {
                 var pTag = QueryTag(pId, false);
@@ -487,7 +487,7 @@ namespace TagHandler
             return ids;
         }
 
-        private List<int> GetChildFileIds(int parentTagId, bool recursive = true)
+        private List<int> GetChildItemIds(int parentTagId, bool recursive = true)
         {
             var tagIds = new List<int>();
             tagIds.Add(parentTagId);
@@ -497,13 +497,13 @@ namespace TagHandler
                 tagIds.AddRange(GetChildTagIds(parentTagId, true));
             }
 
-            var childFileIds = new List<int>();
+            var childItemIds = new List<int>();
             foreach (var id in tagIds)
             {
-                childFileIds.AddRange(GetChildIds(id, _fileRelationTable));
+                childItemIds.AddRange(GetChildIds(id, _itemRelationTable));
             }
 
-            return childFileIds;
+            return childItemIds;
         }
 
         private List<int> GetChildTagIds(int parentTagId, bool recursive = true)

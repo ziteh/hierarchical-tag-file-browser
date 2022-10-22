@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace TagHandler
 {
-    public class File : Taggable
+    public class Item : Taggable
     {
         public string Path;
 
         public string PreviewPath;
 
-        public File(string name, string path, int id = -1) : base(name, id)
+        public Item(string name, string path, int id = -1) : base(name, id)
         {
             Path = path;
         }

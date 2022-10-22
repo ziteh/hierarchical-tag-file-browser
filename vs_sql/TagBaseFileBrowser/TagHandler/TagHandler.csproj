@@ -85,7 +85,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="File.cs" />
+    <Compile Include="Item.cs" />
     <Compile Include="Tag.cs" />
     <Compile Include="Taggable.cs" />
     <Compile Include="TaggableObjectHandler.cs" />

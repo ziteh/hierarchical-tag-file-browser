@@ -1,6 +1,6 @@
 ﻿namespace TagBaseFileBrowser
 {
-    partial class AddFileForm
+    partial class AddItemForm
     {
         /// <summary>
         /// Required designer variable.
@@ -88,7 +88,7 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "Path";
             // 
-            // AddFileForm
+            // AddItemForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -99,8 +99,8 @@
             this.Controls.Add(this.textBoxPath);
             this.Controls.Add(this.textBoxFileName);
             this.Controls.Add(this.comboBoxParentTag);
-            this.Name = "AddFileForm";
-            this.Text = "AddFile";
+            this.Name = "AddItemForm";
+            this.Text = "AddItem";
             this.ResumeLayout(false);
             this.PerformLayout();
 
