@@ -9,11 +9,13 @@ namespace TagHandler
 {
     public class TaggableObjectHandler
     {
+        public readonly string RootPath;
         private readonly MySqlTaggableItemReader _tagReader;
 
         public TaggableObjectHandler()
         {
             _tagReader = new MySqlTaggableItemReader("tag_system");
+            RootPath = _tagReader.GetRootPath();
         }
 
         #region TreeView
@@ -66,10 +68,10 @@ namespace TagHandler
         public void AddItem(Item item, string parentTagName)
         {
             var parentTag = _tagReader.QueryTag(parentTagName);
-            AddFile(item, parentTag);
+            AddItem(item, parentTag);
         }
 
-        public void AddFile(Item item, Tag parentTag = null)
+        public void AddItem(Item item, Tag parentTag = null)
         {
             try
             {

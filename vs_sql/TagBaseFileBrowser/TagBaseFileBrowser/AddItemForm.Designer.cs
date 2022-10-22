@@ -34,6 +34,7 @@
             this.textBoxPath = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.buttonBrowse = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // comboBoxParentTag
@@ -88,11 +89,22 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "Path";
             // 
+            // buttonBrowse
+            // 
+            this.buttonBrowse.Location = new System.Drawing.Point(168, 76);
+            this.buttonBrowse.Name = "buttonBrowse";
+            this.buttonBrowse.Size = new System.Drawing.Size(75, 23);
+            this.buttonBrowse.TabIndex = 4;
+            this.buttonBrowse.Text = "Browse";
+            this.buttonBrowse.UseVisualStyleBackColor = true;
+            this.buttonBrowse.Click += new System.EventHandler(this.buttonBrowse_Click);
+            // 
             // AddItemForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(217, 194);
+            this.ClientSize = new System.Drawing.Size(279, 194);
+            this.Controls.Add(this.buttonBrowse);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonAdd);
@@ -114,5 +126,6 @@
         private System.Windows.Forms.TextBox textBoxPath;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button buttonBrowse;
     }
 }

@@ -62,7 +62,7 @@ namespace TagHandler
             colValPairs.Add("name", item.Name);
             colValPairs.Add("alias", null); // TODO
             colValPairs.Add("remark", item.Remark);
-            colValPairs.Add("path", item.Path);
+            colValPairs.Add("path", item.Path.Replace("\\", "/").Replace(GetRootPath(), ""));
             colValPairs.Add("thumbnail_path", item.ThumbnailPath);
             colValPairs.Add("preview_path", item.PreviewPath);
 
@@ -394,6 +394,36 @@ namespace TagHandler
                 childTags.Add(QueryTag(childId, false));
             }
             return childTags;
+        }
+
+        public string GetRootPath()
+        {
+            string rootPath = string.Empty;
+
+            var conn = MakeConn();
+            conn.Open();
+
+            var cmdText = MakeSelectCmdText("variables", "name", "rootPath");
+            var cmd = new MySqlCommand(cmdText, conn);
+            var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                var data = new List<string>();
+                for (int col = 2; col < reader.FieldCount; col++)
+                {
+                    if (reader.IsDBNull(col))
+                    {
+                        rootPath = "./";
+                    }
+                    else
+                    {
+                        rootPath = reader.GetString(col);
+                    }
+                }
+            }
+            conn.Close();
+
+            return rootPath;
         }
 
         private MySqlConnection MakeConn()

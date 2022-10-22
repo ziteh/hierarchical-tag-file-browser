@@ -50,5 +50,18 @@ namespace TagBaseFileBrowser
             _callbackFunc(parentTagName, file);
             this.Close();
         }
+
+        private void buttonBrowse_Click(object sender, EventArgs e)
+        {
+            var dialog = new OpenFileDialog
+            {
+                Multiselect = false
+            };
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                textBoxPath.Text = dialog.FileName;
+            }
+        }
     }
 }

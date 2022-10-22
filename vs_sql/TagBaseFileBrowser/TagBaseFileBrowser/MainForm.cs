@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -90,6 +91,22 @@ namespace TagBaseFileBrowser
             if (listViewChildren.Items.Count > 0)
             {
                 listViewChildren.Items[0].Selected = true;
+            }
+        }
+
+        private void listViewChildren_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                var index = listViewChildren.SelectedIndices[0];
+                var selected = listViewChildren.Items[index].SubItems[1].Text;
+                var path = _taggableItemHandler.RootPath + selected;
+                var file = File.OpenRead(path);
+                pictureBoxPreview.Image = Image.FromStream(file);
+            }
+            catch
+            {
+                pictureBoxPreview.Image = null;
             }
         }
     }

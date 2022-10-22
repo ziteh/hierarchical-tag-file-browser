@@ -34,6 +34,8 @@
             this.listViewChildren = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.pictureBoxPreview = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPreview)).BeginInit();
             this.SuspendLayout();
             // 
             // treeViewTags
@@ -78,6 +80,7 @@
             this.listViewChildren.TabIndex = 2;
             this.listViewChildren.UseCompatibleStateImageBehavior = false;
             this.listViewChildren.View = System.Windows.Forms.View.Details;
+            this.listViewChildren.SelectedIndexChanged += new System.EventHandler(this.listViewChildren_SelectedIndexChanged);
             // 
             // columnHeader1
             // 
@@ -88,17 +91,28 @@
             // 
             this.columnHeader2.Text = "Path";
             // 
+            // pictureBoxPreview
+            // 
+            this.pictureBoxPreview.Location = new System.Drawing.Point(728, 32);
+            this.pictureBoxPreview.Name = "pictureBoxPreview";
+            this.pictureBoxPreview.Size = new System.Drawing.Size(292, 329);
+            this.pictureBoxPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxPreview.TabIndex = 3;
+            this.pictureBoxPreview.TabStop = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 439);
+            this.ClientSize = new System.Drawing.Size(1032, 439);
+            this.Controls.Add(this.pictureBoxPreview);
             this.Controls.Add(this.listViewChildren);
             this.Controls.Add(this.buttonAddFile);
             this.Controls.Add(this.buttonAddTag);
             this.Controls.Add(this.treeViewTags);
             this.Name = "MainForm";
             this.Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPreview)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -111,6 +125,7 @@
         private System.Windows.Forms.ListView listViewChildren;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.PictureBox pictureBoxPreview;
     }
 }
 
