@@ -1,0 +1,14 @@
+<h1>Tags</h1>
+
+<a href="/">Home</a>
+
+<ul>
+  <% for(let i=0; i < tags.length; i++) { %>
+    <li>
+      <%= tags[i].id %>:
+        <a href="/tags/<%= tags[i].id %>">
+          <%= tags[i].name %>
+        </a>
+    </li>
+    <% } %>
+</ul>

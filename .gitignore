@@ -363,4 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 
 ### Node.js ###
-node_modules/
+web-app/node_modules/

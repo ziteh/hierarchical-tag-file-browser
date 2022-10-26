@@ -1,0 +1,31 @@
+<h1>Tag</h1>
+
+<h2>
+  <%= tag.name %>
+</h2>
+
+<select name="parentTag">
+  <% for(let i=0; i < allTags.length; i++) { %>
+    <option value="<%= allTags[i].id %>">
+      <%= allTags[i].name %>
+    </option>
+    <% } %>
+</select>
+
+<p>Child Tags</p>
+<ul>
+  <% for(let i=0; i < childTags.length; i++) { %>
+    <li>
+      <%= childTags[i].name %>
+    </li>
+    <% } %>
+</ul>
+
+<p>Child Files</p>
+<ul>
+  <% for(let i=0; i < childFiles.length; i++) { %>
+    <li>
+      <%= childFiles[i].name %>
+    </li>
+    <% } %>
+</ul>
